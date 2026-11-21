@@ -55,7 +55,10 @@ const MN=["Apr","May","Jun","Jul","Ago","Sep","Oct","Nov","Dec"],MF=["April","Ma
 let S={m:[],t:[],x:[]};
 let tab="d",unlocked=false,q="",doc=null,tmr,sub="b",fm=0;
 let API=localStorage.getItem("kul_api")||DEFAULT_API,PW="",stamp="";
-const nowM=Math.min(12,Math.max(4,new Date().getMonth()+1)),cur=nowM-4+1;
+const now=new Date();
+const yrNow=now.getFullYear();
+const nowM=Math.min(12,Math.max(4,now.getMonth()+1));
+const cur=yrNow>2026?9:(nowM-4+1);
 const $=s=>document.querySelector(s),f=n=>(+n||0).toLocaleString("en-US"),esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const td=()=>new Date().toISOString().slice(0,10);
 
