@@ -1,432 +1,1486 @@
 <!DOCTYPE html>
-<html lang="so"><head><meta charset="utf-8">
+<html lang="so">
+<head>
+<meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#0f7a55"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><title>Reer Kulmiye Cali – Lacagta Qaraanka</title>
+<meta name="theme-color" content="#142B4A">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>Reer Kulmiye Cali – Lacagta Qaraanka</title>
 <style>
-:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);--bg:#f2f5f3;--card:#ffffff;--tx:#102018;--mu:#5a6d63;--br:#dce5df;--pr:#0f7a55;--pr2:#e1f3ea;--rd:#c23326;--rd2:#fde8e6;--am:#b4690e;--am2:#fef3c7;--wa:#128c7e}
-@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#0c1410;--card:#15201a;--tx:#ebf3ef;--mu:#8fa398;--br:#24342c;--pr:#2ec48d;--pr2:#143528;--rd:#ff7669;--rd2:#3a1b18;--am:#f3b852;--am2:#382a10;--wa:#18a872}}
-:root[data-theme=dark]{--bg:#0c1410;--card:#15201a;--tx:#ebf3ef;--mu:#8fa398;--br:#24342c;--pr:#2ec48d;--pr2:#143528;--rd:#ff7669;--rd2:#3a1b18;--am:#f3b852;--am2:#382a10;--wa:#18a872}
-html,body{margin:0;background:var(--bg);color:var(--tx);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased}
-*{box-sizing:border-box}
-html{scroll-padding-top:env(safe-area-inset-top,0px)}
-body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--pr);z-index:10}
-header{background:var(--pr);color:#fff;padding:14px 16px 16px;display:flex;justify-content:space-between;align-items:center;gap:8px}
-header h1{font-size:17px;margin:0;font-weight:700}header small{opacity:.88;font-size:12px}
-.lock{background:#ffffff26;border:0;color:#fff;border-radius:20px;padding:8px 12px;font-size:13px;font-weight:600;cursor:pointer}
-main{padding:14px 14px 92px;max-width:760px;margin:auto}
-nav{position:fixed;bottom:0;left:0;right:0;background:var(--card);border-top:1px solid var(--br);display:flex;padding:6px 4px calc(6px + env(safe-area-inset-bottom,0px));z-index:5}
-nav button{flex:1;background:none;border:0;color:var(--mu);font-size:11px;font-weight:600;padding:6px 0;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px}
-nav button span{font-size:20px}nav button.on{color:var(--pr);font-weight:700}
-.g{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.c{background:var(--card);border:1px solid var(--br);border-radius:14px;padding:14px;margin-bottom:10px}
-.k small{color:var(--mu);font-size:12px}.k b{display:block;font-size:22px;margin-top:4px;font-weight:700}
-.ok{color:var(--pr)}.bad{color:var(--rd)}.warn{color:var(--am)}
-h2{font-size:15px;margin:16px 2px 8px;font-weight:700}
-.bar{height:9px;background:var(--br);border-radius:9px;overflow:hidden}.bar i{display:block;height:100%;background:var(--pr)}
-.mrow{display:grid;grid-template-columns:42px 1fr 78px;gap:8px;align-items:center;font-size:13px;margin:7px 0}
-.row{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:10px 0;border-bottom:1px solid var(--br);font-size:14px}
-.row:last-child{border:0}.row small{color:var(--mu)}
-.chips{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px}
-.chip{font-size:11px;padding:3px 7px;border-radius:10px;background:var(--br);color:var(--mu);font-weight:600}
-.chip.p{background:var(--pr2);color:var(--pr)}.chip.m{background:var(--rd2);color:var(--rd)}.chip.h{background:var(--am2);color:var(--am)}
-input,select,textarea{width:100%;padding:11px;border:1px solid var(--br);border-radius:10px;background:var(--bg);color:var(--tx);font:inherit;font-size:15px;margin:4px 0 10px}
-label{font-size:12px;color:var(--mu);font-weight:600}
-.btn{background:var(--pr);color:#fff;border:0;border-radius:10px;padding:12px 14px;font-size:14px;cursor:pointer;font-weight:700;display:inline-flex;align-items:center;justify-content:center;gap:6px}
-.btn.s{background:var(--pr2);color:var(--pr)}.btn.d{background:var(--rd2);color:var(--rd)}.btn.wa{background:var(--wa);color:#fff}.btn.w{width:100%}
-.act-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
-.top{display:flex;gap:8px;margin-bottom:10px}.top input,.top select{margin:0}
-.md{position:fixed;inset:0;background:#000a;z-index:20;display:none;align-items:flex-end;justify-content:center}
-.md.on{display:flex}.md>div{background:var(--card);width:100%;max-width:560px;max-height:92vh;overflow:auto;border-radius:18px 18px 0 0;padding:18px 16px calc(18px + env(safe-area-inset-bottom,0px))}
-.pg{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
-.tw{overflow-x:auto}table{border-collapse:collapse;width:100%;font-size:13px}th,td{padding:8px 6px;text-align:right;border-bottom:1px solid var(--br);white-space:nowrap}th:first-child,td:first-child{text-align:left}th{color:var(--mu);font-weight:700}
-.tabs{display:flex;gap:6px;margin-bottom:10px;overflow-x:auto}.tabs button{border:1px solid var(--br);background:var(--card);color:var(--tx);border-radius:18px;padding:7px 13px;font-size:13px;font-weight:600;white-space:nowrap}.tabs button.on{background:var(--pr);color:#fff;border-color:var(--pr)}
-.fab{position:fixed;right:16px;bottom:calc(76px + env(safe-area-inset-bottom,0px));width:54px;height:54px;border-radius:27px;font-size:28px;background:var(--pr);color:#fff;border:0;box-shadow:0 4px 14px #0004;z-index:6;display:none}
-.st{font-size:11px;color:var(--mu);text-align:center;margin-top:14px}
-.modebar{background:var(--pr2);color:var(--pr);border:1px solid var(--br);border-radius:10px;padding:8px 12px;font-size:12px;font-weight:600;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center}
-
-/* Personal Report Card */
-.p-hero{background:var(--pr);color:#fff;border-radius:14px;padding:16px;margin-bottom:10px}
-.p-hero small{opacity:.9;display:block;font-size:12px}
-.p-hero h3{margin:4px 0;font-size:20px;font-weight:700}
-.p-stats{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
-.p-stat{background:#ffffff1f;border-radius:10px;padding:10px}
-.p-stat small{font-size:11px;opacity:.92}.p-stat b{font-size:16px;display:block;margin-top:2px}
-.pill{display:inline-block;padding:4px 9px;border-radius:999px;font-size:12px;margin:3px 3px 0 0;font-weight:600}
-.pill.ok{background:var(--pr2);color:var(--pr)}.pill.bad{background:var(--rd2);color:var(--rd)}
-
-@media print{
-  header,nav,.fab,.modebar,.tabs,.no-print,.st{display:none!important}
-  body{background:#fff!important;color:#000!important}
-  main{padding:0!important;max-width:100%!important}
-  .c,.p-hero{border:1px solid #999!important;box-shadow:none!important;break-inside:avoid}
-  .p-hero{background:#0f7a55!important;color:#fff!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
-  .pill.ok,.pill.bad{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+/* ============ DESIGN TOKENS (NAVY BLUE) ============ */
+:root{
+  --navy:#142B4A; --navy-dark:#0B1F36; --navy-2:#244B70;
+  --teal:#16A6A1; --bg:#F3F6FA; --card:#FFFFFF;
+  --tx:#18283B; --mu:#718096; --br:#E2E8F0;
+  --ok:#16845B; --ok-bg:#E6F4EE;
+  --warn:#D69A27; --warn-bg:#FBF3E2;
+  --bad:#D64545; --bad-bg:#FBE9E9;
+  --shadow:0 1px 3px rgba(20,43,74,.08),0 4px 12px rgba(20,43,74,.06);
+  --radius:12px;
+  --safe-top:env(safe-area-inset-top,0px);
+  --safe-bot:env(safe-area-inset-bottom,0px);
 }
-</style></head><body>
-<header><div><h1>Reer Kulmiye Cali</h1><small>Lacagta Qaraanka · Apr – Dec 2026</small></div><div style="display:flex;gap:6px"><button class="lock" id="rf">↻</button><button class="lock" id="lk"></button></div></header>
+@media(prefers-color-scheme:dark){
+  :root:not([data-theme=light]){
+    --navy:#16263D; --navy-dark:#0A1420; --navy-2:#1E3A5C;
+    --bg:#0B1622; --card:#132030; --tx:#E7EEF6; --mu:#8CA0B8;
+    --br:#22344A; --ok:#3ECf9A; --ok-bg:#123528; --warn:#F0B95A;
+    --warn-bg:#332811; --bad:#FF7B7B; --bad-bg:#3A1A1A;
+    --shadow:0 1px 3px rgba(0,0,0,.4),0 4px 12px rgba(0,0,0,.3);
+  }
+}
+:root[data-theme=dark]{
+  --navy:#16263D; --navy-dark:#0A1420; --navy-2:#1E3A5C;
+  --bg:#0B1622; --card:#132030; --tx:#E7EEF6; --mu:#8CA0B8;
+  --br:#22344A; --ok:#3ECf9A; --ok-bg:#123528; --warn:#F0B95A;
+  --warn-bg:#332811; --bad:#FF7B7B; --bad-bg:#3A1A1A;
+  --shadow:0 1px 3px rgba(0,0,0,.4),0 4px 12px rgba(0,0,0,.3);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:var(--bg);color:var(--tx);
+  font-family:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  -webkit-font-smoothing:antialiased;line-height:1.5}
+body::before{content:"";position:fixed;inset:0 0 auto;height:var(--safe-top);
+  background:var(--navy);z-index:10;pointer-events:none}
+h1,h2,h3,h4{margin:0;font-weight:700;letter-spacing:-.01em}
+a{color:var(--teal)}
+small{color:var(--mu)}
+
+/* ============ HEADER ============ */
+header{background:var(--navy);color:#fff;padding:calc(12px + var(--safe-top)) 16px 14px;
+  display:flex;justify-content:space-between;align-items:center;gap:10px;
+  box-shadow:0 2px 8px rgba(0,0,0,.15);position:sticky;top:0;z-index:8}
+header h1{font-size:16px;line-height:1.2}
+header small{color:#BFD1E5;font-size:11px;display:block;margin-top:2px}
+.hdr-actions{display:flex;gap:6px}
+.icon-btn{background:rgba(255,255,255,.12);border:0;color:#fff;border-radius:9px;
+  width:38px;height:38px;font-size:16px;cursor:pointer;display:flex;
+  align-items:center;justify-content:center;transition:background .15s}
+.icon-btn:hover{background:rgba(255,255,255,.22)}
+
+/* ============ LAYOUT ============ */
+main{padding:16px 14px calc(92px + var(--safe-bot));max-width:1080px;margin:0 auto}
+
+/* ============ NAV ============ */
+nav{position:fixed;bottom:0;left:0;right:0;background:var(--card);
+  border-top:1px solid var(--br);display:flex;
+  padding:6px 4px calc(6px + var(--safe-bot));z-index:7;box-shadow:0 -2px 8px rgba(0,0,0,.06)}
+nav button{flex:1;background:none;border:0;color:var(--mu);font-size:11px;
+  padding:6px 0;cursor:pointer;display:flex;flex-direction:column;
+  align-items:center;gap:2px;font-weight:600;border-radius:8px;transition:color .15s}
+nav button span{font-size:20px;line-height:1}
+nav button.on{color:var(--navy)}
+:root[data-theme=dark] nav button.on{color:var(--teal)}
+nav button:hover{color:var(--navy-2)}
+
+/* ============ CARDS ============ */
+.g{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+@media(min-width:640px){.g{grid-template-columns:repeat(4,1fr)}}
+.c{background:var(--card);border:1px solid var(--br);border-radius:var(--radius);
+  padding:16px;margin-bottom:12px;box-shadow:var(--shadow)}
+.c.k{padding:14px}
+.c.k small{font-size:12px;font-weight:600;color:var(--mu);
+  text-transform:uppercase;letter-spacing:.03em}
+.c.k b{display:block;font-size:22px;margin-top:6px;color:var(--tx)}
+h2{font-size:15px;margin:18px 2px 10px;color:var(--navy)}
+:root[data-theme=dark] h2{color:var(--teal)}
+
+/* ============ STAT COLORS ============ */
+.ok{color:var(--ok)!important}.bad{color:var(--bad)!important}
+.warn{color:var(--warn)!important}.navy{color:var(--navy)!important}
+.teal{color:var(--teal)!important}
+
+/* ============ BARS ============ */
+.bar{height:9px;background:var(--br);border-radius:9px;overflow:hidden;margin:6px 0}
+.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--navy),var(--teal));
+  border-radius:9px;transition:width .4s}
+.mrow{display:grid;grid-template-columns:44px 1fr 52px;gap:10px;
+  align-items:center;font-size:13px;margin:8px 0}
+.mrow b{text-align:right;font-variant-numeric:tabular-nums}
+
+/* ============ ROWS ============ */
+.row{display:flex;justify-content:space-between;align-items:flex-start;
+  gap:10px;padding:11px 0;border-bottom:1px solid var(--br);font-size:14px}
+.row:last-child{border:0}
+.row b{font-variant-numeric:tabular-nums}
+
+/* ============ CHIPS ============ */
+.chips{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px}
+.chip{font-size:10px;padding:3px 7px;border-radius:8px;
+  background:var(--br);color:var(--mu);font-weight:600}
+.chip.p{background:var(--ok-bg);color:var(--ok)}
+.chip.m{background:var(--bad-bg);color:var(--bad)}
+.chip.h{background:var(--warn-bg);color:var(--warn)}
+.chip.f{background:var(--bg);color:var(--mu)}
+
+/* ============ FORMS ============ */
+input,select,textarea{width:100%;padding:11px 12px;border:1px solid var(--br);
+  border-radius:10px;background:var(--card);color:var(--tx);
+  font:inherit;font-size:15px;margin:4px 0 12px;transition:border-color .15s}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--navy-2);
+  box-shadow:0 0 0 3px rgba(36,75,112,.12)}
+label{font-size:12px;font-weight:600;color:var(--mu);
+  display:block;margin-top:4px;letter-spacing:.01em}
+
+/* ============ BUTTONS ============ */
+.btn{background:var(--navy);color:#fff;border:0;border-radius:10px;
+  padding:11px 16px;font-size:14px;cursor:pointer;font-weight:600;
+  display:inline-flex;align-items:center;justify-content:center;gap:6px;
+  transition:opacity .15s,transform .05s;min-height:44px}
+.btn:hover{opacity:.9}.btn:active{transform:scale(.98)}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.btn.s{background:var(--bg);color:var(--navy);border:1px solid var(--br)}
+:root[data-theme=dark] .btn.s{color:var(--tx)}
+.btn.d{background:var(--bad-bg);color:var(--bad)}
+.btn.wa{background:#128C7E;color:#fff}
+.btn.teal{background:var(--teal);color:#fff}
+.btn.w{width:100%}
+.act-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
+@media(max-width:380px){.act-grid{grid-template-columns:1fr}}
+
+/* ============ TABS ============ */
+.tabs{display:flex;gap:6px;margin-bottom:12px;overflow-x:auto;padding-bottom:2px;
+  scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tabs button{border:1px solid var(--br);background:var(--card);color:var(--tx);
+  border-radius:20px;padding:8px 14px;font-size:13px;white-space:nowrap;
+  font-weight:600;cursor:pointer;transition:all .15s}
+.tabs button.on{background:var(--navy);color:#fff;border-color:var(--navy)}
+
+/* ============ TOP ROW ============ */
+.top{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap}
+.top input,.top select{margin:0;flex:1;min-width:140px}
+
+/* ============ MODAL ============ */
+.md{position:fixed;inset:0;background:rgba(11,31,54,.55);z-index:20;
+  display:none;align-items:flex-end;justify-content:center;
+  backdrop-filter:blur(2px)}
+.md.on{display:flex}
+.md>div{background:var(--card);width:100%;max-width:560px;max-height:92vh;
+  overflow:auto;border-radius:20px 20px 0 0;
+  padding:20px 16px calc(20px + var(--safe-bot));
+  box-shadow:0 -8px 32px rgba(0,0,0,.25);animation:slideUp .2s ease}
+@keyframes slideUp{from{transform:translateY(30px);opacity:.6}to{transform:none;opacity:1}}
+.md h2{margin-top:0;margin-bottom:14px;color:var(--navy)}
+:root[data-theme=dark] .md h2{color:var(--teal)}
+
+/* ============ GRID 9 MONTHS ============ */
+.pg{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px}
+.pg label{margin:0 0 2px;font-size:10px}
+.pg input{margin:0;padding:8px;font-size:13px}
+
+/* ============ TABLE ============ */
+.tw{overflow-x:auto;-webkit-overflow-scrolling:touch}
+table{border-collapse:collapse;width:100%;font-size:13px;min-width:520px}
+th,td{padding:9px 8px;text-align:right;border-bottom:1px solid var(--br);
+  white-space:nowrap;font-variant-numeric:tabular-nums}
+th:first-child,td:first-child{text-align:left;font-weight:600}
+th{color:var(--mu);font-weight:700;font-size:11px;text-transform:uppercase;
+  letter-spacing:.04em;background:var(--bg);position:sticky;top:0}
+:root[data-theme=dark] th{background:var(--navy-dark)}
+tr:hover td{background:rgba(22,166,161,.04)}
+
+/* ============ FAB ============ */
+.fab{position:fixed;right:16px;bottom:calc(80px + var(--safe-bot));
+  width:56px;height:56px;border-radius:28px;font-size:26px;
+  background:var(--navy);color:#fff;border:0;
+  box-shadow:0 6px 20px rgba(20,43,74,.35);z-index:6;display:none;
+  cursor:pointer;transition:transform .1s}
+.fab:hover{transform:scale(1.05)}.fab:active{transform:scale(.95)}
+
+/* ============ STATUS / TOAST ============ */
+.st{font-size:11px;color:var(--mu);text-align:center;margin-top:16px;
+  line-height:1.6}
+.status-bar{display:flex;align-items:center;gap:6px;font-size:11px;
+  color:var(--mu);margin-bottom:10px;flex-wrap:wrap}
+.dot{width:8px;height:8px;border-radius:50%;display:inline-block}
+.dot.on{background:var(--ok);box-shadow:0 0 0 3px var(--ok-bg)}
+.dot.off{background:var(--bad);box-shadow:0 0 0 3px var(--bad-bg)}
+.dot.warn{background:var(--warn)}
+.toast{position:fixed;left:50%;top:calc(72px + var(--safe-top));
+  transform:translateX(-50%) translateY(-10px);background:var(--navy-dark);
+  color:#fff;padding:10px 18px;border-radius:22px;z-index:30;font-size:13px;
+  opacity:0;transition:all .25s;pointer-events:none;font-weight:600;
+  box-shadow:0 6px 20px rgba(0,0,0,.3);max-width:90vw;text-align:center}
+.toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* ============ PERSONAL CARD ============ */
+.p-card{background:linear-gradient(140deg,var(--navy) 0%,var(--navy-2) 100%);
+  color:#fff;border-radius:16px;padding:20px;margin-bottom:12px;
+  box-shadow:0 8px 24px rgba(20,43,74,.25)}
+.p-card small{opacity:.85;display:block;font-size:12px;color:#BFD1E5}
+.p-card h3{margin:6px 0 4px;font-size:22px;color:#fff}
+.p-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+.p-box{background:rgba(255,255,255,.12);border-radius:10px;padding:12px}
+.p-box small{font-size:10px;opacity:.85;text-transform:uppercase;
+  letter-spacing:.04em;color:#BFD1E5}
+.p-box b{font-size:17px;display:block;margin-top:3px;color:#fff;
+  font-variant-numeric:tabular-nums}
+.list-pill{display:inline-block;padding:5px 10px;border-radius:999px;
+  font-size:12px;margin:3px 4px 0 0;font-weight:600}
+.list-pill.ok{background:var(--ok-bg);color:var(--ok)}
+.list-pill.bad{background:var(--bad-bg);color:var(--bad)}
+
+/* ============ MODE BAR ============ */
+.modebar{background:var(--warn-bg);color:var(--warn);border:1px solid var(--br);
+  border-radius:10px;padding:9px 12px;font-size:12px;margin-bottom:12px;
+  display:flex;justify-content:space-between;align-items:center;gap:8px;
+  flex-wrap:wrap;font-weight:600}
+.modebar.on{background:var(--ok-bg);color:var(--ok)}
+
+/* ============ PRINT ============ */
+@media print{
+  header,nav,.fab,.modebar,.tabs,.no-print,.st,.status-bar,.toast,.icon-btn,
+  .act-grid,#fab{display:none!important}
+  body{background:#fff;color:#000}
+  main{padding:0;max-width:100%}
+  .c,.p-card{box-shadow:none;border:1px solid #ccc;break-inside:avoid}
+  .p-card{background:#142B4A!important;-webkit-print-color-adjust:exact;
+    print-color-adjust:exact}
+  table{min-width:0}
+  th{background:#f0f0f0!important}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <h1>Reer Kulmiye Cali</h1>
+    <small id="sub">Lacagta Qaraanka · 2026</small>
+  </div>
+  <div class="hdr-actions">
+    <button class="icon-btn" id="rf" title="Cusboonaysii">↻</button>
+    <button class="icon-btn" id="lk" title="Xidh/Fur">🔒</button>
+  </div>
+</header>
+
 <main id="v"></main>
 <button class="fab" id="fab">+</button>
 <nav id="nv"></nav>
 <div class="md" id="md"><div id="mc"></div></div>
-<div id="bz" style="display:none;position:fixed;top:64px;left:50%;transform:translateX(-50%);background:var(--tx);color:var(--bg);padding:8px 16px;border-radius:20px;z-index:30;font-size:13px">Waa la keydinayaa…</div>
+<div class="toast" id="toast"></div>
+
 <script>
+/* =====================================================================
+   REER KULMIYE CALI — Redesigned App
+   Preserves: API URL, kul2/kul_api keys, S.m/S.t/S.x, all ops,
+   {pass, op, ...data} format, password gate.
+   ===================================================================== */
+
+/* ---------- CONSTANTS (unchanged contract) ---------- */
 const DEFAULT_API="https://script.google.com/macros/s/AKfycbw8kKEosj8EkV458_D2_f6C7oeMRLWMrBbNdowmo0aW8-pRtSH2Raen3EvWNVwqtRnnuA/exec";
 const MN=["Apr","May","Jun","Jul","Ago","Sep","Oct","Nov","Dec"];
+const MF=["April","May","Juun","Julay","Agoosto","Sebtembar","Oktoobar","Nofeembar","Deseembar"];
 const GROUPS=["Maxamuud Kulmiye","Xasan Kulmiye","Axmed Kulmiye"];
-let S={m:[],t:[],x:[]};
-let tab="d",unlocked=false,q="",grpFilter="",selPersonIdx=0,doc=null,tmr,sub="s";
-let API=localStorage.getItem("kul_api")||DEFAULT_API,PW="",stamp="";
+const YEAR=2026;
 
-// Xeerka: Bil dhammaatay ayaa la qaadaa (1-da bisha xigta ayaa la dallacaa)
+/* ---------- STATE ---------- */
+let S={m:[],t:[],x:[]};
+let tab="d", unlocked=false, q="", grpFilter="", selPersonIdx=0;
+let doc=null, tmr=null, sub="s";
+let API=localStorage.getItem("kul_api")||DEFAULT_API;
+let PW="", stamp="", syncState="init", syncErr="";
+let busy=false; // prevents duplicate submits
+let pdfLibs=null; // lazy-loaded
+
+/* current billing month (0-indexed) */
 const now=new Date();
 const yrNow=now.getFullYear();
 const mNow=now.getMonth()+1;
-const cur=yrNow>2026?9:Math.min(9,Math.max(0,mNow-4));
-const billedLabel=cur===0?"Weli bil lama dallacin":`Apr–${MN[cur-1]}`;
+const cur = yrNow>YEAR ? 9 : Math.min(9, Math.max(0, mNow-4));
+const billedLabel = cur===0 ? "Weli bil lama dallacin" : `Apr–${MN[cur-1]}`;
 
-const $=s=>document.querySelector(s),f=n=>(+n||0).toLocaleString("en-US"),esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+/* ---------- HELPERS ---------- */
+const $=s=>document.querySelector(s);
+const $$=s=>document.querySelectorAll(s);
+const f=n=>(+n||0).toLocaleString("en-US");
+const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const td=()=>new Date().toISOString().slice(0,10);
+const todayLong=()=>new Date().toLocaleDateString("en-GB",{day:"2-digit",month:"long",year:"numeric"});
+const fmtMoney=n=>"$"+(+n||0).toLocaleString("en-US",{minimumFractionDigits:0,maximumFractionDigits:2});
+const fmtPct=(a,b)=>b>0?Math.round(a/b*100)+"%":"0%";
 
+function toast(msg,ms=2200){
+  const t=$("#toast"); t.textContent=msg; t.classList.add("on");
+  clearTimeout(t._t); t._t=setTimeout(()=>t.classList.remove("on"),ms);
+}
+function setSync(state,err){
+  syncState=state; syncErr=err||"";
+  stamp = state==="ok" ? new Date().toLocaleTimeString("en-GB",{hour:"2-digit",minute:"2-digit"}) : stamp;
+}
+
+/* ---------- DATA NORMALIZATION (preserved) ---------- */
 function normalizeData(j){
-  if(Array.isArray(j.m) || Array.isArray(j.t)){
+  if(Array.isArray(j.m)||Array.isArray(j.t)){
     return {m:j.m||[], t:j.t||[], x:j.x||[]};
   }
   const r=Array.isArray(j.r)?j.r:[];
   const x=Array.isArray(j.x)?j.x:[];
-  const m=[],t=[];
+  const m=[], t=[];
   r.forEach(item=>{
     if(Array.isArray(item.p)){
-      m.push({
-        r:item.r,
-        n:item.n||"",
-        g:item.g||"",
-        d:+item.d||0,
-        p:item.p.slice(0,9).map(v=>+v||0).concat(Array(Math.max(0,9-item.p.length)).fill(0))
-      });
-    }else if(item.c || item.a || item.w){
-      t.push({r:item.r,d:item.d||"",b:item.b||"",c:item.c||"",w:item.w||"",a:+item.a||0,nb:item.nb||""});
+      m.push({r:item.r, n:item.n||"", g:item.g||"", d:+item.d||0,
+        p:item.p.slice(0,9).map(v=>+v||0).concat(Array(Math.max(0,9-item.p.length)).fill(0))});
+    } else if(item.c||item.a||item.w){
+      t.push({r:item.r, d:item.d||"", b:item.b||"", c:item.c||"",
+        w:item.w||"", a:+item.a||0, nb:item.nb||"", auto:!!item.auto});
     }
   });
   return {m,t,x};
 }
 
-function load(){try{const j=localStorage.getItem("kul2");if(j)S=normalizeData(JSON.parse(j));localStorage.removeItem("kul")}catch(e){}}
-load();
-async function save(){try{localStorage.setItem("kul2",JSON.stringify(S))}catch(e){}
- clearTimeout(tmr);tmr=setTimeout(()=>{if(doc)doc.set({json:JSON.stringify(S)}).catch(()=>{})},400)}
-
-const paid=m=>m.p.reduce((a,b)=>a+b,0),paidTo=(m,k=cur)=>m.p.slice(0,k).reduce((a,b)=>a+b,0);
-const T=()=>{const R=S.m.reduce((a,m)=>a+m.d,0),yr=R*9,dn=R*cur,pd=S.m.reduce((a,m)=>a+paid(m),0),pdn=S.m.reduce((a,m)=>a+paidTo(m),0),ex=S.x.reduce((a,x)=>a+(+x.a||0),0),lg=S.t.reduce((a,t)=>a+(+t.a||0),0);
- return{R,yr,dn,pd,pdn,miss:Math.max(0,dn-pdn),ex,hand:pd-ex,lg}};
-const mon=i=>{const R=S.m.reduce((a,m)=>a+m.d,0),pd=S.m.reduce((a,m)=>a+m.p[i],0),n=S.m.filter(m=>m.p[i]>=m.d&&m.d>0).length;return{R,pd,miss:R-pd,n,pc:R?Math.round(pd/R*100):0}};
-const owed=m=>{let l=[];for(let i=0;i<cur;i++)if(m.p[i]<m.d)l.push(i);return l};
-
-function lock(){$("#lk").textContent=unlocked?"🔓 Edit":"🔒 Reports"}
-$("#lk").onclick=()=>{if(unlocked){unlocked=false;lock();render()}else ask()};
-function ask(cb){md(`<h2>Geli Password-ka Edit-ka</h2><input id="pw" type="password" placeholder="Password" autofocus><button class="btn w" id="go">Fur Edit</button><p class="bad" id="er"></p>`);
- const go=async()=>{const p=$("#pw").value;$("#er").textContent="…";try{const r=await fetch(API,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({pass:p,op:"check"})});const j=await r.json();if(j.error)throw j.error;PW=p;unlocked=true;lock();close();render();cb&&cb()}catch(e){$("#er").textContent=String(e)}};$("#go").onclick=go;$("#pw").onkeydown=e=>e.key==="Enter"&&go()}
-function md(h){$("#mc").innerHTML=h;$("#md").classList.add("on")}function close(){$("#md").classList.remove("on")}
-$("#md").onclick=e=>{if(e.target.id==="md")close()};
-function need(cb){if(!unlocked)return ask(cb);cb()}
-
-const NV=[["d","📊","Dashboard"],["r","📝","Warbixin"],["m","👥","Xubnaha"],["t","💵","Qabasho"],["x","🧾","Bixin"]];
-$("#nv").innerHTML=NV.map(n=>`<button data-t="${n[0]}"><span>${n[1]}</span>${n[2]}</button>`).join("");
-$("#nv").onclick=e=>{const b=e.target.closest("button");if(b){tab=b.dataset.t;q="";render();scrollTo(0,0)}};
-
-function render(){lock();document.querySelectorAll("nav button").forEach(b=>b.classList.toggle("on",b.dataset.t===tab));
- $("#fab").style.display=(unlocked&&(tab==="m"||tab==="t"||tab==="x"))?"block":"none";
- const banner=!unlocked?`<div class="modebar"><span>Habka: <b>Reports Only</b> (Edit waa xiran yahay)</span><span>${billedLabel}</span></div>`:"";
- $("#v").innerHTML=!API?vs():banner+({d:vd,m:vm,t:vt,x:vx,r:vr})[tab]()+`<div class="st">Xogta: ${S.m.length} xubnood · bilaha la dallacay: ${cur} (${billedLabel})${API?" · Sheet: "+stamp:" · Sheet ma xirna"}</div>`;bind()}
-
-function vs(){return`<div class="c"><h2 style="margin-top:0">🔗 Xiriir Google Sheet</h2><p style="font-size:14px;color:var(--mu)">Ku dheji Apps Script Web App URL (ka dhammaada /exec).</p><input id="su" value="${esc(API)}" placeholder="https://script.google.com/macros/s/.../exec"><button class="btn w" id="sa">Xiriir</button></div>`}
-
-function vd(){
-  const t=T(),pc=t.dn?Math.round(t.pdn/t.dn*100):0;
-  const stats=S.m.map(m=>{const o=owed(m);return{m,o,cnt:o.length,amt:o.reduce((a,i)=>a+(m.d-m.p[i]),0)}}).filter(x=>x.amt>0||x.cnt>0);
-  const byMonths=[...stats].sort((a,b)=>b.cnt-a.cnt||b.amt-a.amt).slice(0,5);
-  const byAmount=[...stats].sort((a,b)=>b.amt-a.amt||b.cnt-a.cnt).slice(0,5);
-  const last=[...S.t].slice(-4).reverse();
-
-  return`<div class="c"><small style="color:var(--mu)">Lacagta la hayo (qabasho − bixin)</small><b style="font-size:30px;display:block;margin:4px 0" class="${t.hand<0?"bad":"ok"}">$${f(t.hand)}</b>
-  <div class="bar"><i style="width:${Math.min(100,pc)}%"></i></div><small style="color:var(--mu)">${pc}% la qabtay bilaha la dallacay (${billedLabel}) (${f(t.pdn)} / ${f(t.dn)})</small></div>
-  <div class="g"><div class="c k"><small>Hadafka sanadka (9 bil)</small><b>$${f(t.yr)}</b></div><div class="c k"><small>La qabtay (guud)</small><b class="ok">$${f(t.pd)}</b></div>
-  <div class="c k"><small>Maqan (bilaha la dallacay)</small><b class="bad">$${f(t.miss)}</b></div><div class="c k"><small>Bixin</small><b class="warn">$${f(t.ex)}</b></div></div>
-  <h2>Bil-bil</h2><div class="c">${MN.map((n,i)=>{const o=mon(i);return`<div class="mrow"><span>${n}</span><div class="bar"><i style="width:${Math.min(100,o.pc)}%;${i>=cur?"background:var(--mu)":""}"></i></div><b>${o.pc}%</b></div>`}).join("")}</div>
-  <h2>Ugu lacag-dhimanka · 1) Bilaha ugu badan</h2><div class="c">${byMonths.map(x=>`<div class="row"><span><b>${esc(x.m.n)}</b><br><small>${x.o.map(i=>MN[i]).join(", ")||"—"} · maqan $${f(x.amt)}</small></span><b class="bad">${x.cnt} bilood</b></div>`).join("")||"<p class='ok'>Dhammaan waa bixiyeen ✓</p>"}</div>
-  <h2>Ugu lacag-dhimanka · 2) Total lacagta ugu badan</h2><div class="c">${byAmount.map(x=>`<div class="row"><span><b>${esc(x.m.n)}</b><br><small>${x.o.map(i=>MN[i]).join(", ")||"—"} (${x.cnt} bilood)</small></span><b class="bad">$${f(x.amt)}</b></div>`).join("")||"<p class='ok'>Dhammaan waa bixiyeen ✓</p>"}</div>
-  <h2>Qabashooyinkii ugu dambeeyay</h2><div class="c">${last.map(x=>`<div class="row"><span><b>${esc(x.w||x.c)}</b><br><small>Bisha: ${esc(x.b)} · ${esc(x.d)} · ${esc(x.nb||x.c)}</small></span><b class="ok">$${f(x.a)}</b></div>`).join("")||"<small>Ma jiro</small>"}</div>`}
-
-function vm(){
-  const L=S.m.map((m,i)=>({m,i})).filter(x=>{
-    const mq=!q||x.m.n.toLowerCase().includes(q.toLowerCase())||x.m.g.toLowerCase().includes(q.toLowerCase());
-    const mg=!grpFilter||x.m.g.toLowerCase().includes(grpFilter.toLowerCase());
-    return mq&&mg;
+/* Detect cell changes made directly in the Sheet (preserved) */
+function detectCellChanges(prevM,nextM,existingT){
+  const added=[]; const todayStr=td();
+  const prevMap=new Map();
+  (prevM||[]).forEach((it,idx)=>{
+    const key=(it.r!==undefined&&it.r!==null)?String(it.r):(it.n+"|"+idx);
+    prevMap.set(key,it);
   });
-  return`<div class="top" style="flex-wrap:wrap">
-    <select id="gf" style="flex:1;min-width:150px"><option value="">Dhammaan Qoysaska</option>${GROUPS.map(g=>`<option value="${esc(g)}" ${grpFilter===g?"selected":""}>${esc(g)}</option>`).join("")}</select>
-    <input id="q" style="flex:1;min-width:150px" placeholder="🔍 Raadi magac..." value="${esc(q)}">
-  </div>
-  <div class="c">${L.map(({m,i})=>{const o=owed(m),ob=o.reduce((a,k)=>a+m.d-m.p[k],0);
-   return`<div class="row" data-m="${i}" style="cursor:pointer;align-items:flex-start"><div><b>${esc(m.n)}</b><br><small>${esc(m.g)} · bishii $${m.d}</small><div class="chips">${MN.map((n,k)=>`<span class="chip ${k>=cur?"":m.p[k]>=m.d?"p":m.p[k]>0?"h":"m"}">${n}</span>`).join("")}</div></div><div style="text-align:right"><b class="ok">$${f(paid(m))}</b><br><small class="${ob?"bad":"ok"}">${ob?"maqan $"+f(ob):"✓ buuxa"}</small></div></div>`}).join("")||"<small>Xubin lama helin</small>"}</div>`}
-
-function vt(){const L=S.t.map((t,i)=>({t,i})).reverse();return`<div class="c k"><small>Wadarta la diiwaan geliyay (Qabasho)</small><b class="ok">$${f(T().lg)}</b></div><div class="c">${L.map(({t,i})=>`<div class="row" data-t="${i}" style="cursor:pointer"><span><b>${esc(t.w||t.c)}</b><br><small>Bisha: ${esc(t.b)} · ${esc(t.d)||"—"} · ${esc(t.nb||t.c)}</small></span><b class="ok">$${f(t.a)}</b></div>`).join("")}</div>`}
-
-function vx(){const L=S.x.map((x,i)=>({x,i})).reverse();return`<div class="c k"><small>Wadarta lacagaha baxay</small><b class="warn">$${f(T().ex)}</b></div><div class="c">${L.map(({x,i})=>`<div class="row" data-x="${i}" style="cursor:pointer"><span><b>${esc(x.s)}</b><br><small>${esc(x.d)} · loo tuuray: ${esc(x.to)} · bixiyey: ${esc(x.by)}</small></span><b class="warn">$${f(x.a)}</b></div>`).join("")||"<p style='color:var(--mu)'>Weli wax lacag bixin ah lama gelin.</p>"}</div>`}
-
-function colls(){const o={};S.t.forEach(t=>{const k=t.c||"?";o[k]=(o[k]||0)+(+t.a||0)});return Object.entries(o).sort((a,b)=>b[1]-a[1])}
-
-function buildPersonalText(m){
-  const d=+m.d||0, yr=d*9, pd=paid(m), ms=owed(m).reduce((a,k)=>a+(d-(+m.p[k]||0)),0);
-  const pList=[], mList=[];
-  MN.forEach((n,k)=>{
-    const v=+m.p[k]||0;
-    if(v>0)pList.push(`${n} ($${f(v)})`);
-    if(k<cur&&v<d)mList.push(`${n} ($${f(Math.max(0,d-v))})`);
+  (nextM||[]).forEach((it,idx)=>{
+    const key=(it.r!==undefined&&it.r!==null)?String(it.r):(it.n+"|"+idx);
+    const old=prevMap.get(key);
+    const oldP=old&&Array.isArray(old.p)?old.p:Array(9).fill(0);
+    const newP=Array.isArray(it.p)?it.p:Array(9).fill(0);
+    for(let k=0;k<9;k++){
+      const before=+oldP[k]||0, after=+newP[k]||0;
+      if(after>before){
+        const diff=after-before;
+        const dup=(existingT||[]).some(t=>
+          String(t.w||"").toLowerCase().includes(String(it.n||"").toLowerCase()) &&
+          String(t.b||"").toLowerCase()===MN[k].toLowerCase() &&
+          (+t.a===after||+t.a===diff));
+        if(!dup) added.push({d:todayStr,b:MN[k],c:it.g||"Sheet Update",
+          w:it.n||"Xubin",a:diff,
+          nb:before===0?`Unug madhnaa -> $${after}`:`Kordhay $${before} -> $${after}`,
+          auto:true});
+      }
+    }
   });
-  return `*Reer Kulmiye Cali – Warbixin Shaqsi*\nMagaca: *${m.n}*\nQoyska: ${m.g||"—"}\nLaga rabo bil kasta: *$${f(d)}*\nLacagta guud (9 bil): *$${f(yr)}*\nLa bixiyay: *$${f(pd)}*\nKu dhiman (${billedLabel}): *$${f(ms)}*\n\nBilaha la bixiyay: ${pList.join(", ")||"Ma jiro"}\nBilaha ku dhiman: ${mList.join(", ")||"Waxba kuma dhiman ✓"}`;
+  return added;
 }
 
-function personalReportView(){
-  const pool=S.m.map((m,i)=>({m,i})).filter(x=>!grpFilter||x.m.g.toLowerCase().includes(grpFilter.toLowerCase()));
-  const list=pool.length?pool:S.m.map((m,i)=>({m,i}));
-  if(!list.length)return`<div class="c"><small>Xog xubno ah lama hayo.</small></div>`;
+/* ---------- PERSISTENCE ---------- */
+function load(){
+  try{
+    const j=localStorage.getItem("kul2");
+    if(j) S=normalizeData(JSON.parse(j));
+    localStorage.removeItem("kul");
+  }catch(e){}
+}
+load();
+async function save(){
+  try{ localStorage.setItem("kul2",JSON.stringify(S)); }catch(e){}
+  clearTimeout(tmr);
+  tmr=setTimeout(()=>{ if(doc) doc.set({json:JSON.stringify(S)}).catch(()=>{}); },400);
+}
 
-  const current=list.find(x=>x.i===selPersonIdx)||list[0];
-  selPersonIdx=current.i;
-  const m=current.m;
-  const d=+m.d||0, yr=d*9, pd=paid(m), ms=owed(m).reduce((a,k)=>a+(d-(+m.p[k]||0)),0), yrRem=Math.max(0,yr-pd);
+/* ---------- CORE CALCULATIONS (verified) ---------- */
+const paid   = m => (m.p||[]).reduce((a,b)=>a+(+b||0),0);
+const paidTo = (m,k=cur) => (m.p||[]).slice(0,k).reduce((a,b)=>a+(+b||0),0);
+const owed   = m => { const l=[]; for(let i=0;i<cur;i++) if((+m.p[i]||0) < (+m.d||0)) l.push(i); return l; };
+const owedAmt= m => owed(m).reduce((a,k)=>a+((+m.d||0)-(+m.p[k]||0)),0);
+const monthDue = (m,k) => (+m.d||0) * k;
 
-  const paidArr=[], dueArr=[];
-  MN.forEach((n,k)=>{
-    const v=+m.p[k]||0;
-    if(v>0)paidArr.push(`${n}: $${f(v)}${v>=d&&d>0?" ✓":""}`);
-    if(k<cur&&v<d)dueArr.push(`${n}: maqan $${f(Math.max(0,d-v))}`);
-  });
+function T(){
+  const R=S.m.reduce((a,m)=>a+(+m.d||0),0);      // monthly target (all members)
+  const yr=R*9;
+  const dn=R*cur;                                  // due for billed months
+  const pd=S.m.reduce((a,m)=>a+paid(m),0);         // all-time collected from member grid
+  const pdn=S.m.reduce((a,m)=>a+paidTo(m),0);      // collected for billed months
+  const ex=S.x.reduce((a,x)=>a+(+x.a||0),0);       // expenses
+  const lg=S.t.reduce((a,t)=>a+(+t.a||0),0);       // logged collections
+  return {R,yr,dn,pd,pdn,miss:Math.max(0,dn-pdn),ex,lg,hand:pd-ex};
+}
+function mon(i){
+  const R=S.m.reduce((a,m)=>a+(+m.d||0),0);
+  const pd=S.m.reduce((a,m)=>a+(+m.p[i]||0),0);
+  const n=S.m.filter(m=>(+m.p[i]||0)>=(+m.d||0)&&(+m.d||0)>0).length;
+  return {R,pd,miss:Math.max(0,R-pd),n,pc:R?Math.round(pd/R*100):0};
+}
+function collectorsSummary(){
+  const o={};
+  S.t.forEach(t=>{const k=t.c||"—"; o[k]=o[k]||{total:0,count:0}; o[k].total+=(+t.a||0); o[k].count++;});
+  return Object.entries(o).sort((a,b)=>b[1].total-a[1].total);
+}
+function membersStats(){
+  return S.m.map((m,i)=>({m,i,o:owed(m),amt:owedAmt(m),pd:paid(m)})).sort((a,b)=>b.amt-a.amt);
+}
 
-  return`<div class="c no-print">
-    <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:8px">
-      <small style="color:var(--mu);font-weight:700">${unlocked?"Edit waa furan yahay":"Fur Edit si aad wax u geliso"}</small>
-      <button class="btn s" id="quickEntryBtn" style="padding:8px 12px;font-size:13px">💵 Qabasho Degdeg ah</button>
-    </div>
-    <label>Kala saar Qoyska</label>
-    <select id="pGrp"><option value="">Dhammaan Qoysaska</option>${GROUPS.map(g=>`<option value="${esc(g)}" ${grpFilter===g?"selected":""}>${esc(g)}</option>`).join("")}</select>
-    <label>Dooro Magaca Qofka</label>
-    <select id="pSel">${list.map(({m:pm,i:idx})=>`<option value="${idx}" ${idx===selPersonIdx?"selected":""}>${esc(pm.n)} (${esc(pm.g||"—")})</option>`).join("")}</select>
+/* ---------- RENDER SHELL ---------- */
+function lock(){ $("#lk").textContent=unlocked?"🔓":"🔒"; }
+$("#lk").onclick=()=>{ if(unlocked){unlocked=false;lock();render();} else ask(); };
+$("#rf").onclick=()=>API?pull(true):toast("Marka hore ku xir Google Sheet");
+
+/* Password verification (unchanged API contract) */
+function ask(cb){
+  md(`<h2>Geli Password-ka Edit-ka</h2>
+    <input id="pw" type="password" placeholder="Password" autofocus>
+    <button class="btn w" id="go">Fur Edit</button>
+    <p class="bad" id="er" style="min-height:18px;margin-top:8px"></p>`);
+  const go=async()=>{
+    const p=$("#pw").value;
+    if(!p) return;
+    $("#er").textContent="…"; $("#go").disabled=true;
+    try{
+      const r=await fetch(API,{method:"POST",
+        headers:{"Content-Type":"text/plain;charset=utf-8"},
+        body:JSON.stringify({pass:p,op:"check"})});
+      const j=await r.json();
+      if(j.error) throw j.error;
+      PW=p; unlocked=true; lock(); close(); render(); cb&&cb();
+    }catch(e){ $("#er").textContent="Password khaldan ama xiriir ma jiro"; }
+    finally{ $("#go").disabled=false; }
+  };
+  $("#go").onclick=go;
+  $("#pw").onkeydown=e=>e.key==="Enter"&&go();
+}
+function md(h){ $("#mc").innerHTML=h; $("#md").classList.add("on"); }
+function close(){ $("#md").classList.remove("on"); }
+$("#md").onclick=e=>{ if(e.target.id==="md") close(); };
+function need(cb){ if(!unlocked) return ask(cb); cb(); }
+
+/* Nav */
+const NV=[["d","📊","Dashboard"],["r","📝","Warbixin"],["m","👥","Xubnaha"],["t","💵","Qabasho"],["x","🧾","Bixin"]];
+$("#nv").innerHTML=NV.map(n=>`<button data-t="${n[0]}"><span>${n[1]}</span>${n[2]}</button>`).join("");
+$("#nv").onclick=e=>{
+  const b=e.target.closest("button");
+  if(b){ tab=b.dataset.t; q=""; render(); scrollTo(0,0); }
+};
+
+/* Master render */
+function render(){
+  lock();
+  $$("nav button").forEach(b=>b.classList.toggle("on",b.dataset.t===tab));
+  $("#fab").style.display=(unlocked&&(tab==="m"||tab==="t"||tab==="x"))?"block":"none";
+  $("#sub").textContent=`Lacagta Qaraanka · ${YEAR} · ${billedLabel}`;
+
+  const banner = !unlocked
+    ? `<div class="modebar"><span>🔒 Habka: Reports Only — Edit waa xiran yahay</span><span>${billedLabel}</span></div>`
+    : `<div class="modebar on"><span>🔓 Edit furan yahay</span><span>${billedLabel}</span></div>`;
+
+  const status = `<div class="status-bar">
+      <span class="dot ${syncState==='ok'?'on':syncState==='err'?'off':'warn'}"></span>
+      ${
+        syncState==='ok' ? `Sheet la xiriiray · ${stamp}` :
+        syncState==='err' ? `⚠️ Sheet lama gaadhin${syncErr?' — '+esc(syncErr):''}` :
+        `Xiriirka Sheet…`
+      }
+    </div>`;
+
+  $("#v").innerHTML = banner + status +
+    ({d:viewDash,r:viewReport,m:viewMembers,t:viewCollections,x:viewExpenses})[tab]() +
+    `<div class="st">Xogta: ${S.m.length} xubnood · Bishii la dallacay: ${cur}/9 · ${billedLabel}${stamp?" · Sync "+stamp:""}</div>`;
+
+  bind();
+}
+
+/* =====================================================================
+   DASHBOARD
+   ===================================================================== */
+function viewDash(){
+  const t=T();
+  const pc = t.dn ? Math.round(t.pdn/t.dn*100) : 0;
+
+  const ms = membersStats();
+  const byAmt = ms.filter(x=>x.amt>0).slice(0,5);
+  const byCnt = [...ms].filter(x=>x.o.length>0).sort((a,b)=>b.o.length-a.o.length).slice(0,5);
+
+  const recentCol = [...S.t].slice(-4).reverse();
+  const recentExp = [...S.x].slice(-4).reverse();
+
+  return `
+  <div class="g">
+    <div class="c k"><small>Xubnaha</small><b>${S.m.length}</b></div>
+    <div class="c k"><small>Bishii (hadaf)</small><b class="navy">${fmtMoney(t.R)}</b></div>
+    <div class="c k"><small>Sanadka (9 bil)</small><b class="navy">${fmtMoney(t.yr)}</b></div>
+    <div class="c k"><small>La qabtay (guud)</small><b class="ok">${fmtMoney(t.pd)}</b></div>
+    <div class="c k"><small>Maqan (${billedLabel})</small><b class="bad">${fmtMoney(t.miss)}</b></div>
+    <div class="c k"><small>Bixin</small><b class="warn">${fmtMoney(t.ex)}</b></div>
+    <div class="c k"><small>Lacagta la hayo</small><b class="${t.hand<0?'bad':'ok'}">${fmtMoney(t.hand)}</b></div>
+    <div class="c k"><small>Qabasho %</small><b class="teal">${pc}%</b></div>
   </div>
 
-  <div id="printArea">
-    <div class="p-hero">
-      <small>Warbixinta Qaraanka Shaqsiyeed · 2026</small>
+  <div class="c" style="margin-top:12px">
+    <div style="display:flex;justify-content:space-between;align-items:baseline">
+      <b>Qabasho ${billedLabel}</b>
+      <small>${fmtMoney(t.pdn)} / ${fmtMoney(t.dn)}</small>
+    </div>
+    <div class="bar"><i style="width:${Math.min(100,pc)}%"></i></div>
+    <small style="color:var(--mu)">${pc}% la qabtay bilaha la dallacay</small>
+  </div>
+
+  <h2>Bil-bil</h2>
+  <div class="c">
+    ${MN.map((n,i)=>{
+      const o=mon(i);
+      const future = i>=cur;
+      return `<div class="mrow">
+        <span style="font-weight:600;color:${future?'var(--mu)':'var(--tx)'}">${n}</span>
+        <div class="bar"><i style="width:${Math.min(100,o.pc)}%;${future?'background:var(--mu);opacity:.4':''}"></i></div>
+        <b style="color:${future?'var(--mu)':o.pc>=80?'var(--ok)':o.pc>=50?'var(--warn)':'var(--bad)'}">${future?'—':o.pc+'%'}</b>
+      </div>`;
+    }).join("")}
+  </div>
+
+  <div class="g" style="grid-template-columns:1fr 1fr">
+    <div>
+      <h2>Ugu maqan (lacag)</h2>
+      <div class="c">
+        ${byAmt.map(x=>`
+          <div class="row">
+            <span><b>${esc(x.m.n)}</b><br><small>${x.o.map(k=>MN[k]).join(", ")||"—"}</small></span>
+            <b class="bad">${fmtMoney(x.amt)}</b>
+          </div>`).join("") || `<p class="ok" style="text-align:center">✓ Dhammaan bixiyeen</p>`}
+      </div>
+    </div>
+    <div>
+      <h2>Ugu maqan (bilo)</h2>
+      <div class="c">
+        ${byCnt.map(x=>`
+          <div class="row">
+            <span><b>${esc(x.m.n)}</b><br><small>${x.o.map(k=>MN[k]).join(", ")||"—"}</small></span>
+            <b class="bad">${x.o.length} bilood</b>
+          </div>`).join("") || `<p class="ok" style="text-align:center">✓ Dhammaan bixiyeen</p>`}
+      </div>
+    </div>
+  </div>
+
+  <h2>Qabashooyinkii ugu dambeeyay</h2>
+  <div class="c">
+    ${recentCol.map(x=>`
+      <div class="row">
+        <span><b>${esc(x.w||x.c||"—")}</b><br><small>${esc(x.b)} · ${esc(x.d)} · ${esc(x.nb||x.c||"")}</small></span>
+        <b class="ok">${fmtMoney(x.a)}</b>
+      </div>`).join("") || `<small>Ma jiro</small>`}
+  </div>
+
+  <h2>Bixinnadii ugu dambeeyay</h2>
+  <div class="c">
+    ${recentExp.map(x=>`
+      <div class="row">
+        <span><b>${esc(x.s||"—")}</b><br><small>${esc(x.d)} · ${esc(x.to||"")}</small></span>
+        <b class="warn">${fmtMoney(x.a)}</b>
+      </div>`).join("") || `<small>Ma jiro</small>`}
+  </div>`;
+}
+
+/* =====================================================================
+   MEMBERS
+   ===================================================================== */
+function viewMembers(){
+  const L = S.m.map((m,i)=>({m,i})).filter(x=>{
+    const mq = !q || x.m.n.toLowerCase().includes(q.toLowerCase()) ||
+               (x.m.g||"").toLowerCase().includes(q.toLowerCase());
+    const mg = !grpFilter || (x.m.g||"").toLowerCase().includes(grpFilter.toLowerCase());
+    return mq && mg;
+  });
+  const total = L.reduce((a,x)=>a+paid(x.m),0);
+
+  return `
+  <div class="top">
+    <select id="gf">
+      <option value="">Dhammaan Qoysaska</option>
+      ${GROUPS.map(g=>`<option value="${esc(g)}" ${grpFilter===g?"selected":""}>${esc(g)}</option>`).join("")}
+    </select>
+    <input id="q" placeholder="🔍 Raadi magac..." value="${esc(q)}">
+  </div>
+  <div class="c k"><small>Wadarta la bixiyay (liiska)</small><b class="ok">${fmtMoney(total)}</b></div>
+  <div class="c">
+    ${L.map(({m,i})=>{
+      const o=owed(m), ob=owedAmt(m);
+      return `<div class="row" data-m="${i}" style="cursor:pointer">
+        <div>
+          <b>${esc(m.n)}</b><br>
+          <small>${esc(m.g||"—")} · bishii ${fmtMoney(m.d)}</small>
+          <div class="chips">${MN.map((n,k)=>{
+            const v=+m.p[k]||0, d=+m.d||0;
+            const cls = k>=cur ? 'f' : (v>=d && d>0 ? 'p' : v>0 ? 'h' : 'm');
+            return `<span class="chip ${cls}">${n}</span>`;
+          }).join("")}</div>
+        </div>
+        <div style="text-align:right;min-width:80px">
+          <b class="ok">${fmtMoney(paid(m))}</b><br>
+          <small class="${ob>0?'bad':'ok'}">${ob>0?'maqan '+fmtMoney(ob):'✓ buuxa'}</small>
+        </div>
+      </div>`;
+    }).join("") || `<small style="text-align:center;display:block;padding:16px">Xubin lama helin</small>`}
+  </div>`;
+}
+
+/* =====================================================================
+   COLLECTIONS
+   ===================================================================== */
+function viewCollections(){
+  const L = S.t.map((t,i)=>({t,i})).reverse();
+  const total = S.t.reduce((a,t)=>a+(+t.a||0),0);
+  return `
+  <div class="c k"><small>Wadarta la diiwaan geliyay</small><b class="ok">${fmtMoney(total)}</b></div>
+  <div class="c">
+    ${L.map(({t,i})=>`
+      <div class="row" data-t="${i}" style="cursor:pointer">
+        <span><b>${esc(t.w||t.c||"—")}</b><br>
+        <small>${esc(t.b)} · ${esc(t.d)||"—"} · ${esc(t.nb||t.c||"")}</small></span>
+        <b class="ok">${fmtMoney(t.a)}</b>
+      </div>`).join("") || `<small style="text-align:center;display:block;padding:16px">Ma jiro</small>`}
+  </div>`;
+}
+
+/* =====================================================================
+   EXPENSES
+   ===================================================================== */
+function viewExpenses(){
+  const L = S.x.map((x,i)=>({x,i})).reverse();
+  const total = S.x.reduce((a,x)=>a+(+x.a||0),0);
+  return `
+  <div class="c k"><small>Wadarta lacagaha baxay</small><b class="warn">${fmtMoney(total)}</b></div>
+  <div class="c">
+    ${L.map(({x,i})=>`
+      <div class="row" data-x="${i}" style="cursor:pointer">
+        <span><b>${esc(x.s||"—")}</b><br>
+        <small>${esc(x.d)} · loo tuuray: ${esc(x.to||"—")} · bixiyey: ${esc(x.by||"—")}</small></span>
+        <b class="warn">${fmtMoney(x.a)}</b>
+      </div>`).join("") || `<small style="text-align:center;display:block;padding:16px">Weli wax lacag bixin ah lama gelin</small>`}
+  </div>`;
+}
+
+/* =====================================================================
+   REPORTS — 5 types, shared plumbing
+   ===================================================================== */
+function viewReport(){
+  const tb = {
+    s: reportPersonal(),
+    b: reportMonthly(),
+    p: reportMembers(),
+    c: reportCollectors(),
+    g: reportGeneral(),
+  };
+  return `
+  <div class="tabs">
+    ${[["s","👤 Shaqsi"],["b","📅 Bil-bil"],["p","👥 Xubnaha"],["c","💵 Qabeyaasha"],["g","📊 Guud"]]
+      .map(a=>`<button data-s="${a[0]}" class="${sub===a[0]?"on":""}">${a[1]}</button>`).join("")}
+  </div>
+  ${tb[sub]}
+  <div class="act-grid no-print" style="margin-top:16px">
+    <button class="btn wa" id="waBtn">💬 WhatsApp</button>
+    <button class="btn teal" id="pdfBtn">⬇️ Download PDF</button>
+    <button class="btn s" id="copyBtn">📋 Copy Text</button>
+  </div>`;
+}
+
+/* --- Personal report (improved) --- */
+function reportPersonal(){
+  const pool = S.m.map((m,i)=>({m,i})).filter(x=>!grpFilter || (x.m.g||"").toLowerCase().includes(grpFilter.toLowerCase()));
+  const list = pool.length ? pool : S.m.map((m,i)=>({m,i}));
+  if(!list.length) return `<div class="c"><small>Xog xubno ah lama hayo.</small></div>`;
+  const entry = list.find(x=>x.i===selPersonIdx) || list[0];
+  selPersonIdx = entry.i;
+  const m = entry.m;
+
+  const monthlyDue = +m.d||0;
+  const yearGoal = monthlyDue*9;
+  const totalPaid = paid(m);
+  const billedOwed = owedAmt(m);
+  const yearRemaining = Math.max(0, yearGoal - totalPaid);
+
+  const paidMonths = [], dueMonths = [];
+  MN.forEach((name,k)=>{
+    const v = +m.p[k]||0;
+    if(v>0) paidMonths.push({name,k,v,full: monthlyDue>0 && v>=monthlyDue});
+    if(k<cur && v<monthlyDue) dueMonths.push({name,k,rem: Math.max(0,monthlyDue-v)});
+  });
+
+  return `
+  <div class="c no-print">
+    <label>Kala saar Qoyska</label>
+    <select id="pGrp">
+      <option value="">Dhammaan Qoysaska</option>
+      ${GROUPS.map(g=>`<option value="${esc(g)}" ${grpFilter===g?"selected":""}>${esc(g)}</option>`).join("")}
+    </select>
+    <label>Dooro Qofka</label>
+    <select id="pSel">
+      ${list.map(({m:pm,i:idx})=>`<option value="${idx}" ${idx===selPersonIdx?"selected":""}>${esc(pm.n)} — ${esc(pm.g||"—")}</option>`).join("")}
+    </select>
+  </div>
+
+  <div id="reportBody">
+    <div class="p-card">
+      <small>Warbixinta Qaraanka Shaqsiyeed · ${YEAR}</small>
       <h3>${esc(m.n)}</h3>
       <small>Qoyska: <b>${esc(m.g||"—")}</b></small>
-      <div class="p-stats">
-        <div class="p-stat"><small>Laga rabo bil kasta</small><b>$${f(d)}</b></div>
-        <div class="p-stat"><small>Lacagta guud (9 bil)</small><b>$${f(yr)}</b></div>
-        <div class="p-stat"><small>Wadarta la bixiyay</small><b>$${f(pd)}</b></div>
-        <div class="p-stat"><small>Ku dhiman (${billedLabel})</small><b>$${f(ms)}</b></div>
+      <div class="p-grid">
+        <div class="p-box"><small>Bishii</small><b>${fmtMoney(monthlyDue)}</b></div>
+        <div class="p-box"><small>Sanadka (9 bil)</small><b>${fmtMoney(yearGoal)}</b></div>
+        <div class="p-box"><small>La bixiyay</small><b>${fmtMoney(totalPaid)}</b></div>
+        <div class="p-box"><small>Ku dhiman (${billedLabel})</small><b>${fmtMoney(billedOwed)}</b></div>
       </div>
     </div>
 
     <div class="c">
-      <h2 style="margin-top:0">Bilaha la bixiyay (${paidArr.length})</h2>
-      <div>${paidArr.length?paidArr.map(x=>`<span class="pill ok">${esc(x)}</span>`).join(""):"<small>Weli bilna lacag lagama bixin.</small>"}</div>
-      <h2>Bilaha ku dhiman (${dueArr.length})</h2>
-      <div>${dueArr.length?dueArr.map(x=>`<span class="pill bad">${esc(x)}</span>`).join(""):"<span class="pill ok">Wax lacag ah kuma dhiman ✓</span>"}</div>
-      <h2>Totals</h2>
-      <div class="tw"><table>
-        <thead><tr><th>Bil</th><th>Laga rabo</th><th>La bixiyay</th><th>Ku dhiman</th><th>Xaalad</th></tr></thead>
-        <tbody>${MN.map((n,k)=>{
-          const v=+m.p[k]||0, bld=k<cur, rem=bld?Math.max(0,d-v):0;
-          const st=v>=d&&d>0?"Buuxa ✓":(v>0?"Qayb":(bld?"Maqan":"Weli lama dallacin"));
-          const cls=v>=d&&d>0?"ok":(rem>0?"bad":"");
-          return`<tr><td>${n}</td><td>$${f(d)}</td><td class="ok">$${f(v)}</td><td class="${rem>0?"bad":""}">$${f(rem)}</td><td class="${cls}">${st}</td></tr>`;
-        }).join("")}
-        <tr><th>TOTAL</th><th>$${f(yr)}</th><th class="ok">$${f(pd)}</th><th class="bad">$${f(ms)}</th><th>Sanad: $${f(yrRem)}</th></tr></tbody>
-      </table></div>
-    </div>
-  </div>
+      <h2 style="margin-top:0">Bilaha la bixiyay (${paidMonths.length})</h2>
+      <div>${paidMonths.length
+        ? paidMonths.map(x=>`<span class="list-pill ok">${x.name}: ${fmtMoney(x.v)}${x.full?" ✓":" (qayb)"}</span>`).join("")
+        : `<small>Weli bilna lacag lagama bixin.</small>`}</div>
 
-  <div class="act-grid no-print">
-    <button class="btn wa" id="waBtn">💬 U dir WhatsApp</button>
-    <button class="btn" id="pdfBtn">⬇️ Auto Download PDF</button>
+      <h2>Ku dhiman bilaha la dallacay (${dueMonths.length} · ${billedLabel})</h2>
+      <div>${dueMonths.length
+        ? dueMonths.map(x=>`<span class="list-pill bad">${x.name}: maqan ${fmtMoney(x.rem)}</span>`).join("")
+        : `<span class="list-pill ok">Wax lacag ah kuma dhiman ✓</span>`}</div>
+
+      <h2>Faahfaahin bil-bil</h2>
+      <div class="tw">
+        <table>
+          <thead><tr><th>Bil</th><th>Laga rabo</th><th>La bixiyay</th><th>Ku dhiman</th><th>Xaalad</th></tr></thead>
+          <tbody>
+            ${MN.map((name,k)=>{
+              const v=+m.p[k]||0;
+              const billed = k<cur;
+              const rem = billed ? Math.max(0,monthlyDue-v) : 0;
+              const stTxt = monthlyDue>0 && v>=monthlyDue ? "Buuxa ✓" :
+                            v>0 ? "Qayb" : billed ? "Maqan" : "Weli lama dallacin";
+              const stCls = (monthlyDue>0 && v>=monthlyDue) ? "ok" : rem>0 ? "bad" : "";
+              return `<tr>
+                <td>${name}${!billed?' <small>(mustaqbal)</small>':''}</td>
+                <td>${fmtMoney(monthlyDue)}</td>
+                <td class="ok">${fmtMoney(v)}</td>
+                <td class="${rem>0?'bad':''}">${fmtMoney(rem)}</td>
+                <td class="${stCls}">${stTxt}</td>
+              </tr>`;
+            }).join("")}
+            <tr>
+              <th>TOTAL</th>
+              <th>${fmtMoney(yearGoal)}</th>
+              <th class="ok">${fmtMoney(totalPaid)}</th>
+              <th class="bad">${fmtMoney(billedOwed)}</th>
+              <th>Sanad: ${fmtMoney(yearRemaining)}</th>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>`;
 }
 
-function vr(){
+/* --- Monthly report --- */
+function reportMonthly(){
   const t=T();
-  const tb={
-    s:personalReportView(),
-    b:`<div class="tw c"><table><tr><th>Bil</th><th>La rabo</th><th>La qabtay</th><th>Maqan</th><th>%</th><th>Bixiyey</th></tr>${MN.map((n,i)=>{const o=mon(i);return`<tr><td>${n}</td><td>${f(o.R)}</td><td class="ok">${f(o.pd)}</td><td class="${o.miss>0?"bad":""}">${f(o.miss)}</td><td>${o.pc}%</td><td>${o.n}/${S.m.length}</td></tr>`}).join("")}<tr><th>Total</th><th>${f(t.yr)}</th><th>${f(t.pd)}</th><th>${f(t.yr-t.pd)}</th><th></th><th></th></tr></table></div>`,
-    p:`<div class="tw c"><table><tr><th>Magac</th><th>Bixiyey</th><th>Maqan</th><th>Bilaha ku dhiman</th></tr>${S.m.map(m=>({m,o:owed(m)})).sort((a,b)=>b.o.length-a.o.length).map(({m,o})=>`<tr><td>${esc(m.n)}</td><td class="ok">${f(paid(m))}</td><td class="${o.length?"bad":"ok"}">${f(o.reduce((a,k)=>a+m.d-m.p[k],0))}</td><td style="white-space:normal;text-align:left">${o.map(k=>MN[k]).join(", ")||"✓"}</td></tr>`).join("")}</table></div>`,
-    c:`<div class="c">${colls().map(([k,v])=>`<div class="row"><span>${esc(k)}</span><b class="ok">$${f(v)}</b></div>`).join("")}</div>`,
-    g:`<div class="c"><div class="row"><span>Lacagaha la qabtay (xubnaha)</span><b class="ok">$${f(t.pd)}</b></div><div class="row"><span>Lagu diiwaan geliyay Qabasho</span><b>$${f(t.lg)}</b></div><div class="row"><span>Farqi (aan la diiwaan gelin)</span><b class="${t.pd-t.lg?"warn":"ok"}">$${f(t.pd-t.lg)}</b></div><div class="row"><span>Lacag baxday</span><b class="warn">$${f(t.ex)}</b></div><div class="row"><span>Lacagta la hayo</span><b>$${f(t.hand)}</b></div><div class="row"><span>Lacagta maqan (${billedLabel})</span><b class="bad">$${f(t.miss)}</b></div></div><button class="btn w" id="sh">📋 Koobiyee warbixin (WhatsApp)</button> <button class="btn s w" id="cs" style="margin-top:8px">⬇️ Soo deji CSV</button><button class="btn s w" id="bk" style="margin-top:8px">💾 Backup (keydi nuqul)</button>${unlocked?`<button class="btn s w" id="rs" style="margin-top:8px">♻️ Soo celi backup</button><input id="fi" type="file" accept=".json,application/json" style="display:none"><button class="btn w" id="ap" style="margin-top:8px">🔗 ${API?"Beddel":"Xiriir"} Google Sheet</button>`:""}`
-  };
-  return`<div class="tabs">${[["s","👤 Shaqsi"],["b","Bil-bil"],["p","Xubnaha"],["c","Qabeyaasha"],["g","Guud"]].map(a=>`<button data-s="${a[0]}" class="${sub===a[0]?"on":""}">${a[1]}</button>`).join("")}</div>${tb[sub]}`
+  return `
+  <div class="c">
+    <h2 style="margin-top:0">Warbixin Bil-bil · ${YEAR}</h2>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Bil</th><th>La rabo</th><th>La qabtay</th><th>Maqan</th><th>%</th><th>Bixiyey</th><th>Xaalad</th></tr></thead>
+        <tbody>
+        ${MN.map((n,i)=>{
+          const o=mon(i);
+          const future = i>=cur;
+          return `<tr>
+            <td>${n}</td>
+            <td>${fmtMoney(o.R)}</td>
+            <td class="ok">${fmtMoney(o.pd)}</td>
+            <td class="${o.miss>0&&!future?'bad':''}">${future?'—':fmtMoney(o.miss)}</td>
+            <td>${future?'—':o.pc+'%'}</td>
+            <td>${future?'—':o.n+'/'+S.m.length}</td>
+            <td>${future?'<small>Weli lama dallacin</small>':(o.miss>0?'<span class="bad">Maqan</span>':'<span class="ok">Buuxa</span>')}</td>
+          </tr>`;
+        }).join("")}
+        <tr>
+          <th>TOTAL</th>
+          <th>${fmtMoney(t.yr)}</th>
+          <th class="ok">${fmtMoney(t.pd)}</th>
+          <th class="bad">${fmtMoney(t.miss)}</th>
+          <th>${fmtPct(t.pd,t.yr)}</th>
+          <th>—</th><th>—</th>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>`;
 }
 
-function rep(){const t=T();const l=S.m.map(m=>({m,o:owed(m)})).filter(x=>x.o.length);
- return`*Reer Kulmiye Cali – Warbixin*\nHadafka: $${f(t.yr)}\nLa qabtay: $${f(t.pd)}\nBixin: $${f(t.ex)}\nLa hayo: $${f(t.hand)}\nMaqan (${billedLabel}): $${f(t.miss)}\n\n*Ku dhiman:*\n`+l.map(x=>`- ${x.m.n}: ${x.o.map(k=>MN[k]).join(", ")}`).join("\n")}
-
-function setApi(){md(`<h2>Xiriir Google Sheet</h2><label>Apps Script Web App URL</label><input id="au" value="${esc(API)}" placeholder="https://script.google.com/macros/s/.../exec"><button class="btn w" id="as">Kaydi</button>`);
- $("#as").onclick=()=>{API=$("#au").value.trim();localStorage.setItem("kul_api",API);close();API?pull():render()}}
-
-async function pull(){
-  if(!API)return;
-  try{
-    const r=await fetch(API+(API.includes("?")?"&":"?")+"t="+Date.now());
-    const j=await r.json();
-    if(j.error)throw j.error;
-    S=normalizeData(j);
-    save();
-    stamp=new Date().toLocaleTimeString("en-GB").slice(0,5);
-  }catch(e){stamp="⚠️ lama gaadhin"}
-  render();
+/* --- Members report --- */
+function reportMembers(){
+  const rows = membersStats();
+  return `
+  <div class="c">
+    <h2 style="margin-top:0">Warbixin Xubnaha · ${YEAR}</h2>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Magac</th><th>Qoys</th><th>Bishii</th><th>La bixiyay</th><th>Maqan</th><th>Bilo</th><th>Xaalad</th></tr></thead>
+        <tbody>
+          ${rows.map(x=>`
+            <tr>
+              <td>${esc(x.m.n)}</td>
+              <td>${esc((x.m.g||"—").replace(" Kulmiye",""))}</td>
+              <td>${fmtMoney(x.m.d)}</td>
+              <td class="ok">${fmtMoney(x.pd)}</td>
+              <td class="${x.amt>0?'bad':''}">${fmtMoney(x.amt)}</td>
+              <td>${x.o.length}</td>
+              <td>${x.o.length?`<span class="bad">Maqan</span>`:`<span class="ok">✓</span>`}</td>
+            </tr>`).join("")}
+        </tbody>
+      </table>
+    </div>
+  </div>`;
 }
 
-async function op(name,data){const z=$("#bz");z.style.display="block";try{const r=await fetch(API,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({pass:PW,op:name,...data})});const j=await r.json();if(j.error)throw j.error;close();await pull()}catch(e){alert("Cillad: "+e)}finally{z.style.display="none"}}
-$("#rf").onclick=()=>API?pull():alert("Marka hore ku xir Google Sheet");
-function dl(n,t,ty){const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([t],{type:ty||"application/json"}));a.download=n;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},1500)}
+/* --- Collectors report --- */
+function reportCollectors(){
+  const rows = collectorsSummary();
+  const total = rows.reduce((a,r)=>a+r[1].total,0);
+  return `
+  <div class="c">
+    <h2 style="margin-top:0">Warbixin Qabeyaasha · ${YEAR}</h2>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Qabeye</th><th>Diiwaanno</th><th>Wadarta</th><th>%</th></tr></thead>
+        <tbody>
+          ${rows.map(([name,v])=>`
+            <tr>
+              <td>${esc(name)}</td>
+              <td>${v.count}</td>
+              <td class="ok">${fmtMoney(v.total)}</td>
+              <td>${fmtPct(v.total,total)}</td>
+            </tr>`).join("") || `<tr><td colspan="4"><small>Ma jiro diiwaan</small></td></tr>`}
+          <tr><th>TOTAL</th><th>${S.t.length}</th><th class="ok">${fmtMoney(total)}</th><th>100%</th></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="c" style="margin-top:12px">
+    <h2 style="margin-top:0">Diiwaannada Qabasho</h2>
+    ${S.t.slice().reverse().map(t=>`
+      <div class="row">
+        <span><b>${esc(t.w||"—")}</b><br><small>${esc(t.b)} · ${esc(t.d)} · ${esc(t.c||"—")}</small></span>
+        <b class="ok">${fmtMoney(t.a)}</b>
+      </div>`).join("") || `<small>Ma jiro</small>`}
+  </div>`;
+}
 
-function bind(){
-  const sa=$("#sa");if(sa)sa.onclick=()=>{const u=$("#su").value.trim();if(!/^https:\/\/script\.google\.com\//.test(u))return alert("URL-ku waa inuu ka bilaabmaa https://script.google.com/");API=u;localStorage.setItem("kul_api",API);pull()};
-  const ap=$("#ap");if(ap)ap.onclick=()=>need(setApi);
-  const bk=$("#bk");if(bk)bk.onclick=()=>dl("kulmiye-backup-"+td()+".json",JSON.stringify(S));
-  const rs=$("#rs");if(rs)rs.onclick=()=>need(()=>$("#fi").click());
-  const fi=$("#fi");if(fi)fi.onchange=e=>{const f0=e.target.files[0];if(!f0)return;const r=new FileReader();r.onload=()=>{try{const o=normalizeData(JSON.parse(r.result));if(!o.m.length&&!o.t.length)throw 0;if(confirm("Xogta hadda jirta ayaa lagu beddelayaa backup-kan. Sii wad?")){S=o;save();render()}}catch(x){alert("Fayl-kan ma aha backup sax ah")}};r.readAsText(f0)};
-  const qi=$("#q");if(qi)qi.oninput=e=>{q=e.target.value;const p=e.target.selectionStart;render();const n=$("#q");if(n){n.focus();n.setSelectionRange(p,p)}};
-  const gf=$("#gf");if(gf)gf.onchange=e=>{grpFilter=e.target.value;render()};
-  const pGrp=$("#pGrp");if(pGrp)pGrp.onchange=e=>{grpFilter=e.target.value;selPersonIdx=0;render()};
-  const pSel=$("#pSel");if(pSel)pSel.onchange=e=>{selPersonIdx=+e.target.value;render()};
-  const quickEntryBtn=$("#quickEntryBtn");if(quickEntryBtn)quickEntryBtn.onclick=()=>need(()=>openQuickCollection(-1));
+/* --- General report --- */
+function reportGeneral(){
+  const t=T();
+  return `
+  <div class="c">
+    <h2 style="margin-top:0">Warbixin Guud · ${YEAR}</h2>
+    <div class="row"><span>Hadafka sanadka (9 bil)</span><b>${fmtMoney(t.yr)}</b></div>
+    <div class="row"><span>Lacagta xubnaha (grid) la bixiyay</span><b class="ok">${fmtMoney(t.pd)}</b></div>
+    <div class="row"><span>Qabasho diiwaan geliyay</span><b>${fmtMoney(t.lg)}</b></div>
+    <div class="row"><span>Farqi (grid − diiwaan)</span><b class="${t.pd-t.lg?'warn':'ok'}">${fmtMoney(t.pd-t.lg)}</b></div>
+    <div class="row"><span>Bixin (lacag baxday)</span><b class="warn">${fmtMoney(t.ex)}</b></div>
+    <div class="row"><span>Lacagta la hayo</span><b>${fmtMoney(t.hand)}</b></div>
+    <div class="row"><span>Maqan (${billedLabel})</span><b class="bad">${fmtMoney(t.miss)}</b></div>
+    <div class="row"><span>Qabasho %</span><b class="teal">${fmtPct(t.pdn,t.dn)}</b></div>
+  </div>`;
+}
 
-  const waBtn=$("#waBtn");
-  if(waBtn)waBtn.onclick=()=>{
-    const m=S.m[selPersonIdx]||S.m[0];
-    if(!m)return;
-    const txt=buildPersonalText(m);
-    const url="https://wa.me/?text="+encodeURIComponent(txt);
-    const w=window.open(url,"_blank","noopener,noreferrer");
-    if(!w){
-      md(`<h2>U dir WhatsApp</h2><textarea rows="11" readonly>${esc(txt)}</textarea><button class="btn w" id="cpWa">Koobiyee Qoraalka</button>`);
-      $("#cpWa").onclick=async()=>{try{await navigator.clipboard.writeText(txt);alert("La koobiyeeyay!");}catch(e){}};
+/* =====================================================================
+   REPORT TEXT FOR WHATSAPP / COPY
+   ===================================================================== */
+function waTextFor(reportKey){
+  const t=T();
+  const header = `*Reer Kulmiye Cali — Warbixin ${YEAR}*\nKa soo baxay: ${todayLong()}\nXilliga la dallacay: ${billedLabel}\n\n`;
+
+  if(reportKey==="s"){
+    const m=S.m[selPersonIdx]; if(!m) return header+"Xubin lama helin.";
+    const md=+m.d||0, yg=md*9, tp=paid(m), bo=owedAmt(m), yr=Math.max(0,yg-tp);
+    const paidM=[], dueM=[];
+    MN.forEach((n,k)=>{
+      const v=+m.p[k]||0;
+      if(v>0) paidM.push(`${n} (${fmtMoney(v)})`);
+      if(k<cur && v<md) dueM.push(`${n} (maqan ${fmtMoney(md-v)})`);
+    });
+    return header+
+      `👤 *${m.n}*\nQoyska: ${m.g||"—"}\n\n`+
+      `💵 Bishii: *${fmtMoney(md)}*\n`+
+      `📅 Sanadka (9 bil): *${fmtMoney(yg)}*\n`+
+      `✅ La bixiyay: *${fmtMoney(tp)}*\n`+
+      `❌ Ku dhiman (${billedLabel}): *${fmtMoney(bo)}*\n`+
+      `📊 Sanadka hadhay: *${fmtMoney(yr)}*\n\n`+
+      `*Bilaha la bixiyay:*\n${paidM.length?paidM.join("\n"):"Wali midna"}\n\n`+
+      `*Bilaha ku dhiman:*\n${dueM.length?dueM.join("\n"):"✓ Waxba kuma dhiman"}`;
+  }
+  if(reportKey==="b"){
+    return header+"📅 *Bil-bil*\n\n"+
+      MN.map((n,i)=>{
+        const o=mon(i);
+        if(i>=cur) return `${n}: — (weli lama dallacin)`;
+        return `${n}: ${fmtMoney(o.pd)} / ${fmtMoney(o.R)} (${o.pc}%) — maqan ${fmtMoney(o.miss)} — ${o.n}/${S.m.length} bixiyey`;
+      }).join("\n")+
+      `\n\n*TOTAL*\nLa rabo: ${fmtMoney(t.yr)}\nLa qabtay: ${fmtMoney(t.pd)}\nMaqan: ${fmtMoney(t.miss)}\nQabasho: ${fmtPct(t.pd,t.yr)}`;
+  }
+  if(reportKey==="p"){
+    const rows=membersStats();
+    return header+"👥 *Xubnaha*\n\n"+
+      rows.map(x=>`${x.m.n}: bixiyey ${fmtMoney(x.pd)} · maqan ${fmtMoney(x.amt)} (${x.o.length} bilood)`).join("\n")+
+      `\n\n*TOTAL*\nLa bixiyay: ${fmtMoney(t.pd)}\nMaqan: ${fmtMoney(t.miss)}`;
+  }
+  if(reportKey==="c"){
+    const rows=collectorsSummary();
+    const tot=rows.reduce((a,r)=>a+r[1].total,0);
+    return header+"💵 *Qabeyaasha*\n\n"+
+      rows.map(([n,v])=>`${n}: ${v.count} diiwaan · ${fmtMoney(v.total)}`).join("\n")+
+      `\n\n*TOTAL*: ${fmtMoney(tot)} (${S.t.length} diiwaan)`;
+  }
+  // general
+  return header+"📊 *Guud*\n\n"+
+    `Hadafka sanadka: ${fmtMoney(t.yr)}\n`+
+    `La qabtay (grid): ${fmtMoney(t.pd)}\n`+
+    `Diiwaan geliyay: ${fmtMoney(t.lg)}\n`+
+    `Bixin: ${fmtMoney(t.ex)}\n`+
+    `Lacagta la hayo: ${fmtMoney(t.hand)}\n`+
+    `Maqan (${billedLabel}): ${fmtMoney(t.miss)}\n`+
+    `Qabasho: ${fmtPct(t.pdn,t.dn)}`;
+}
+
+/* =====================================================================
+   PDF GENERATION (jsPDF + AutoTable, CDN)
+   ===================================================================== */
+function loadPdfLibs(){
+  if(pdfLibs) return Promise.resolve(pdfLibs);
+  if(window.jspdf && window.jspdf.jsPDF && window.jspdf.jsPDF.API.autoTable){
+    return Promise.resolve(pdfLibs = {jsPDF: window.jspdf.jsPDF});
+  }
+  const load = (src)=>new Promise((res,rej)=>{
+    const s=document.createElement("script");
+    s.src=src; s.onload=res; s.onerror=()=>rej(new Error("CDN lama soo dejisan karin"));
+    document.head.appendChild(s);
+  });
+  return load("https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js")
+    .then(()=>load("https://cdn.jsdelivr.net/npm/jspdf-autotable@3.8.2/dist/jspdf.plugin.autotable.min.js"))
+    .then(()=>{
+      if(!(window.jspdf&&window.jspdf.jsPDF&&window.jspdf.jsPDF.API.autoTable))
+        throw new Error("AutoTable lama helin");
+      pdfLibs = {jsPDF: window.jspdf.jsPDF};
+      return pdfLibs;
+    });
+}
+
+function buildPdfDoc(reportKey){
+  return loadPdfLibs().then(({jsPDF})=>{
+    const t=T();
+    const doc=new jsPDF({orientation:"portrait",unit:"mm",format:"a4"});
+    const W=doc.internal.pageSize.getWidth();
+    const margin=14;
+    const titles={s:"Warbixin Shaqsi",b:"Warbixin Bil-bil",p:"Warbixin Xubnaha",c:"Warbixin Qabeyaasha",g:"Warbixin Guud"};
+    const title=titles[reportKey]||"Warbixin";
+    const monthInfo = billedLabel;
+
+    /* header */
+    doc.setFillColor(20,43,74);
+    doc.rect(0,0,W,26,"F");
+    doc.setTextColor(255,255,255);
+    doc.setFont("helvetica","bold"); doc.setFontSize(14);
+    doc.text("Reer Kulmiye Cali", margin, 11);
+    doc.setFont("helvetica","normal"); doc.setFontSize(9);
+    doc.text(`Warbixin: ${title} · Sanadka ${YEAR} · Xilliga: ${monthInfo}`, margin, 17);
+    doc.text(`Taariikhda: ${todayLong()}`, W-margin, 17, {align:"right"});
+
+    let y=32;
+    doc.setTextColor(24,40,59);
+
+    /* title strip */
+    doc.setFont("helvetica","bold"); doc.setFontSize(13);
+    doc.text(title.toUpperCase(), margin, y); y+=3;
+    doc.setDrawColor(22,166,161); doc.setLineWidth(.7);
+    doc.line(margin,y,margin+38,y); y+=7;
+
+    /* helper to add table */
+    const addTable=(headers,rows,opts={})=>{
+      doc.autoTable({
+        startY:y, head:[headers], body:rows, margin:{left:margin,right:margin},
+        styles:{fontSize:8.5, cellPadding:2, overflow:"linebreak",
+          lineColor:[226,232,240], lineWidth:.1, textColor:[24,40,59]},
+        headStyles:{fillColor:[20,43,74], textColor:[255,255,255], fontStyle:"bold", fontSize:8.5},
+        alternateRowStyles:{fillColor:[243,246,250]},
+        theme:"grid",
+        ...opts,
+        didDrawPage:(data)=>{
+          /* footer */
+          const ph=doc.internal.pageSize.getHeight();
+          doc.setFontSize(8); doc.setTextColor(120,128,150);
+          doc.text(`Reer Kulmiye Cali — ${title} — ${todayLong()}`,
+            margin, ph-6);
+          doc.text(`Bog ${data.pageNumber}`, W-margin, ph-6, {align:"right"});
+        }
+      });
+      y=doc.lastAutoTable.finalY+6;
+    };
+
+    if(reportKey==="s"){
+      const m=S.m[selPersonIdx]||S.m[0];
+      if(m){
+        const md=+m.d||0, yg=md*9, tp=paid(m), bo=owedAmt(m), yr=Math.max(0,yg-tp);
+        doc.setFontSize(10); doc.setFont("helvetica","bold");
+        doc.text(`Magaca: ${m.n}`, margin, y); y+=5;
+        doc.setFont("helvetica","normal");
+        doc.text(`Qoyska: ${m.g||"—"}`, margin, y); y+=7;
+        addTable(
+          ["Lagu talagalay","Qiimaha"],
+          [
+            ["Bishii", fmtMoney(md)],
+            ["Sanadka (9 bil)", fmtMoney(yg)],
+            ["La bixiyay", fmtMoney(tp)],
+            [`Ku dhiman (${billedLabel})`, fmtMoney(bo)],
+            ["Sanadka hadhay", fmtMoney(yr)],
+          ],
+          {columnStyles:{0:{fontStyle:"bold"},1:{halign:"right"}}}
+        );
+        const rows=MN.map((n,k)=>{
+          const v=+m.p[k]||0;
+          const billed=k<cur;
+          const rem=billed?Math.max(0,md-v):0;
+          const st=md>0&&v>=md?"Buuxa":v>0?"Qayb":billed?"Maqan":"Weli lama dallacin";
+          return [n, fmtMoney(md), fmtMoney(v), billed?fmtMoney(rem):"—", st];
+        });
+        addTable(["Bil","Laga rabo","La bixiyay","Ku dhiman","Xaalad"], rows);
+      }
     }
-  };
+    else if(reportKey==="b"){
+      addTable(
+        ["Bil","La rabo","La qabtay","Maqan","%","Bixiyey","Xaalad"],
+        MN.map((n,i)=>{
+          const o=mon(i);
+          const fut=i>=cur;
+          return [n, fmtMoney(o.R), fmtMoney(o.pd), fut?"—":fmtMoney(o.miss),
+            fut?"—":o.pc+"%", fut?"—":`${o.n}/${S.m.length}`,
+            fut?"Weli lama dallacin":o.miss>0?"Maqan":"Buuxa"];
+        }).concat([["TOTAL",fmtMoney(t.yr),fmtMoney(t.pd),fmtMoney(t.miss),
+          fmtPct(t.pd,t.yr),"",""]])
+      );
+    }
+    else if(reportKey==="p"){
+      addTable(
+        ["Magac","Qoys","Bishii","La bixiyay","Maqan","Bilo","Xaalad"],
+        membersStats().map(x=>[x.m.n,(x.m.g||"—").replace(" Kulmiye",""),
+          fmtMoney(x.m.d),fmtMoney(x.pd),fmtMoney(x.amt),x.o.length,
+          x.o.length?"Maqan":"✓"])
+      );
+    }
+    else if(reportKey==="c"){
+      const rows=collectorsSummary();
+      const tot=rows.reduce((a,r)=>a+r[1].total,0);
+      addTable(
+        ["Qabeye","Diiwaanno","Wadarta","%"],
+        rows.map(([n,v])=>[n,v.count,fmtMoney(v.total),fmtPct(v.total,tot)])
+          .concat([["TOTAL",S.t.length,fmtMoney(tot),"100%"]])
+      );
+    }
+    else {
+      addTable(
+        ["Qodob","Qiimaha"],
+        [
+          ["Hadafka sanadka (9 bil)", fmtMoney(t.yr)],
+          ["La bixiyay (grid)", fmtMoney(t.pd)],
+          ["Qabasho diiwaan geliyay", fmtMoney(t.lg)],
+          ["Farqi (grid − diiwaan)", fmtMoney(t.pd-t.lg)],
+          ["Bixin", fmtMoney(t.ex)],
+          ["Lacagta la hayo", fmtMoney(t.hand)],
+          [`Maqan (${billedLabel})`, fmtMoney(t.miss)],
+          ["Qabasho %", fmtPct(t.pdn,t.dn)],
+        ],
+        {columnStyles:{0:{fontStyle:"bold"},1:{halign:"right"}}}
+      );
+    }
 
-  const pdfBtn=$("#pdfBtn");
-  if(pdfBtn)pdfBtn.onclick=()=>{
-    const m=S.m[selPersonIdx]||S.m[0];
-    const clean=(m&&m.n?m.n:"Warbixin").replace(/[^\w\s-]/g,"").trim().replace(/\s+/g,"-");
-    if(m)dl(`Warbixin-${clean}-2026.txt`,buildPersonalText(m).replace(/\*/g,""),"text/plain;charset=utf-8");
-    const oldT=document.title;
-    document.title=`Warbixin-${clean}-2026`;
-    setTimeout(()=>{window.print();setTimeout(()=>{document.title=oldT},800)},200);
-  };
-
-  document.querySelectorAll("[data-m]").forEach(e=>e.onclick=()=>need(()=>em(+e.dataset.m)));
-  document.querySelectorAll("[data-t]").forEach(e=>e.onclick=()=>need(()=>openQuickCollection(+e.dataset.t)));
-  document.querySelectorAll("[data-x]").forEach(e=>e.onclick=()=>need(()=>ex(+e.dataset.x)));
-  document.querySelectorAll("[data-s]").forEach(e=>e.onclick=()=>{sub=e.dataset.s;render()});
-  const sh=$("#sh");if(sh)sh.onclick=async()=>{try{await navigator.clipboard.writeText(rep());sh.textContent="✓ La koobiyeeyay"}catch(e){md(`<h2>Warbixin</h2><textarea rows=12>${esc(rep())}</textarea>`)}};
-  const cs=$("#cs");if(cs)cs.onclick=async()=>{const rows=[["Magac","Group","Bishii",...MN,"Total","Maqan"],...S.m.map(m=>[m.n,m.g,m.d,...m.p,paid(m),owed(m).reduce((a,k)=>a+m.d-m.p[k],0)])];
-   dl("kulmiye-warbixin.csv",rows.map(r=>r.map(c=>'"'+String(c).replace(/"/g,'""')+'"').join(",")).join("\n"),"text/csv")};
+    return doc;
+  });
 }
 
-$("#fab").onclick=()=>need(()=>{if(tab==="m")em(-1);else if(tab==="t")openQuickCollection(-1);else ex(-1)});
+function pdfFilename(reportKey){
+  const map={s:"Warbixin-Shaqsi",b:"Warbixin-Bil-bil",p:"Warbixin-Xubnaha",
+    c:"Warbixin-Qabeyaasha",g:"Warbixin-Guud"};
+  if(reportKey==="s"){
+    const m=S.m[selPersonIdx];
+    const name=(m?.n||"Shaqsi").replace(/[^\w\s-]/g,"").trim().replace(/\s+/g,"-");
+    return `Warbixin-Shaqsi-${name}-${YEAR}.pdf`;
+  }
+  return `${map[reportKey]}-${YEAR}.pdf`;
+}
 
+/* =====================================================================
+   WHATSAPP & COPY
+   ===================================================================== */
+async function shareWhatsApp(reportKey){
+  const text=waTextFor(reportKey);
+  /* try to generate + share actual PDF first */
+  try{
+    const doc=await buildPdfDoc(reportKey);
+    const blob=doc.output("blob");
+    const file=new File([blob],pdfFilename(reportKey),{type:"application/pdf"});
+    if(navigator.canShare && navigator.canShare({files:[file]})){
+      await navigator.share({files:[file],text,title:"Warbixin"});
+      return;
+    }
+    /* fall back: download + open WhatsApp text */
+    doc.save(pdfFilename(reportKey));
+    toast("PDF la soo dejiyay. Hadda WhatsApp ayaa furmaya — fadlan ku lifaaq PDF-ka.");
+  }catch(e){
+    toast("PDF lama abuuri karin — qoraalka oo kaliya ayaa la dirayaa");
+  }
+  const url="https://wa.me/?text="+encodeURIComponent(text);
+  window.open(url,"_blank","noopener,noreferrer");
+}
+
+async function downloadPdf(reportKey){
+  const btn=$("#pdfBtn"); if(btn){btn.disabled=true; btn.textContent="⏳ Abuurista…";}
+  try{
+    const doc=await buildPdfDoc(reportKey);
+    doc.save(pdfFilename(reportKey));
+    toast("✓ PDF la soo dejiyay");
+  }catch(e){
+    toast("PDF lama abuuri karin — internet ayaa loo baahan yahay (jsPDF CDN)");
+  }finally{
+    if(btn){btn.disabled=false; btn.textContent="⬇️ Download PDF";}
+  }
+}
+
+async function copyText(reportKey){
+  const text=waTextFor(reportKey);
+  try{ await navigator.clipboard.writeText(text); toast("✓ La koobiyeeyay"); }
+  catch(e){ md(`<h2>Warbixin</h2><textarea rows="14">${esc(text)}</textarea>`); }
+}
+
+/* =====================================================================
+   MODALS — MEMBER / COLLECTION / EXPENSE
+   ===================================================================== */
+function em(i){
+  const m=i<0?{n:"",g:GROUPS[0],d:10,p:Array(9).fill(0)}:S.m[i];
+  md(`<h2>${i<0?"Xubin Cusub":"Wax ka beddel"}</h2>
+    <label>Magac</label><input id="a" value="${esc(m.n)}">
+    <label>Qoys / Koox</label>
+    <select id="b">
+      ${GROUPS.map(g=>`<option value="${esc(g)}" ${m.g===g?"selected":""}>${esc(g)}</option>`).join("")}
+      <option value="${esc(m.g)}" ${!GROUPS.includes(m.g)?"selected":""}>${esc(m.g||"Kale")}</option>
+    </select>
+    <label>Bishii la rabo ($)</label><input id="c" type="number" value="${m.d}" min="0">
+    <label>Lacagta bil kasta</label>
+    <div class="pg">
+      ${MN.map((n,k)=>`<div><label>${n}</label><input class="pp" type="number" min="0" value="${m.p[k]||""}"></div>`).join("")}
+    </div>
+    <button class="btn w" id="sv">Kaydi</button>
+    ${i>=0?`<button class="btn d w" id="dl" style="margin-top:8px">Tirtir</button>`:""}`);
+  $("#sv").onclick=()=>{
+    if(busy) return;
+    const o={n:$("#a").value.trim(),g:$("#b").value.trim(),d:+$("#c").value||0,
+      p:[...document.querySelectorAll(".pp")].map(x=>Math.max(0,+x.value||0))};
+    if(!o.n) return toast("Magac geli");
+    busy=true;
+    if(API) return op("saveMember",{r:m.r,...o}).finally(()=>busy=false);
+    i<0?S.m.push(o):S.m[i]=o;
+    save();close();render();busy=false;
+  };
+  if(i>=0) $("#dl").onclick=()=>{
+    if(!confirm(`Tirtir ${m.n}? Tallaabadan lama noqon karo.`)) return;
+    if(API) return op("delMember",{r:m.r});
+    S.m.splice(i,1);save();close();render();
+  };
+}
+
+/* QUICK COLLECTION — fixed edit/delete reversal logic */
 function openQuickCollection(editIdx){
-  if(!S.m.length)return alert("Xubno kuma jiraan liiska.");
-  const existing=editIdx>=0?S.t[editIdx]:null;
+  if(!S.m.length) return toast("Xubno kuma jiraan");
+  const existing = editIdx>=0 ? S.t[editIdx] : null;
+
   let activeGrp="";
-  let activeIdx=0;
-  if(existing&&existing.w){
+  let activeMemberIdx=0;
+  if(existing && existing.w){
     const found=S.m.findIndex(m=>m.n.toLowerCase()===existing.w.toLowerCase());
-    if(found>=0)activeIdx=found;
+    if(found>=0) activeMemberIdx=found;
   }
 
-  function groupList(g){
-    const l=S.m.map((m,i)=>({m,i})).filter(x=>!g||x.m.g.toLowerCase().includes(g.toLowerCase()));
-    return l.length?l:S.m.map((m,i)=>({m,i}));
-  }
-
-  function dueMonths(member){
+  const getMembers=(g)=>{
+    const list=S.m.map((m,i)=>({m,i})).filter(x=>!g || (x.m.g||"").toLowerCase().includes(g.toLowerCase()));
+    return list.length ? list : S.m.map((m,i)=>({m,i}));
+  };
+  const dueOptions=(member)=>{
     const opts=[];
     for(let k=0;k<9;k++){
-      const pVal=+member.p[k]||0, dVal=+member.d||0, rem=Math.max(0,dVal-pVal);
-      if(rem>0)opts.push({k,name:MN[k],rem,pVal,dVal});
+      const pv=+member.p[k]||0, dv=+member.d||0;
+      const rem=Math.max(0,dv-pv);
+      if(rem>0) opts.push({k,name:MN[k],rem,pv,dv});
     }
     if(!opts.length){
-      for(let k=0;k<9;k++)opts.push({k,name:MN[k],rem:+member.d||0,pVal:+member.p[k]||0,dVal:+member.d||0});
+      for(let k=0;k<9;k++) opts.push({k,name:MN[k],rem:+member.d||0,pv:+member.p[k]||0,dv:+member.d||0});
     }
     return opts;
-  }
+  };
 
-  function draw(chosenK){
-    const gList=groupList(activeGrp);
-    if(!gList.some(x=>x.i===activeIdx))activeIdx=gList[0].i;
-    const member=S.m[activeIdx];
-    const mOpts=dueMonths(member);
-    const sel=mOpts.find(o=>o.k===chosenK)||mOpts[0];
-    const amt=existing?existing.a:sel.rem;
+  function draw(chosenMonthIdx){
+    const gList=getMembers(activeGrp);
+    if(!gList.some(x=>x.i===activeMemberIdx)) activeMemberIdx=gList[0].i;
+    const member=S.m[activeMemberIdx];
+    const mOpts=dueOptions(member);
+    const sel=mOpts.find(o=>o.k===chosenMonthIdx)||mOpts[0];
+    const defaultAmt = existing ? existing.a : sel.rem;
 
     md(`<h2>${existing?"Wax ka beddel Qabasho":"Qabasho Cusub"}</h2>
-      <label>1. Kala saar Qoyska</label>
-      <select id="qGrp"><option value="">Dhammaan Qoysaska</option>${GROUPS.map(g=>`<option value="${esc(g)}" ${activeGrp===g?"selected":""}>${esc(g)}</option>`).join("")}</select>
-      <label>2. Dooro Magaca Qofka</label>
-      <select id="qMem">${gList.map(({m:pm,i:idx})=>`<option value="${idx}" ${idx===activeIdx?"selected":""}>${esc(pm.n)} (${esc(pm.g||"—")} · $${pm.d}/bil)</option>`).join("")}</select>
-      <label>3. Bilaha ku dhiman</label>
-      <select id="qMon">${mOpts.map(o=>`<option value="${o.k}" ${o.k===sel.k?"selected":""}>${o.name} · maqan $${o.rem} (bixiyay $${o.pVal}/$${o.dVal})</option>`).join("")}</select>
-      <label>4. Lacagta ($)</label>
-      <input id="qAmt" type="number" value="${amt}">
+      ${existing?`<div style="background:var(--warn-bg);color:var(--warn);padding:8px 12px;border-radius:8px;font-size:12px;margin-bottom:10px">Beddelidda waxay si sax ah u beddeli doontaa lacagta xubinta.</div>`:""}
+      <label>Koox</label>
+      <select id="qGrp">
+        <option value="">Dhammaan</option>
+        ${GROUPS.map(g=>`<option value="${esc(g)}" ${activeGrp===g?"selected":""}>${esc(g)}</option>`).join("")}
+      </select>
+      <label>Qofka</label>
+      <select id="qMem">
+        ${gList.map(({m:pm,i:idx})=>`<option value="${idx}" ${idx===activeMemberIdx?"selected":""}>${esc(pm.n)} (${esc(pm.g||"—")} · ${fmtMoney(pm.d)})</option>`).join("")}
+      </select>
+      <label>Bisha</label>
+      <select id="qMon">
+        ${mOpts.map(o=>`<option value="${o.k}" ${o.k===sel.k?"selected":""}>${o.name} · maqan ${fmtMoney(o.rem)} (bixiyay ${fmtMoney(o.pv)})</option>`).join("")}
+      </select>
+      <label>Lacagta ($)</label>
+      <input id="qAmt" type="number" min="0" value="${defaultAmt}">
       <label>Taariikh</label>
       <input id="qDate" type="date" value="${esc(existing?existing.d:td())}">
       <label>Qofka soo aruuriyay</label>
       <input id="qCol" value="${esc(existing?existing.c:(activeGrp||member.g||""))}">
-      <label>NB</label>
+      <label>NB / Faahfaahin</label>
       <input id="qNb" value="${esc(existing?existing.nb:`${sel.name} (${member.n})`)}">
       <button class="btn w" id="qSave">Kaydi</button>
       ${existing?`<button class="btn d w" id="qDel" style="margin-top:8px">Tirtir</button>`:""}`);
 
-    $("#qGrp").onchange=e=>{activeGrp=e.target.value;draw(null)};
-    $("#qMem").onchange=e=>{activeIdx=+e.target.value;draw(null)};
+    $("#qGrp").onchange=e=>{ activeGrp=e.target.value; draw(null); };
+    $("#qMem").onchange=e=>{ activeMemberIdx=+e.target.value; draw(null); };
     $("#qMon").onchange=e=>{
-      const k=+e.target.value, opt=mOpts.find(o=>o.k===k)||sel;
-      $("#qAmt").value=opt.rem;
-      $("#qNb").value=`${opt.name} (${member.n})`;
+      const k=+e.target.value;
+      const o=mOpts.find(x=>x.k===k)||sel;
+      $("#qAmt").value=o.rem;
+      $("#qNb").value=`${o.name} (${member.n})`;
     };
 
     $("#qSave").onclick=()=>{
-      const k=+$("#qMon").value, val=+$("#qAmt").value||0;
-      const updated=JSON.parse(JSON.stringify(member));
-      updated.p[k]=(+updated.p[k]||0)+val;
-      const rec={d:$("#qDate").value||td(),b:MN[k],c:$("#qCol").value.trim()||"Qabasho",w:member.n,a:val,nb:$("#qNb").value.trim()};
-      if(API)return op("saveMember",{r:member.r,...updated}).then(()=>op("saveT",{r:existing?existing.r:undefined,...rec}));
-      S.m[activeIdx]=updated;
-      if(existing)S.t[editIdx]=rec;else S.t.push(rec);
+      if(busy) return;
+      const k=+$("#qMon").value;
+      const amt=Math.max(0,+$("#qAmt").value||0);
+      const col=$("#qCol").value.trim()||"Qabasho";
+      const d=$("#qDate").value||td();
+      const nb=$("#qNb").value.trim();
+
+      /* --- FIXED LOGIC: reverse original, then apply new --- */
+      const applyMember = (mem, monthIdx, amount)=>{
+        const copy=JSON.parse(JSON.stringify(mem));
+        const prev=+copy.p[monthIdx]||0;
+        copy.p[monthIdx]=Math.max(0, prev+amount);
+        return copy;
+      };
+
+      const tRecord={ d, b:MN[k], c:col, w:member.n, a:amt, nb };
+
+      if(existing){
+        /* determine original member and month from existing record */
+        const oldMemberName = existing.w;
+        const oldMonthIdx = MN.indexOf(existing.b);
+        const oldAmt = +existing.a||0;
+        const oldMemberIdx = S.m.findIndex(x=>x.n===oldMemberName);
+
+        if(API){
+          /* backend: saveMember update + saveT update-by-r */
+          busy=true;
+          const tasks=[];
+          /* reverse from old member/month */
+          if(oldMemberIdx>=0 && oldMonthIdx>=0){
+            const oldM=S.m[oldMemberIdx];
+            const reversed=JSON.parse(JSON.stringify(oldM));
+            reversed.p[oldMonthIdx]=Math.max(0,(+reversed.p[oldMonthIdx]||0)-oldAmt);
+            tasks.push(op("saveMember",{r:oldM.r,...reversed},true));
+          }
+          /* apply new to selected member/month (may be same row → backend sees final) */
+          const newM=S.m[activeMemberIdx];
+          const applied=applyMember(newM,k,amt);
+          tasks.push(op("saveMember",{r:newM.r,...applied},true));
+          tasks.push(op("saveT",{r:existing.r,...tRecord},true));
+          Promise.all(tasks).then(()=>{close();pull(true);}).finally(()=>busy=false);
+          return;
+        }
+        /* local-only path */
+        if(oldMemberIdx>=0 && oldMonthIdx>=0){
+          const oldM=S.m[oldMemberIdx];
+          oldM.p[oldMonthIdx]=Math.max(0,(+oldM.p[oldMonthIdx]||0)-oldAmt);
+        }
+        S.m[activeMemberIdx]=applyMember(S.m[activeMemberIdx],k,amt);
+        S.t[editIdx]={...existing,...tRecord};
+        save();close();render();return;
+      }
+
+      /* new collection */
+      if(API){
+        busy=true;
+        const newM=S.m[activeMemberIdx];
+        const applied=applyMember(newM,k,amt);
+        Promise.all([
+          op("saveMember",{r:newM.r,...applied},true),
+          op("saveT",{...tRecord},true)
+        ]).then(()=>{close();pull(true);}).finally(()=>busy=false);
+        return;
+      }
+      S.m[activeMemberIdx]=applyMember(S.m[activeMemberIdx],k,amt);
+      S.t.push(tRecord);
       save();close();render();
     };
 
-    if(existing&&$("#qDel")){
+    if(existing && $("#qDel")){
       $("#qDel").onclick=()=>{
-        if(confirm("Tirtir diiwaankan?")){
-          if(API)return op("delT",{r:existing.r});
-          S.t.splice(editIdx,1);save();close();render();
+        if(!confirm("Tirtir diiwaankan? Lacagta xubinta waa la beddeli doonaa.")) return;
+        const oldMemberIdx=S.m.findIndex(x=>x.n===existing.w);
+        const oldMonthIdx=MN.indexOf(existing.b);
+        const oldAmt=+existing.a||0;
+        if(API){
+          busy=true;
+          const tasks=[];
+          if(oldMemberIdx>=0 && oldMonthIdx>=0){
+            const oldM=S.m[oldMemberIdx];
+            const reversed=JSON.parse(JSON.stringify(oldM));
+            reversed.p[oldMonthIdx]=Math.max(0,(+reversed.p[oldMonthIdx]||0)-oldAmt);
+            tasks.push(op("saveMember",{r:oldM.r,...reversed},true));
+          }
+          tasks.push(op("delT",{r:existing.r},true));
+          Promise.all(tasks).then(()=>{close();pull(true);}).finally(()=>busy=false);
+          return;
         }
+        if(oldMemberIdx>=0 && oldMonthIdx>=0){
+          S.m[oldMemberIdx].p[oldMonthIdx]=Math.max(0,(+S.m[oldMemberIdx].p[oldMonthIdx]||0)-oldAmt);
+        }
+        S.t.splice(editIdx,1);save();close();render();
       };
     }
   }
   draw(null);
 }
 
-function em(i){const m=i<0?{n:"",g:GROUPS[0],d:10,p:Array(9).fill(0)}:S.m[i];
- md(`<h2>${i<0?"Xubin cusub":esc(m.n)}</h2><label>Magac</label><input id="a" value="${esc(m.n)}"><label>Group / Qoys</label><select id="b">${GROUPS.map(g=>`<option value="${esc(g)}" ${m.g===g?"selected":""}>${esc(g)}</option>`).join("")}<option value="${esc(m.g)}" ${!GROUPS.includes(m.g)?"selected":""}>${esc(m.g||"Kale")}</option></select><label>Bishii la rabo ($)</label><input id="c" type="number" value="${m.d}"><label>Lacagta bil kasta</label><div class="pg">${MN.map((n,k)=>`<div><label>${n}</label><input class="pp" type="number" value="${m.p[k]||""}" style="margin:2px 0"></div>`).join("")}</div>
- <button class="btn w" id="sv">Kaydi</button>${i>=0?`<button class="btn d w" id="dl" style="margin-top:8px">Tirtir</button>`:""}`);
- $("#sv").onclick=()=>{const o={n:$("#a").value.trim(),g:$("#b").value.trim(),d:+$("#c").value||0,p:[...document.querySelectorAll(".pp")].map(x=>+x.value||0)};if(!o.n)return;if(API)return op("saveMember",{r:m.r,...o});i<0?S.m.push(o):S.m[i]=o;save();close();render()};
- if(i>=0)$("#dl").onclick=()=>{if(confirm("Tirtir "+m.n+"?")){if(API)return op("delMember",{r:m.r});S.m.splice(i,1);save();close();render()}}}
+function ex(i){
+  const x=i<0?{d:td(),a:"",s:"",to:"",by:"",nb:""}:S.x[i];
+  md(`<h2>${i<0?"Bixin Cusub":"Wax ka beddel Bixin"}</h2>
+    <label>Taariikh</label><input id="a" type="date" value="${esc(x.d)}">
+    <label>Lacagta ($)</label><input id="b" type="number" min="0" value="${x.a}">
+    <label>Sababta</label><input id="c" value="${esc(x.s)}">
+    <label>Qofka loo tuuray</label><input id="e" value="${esc(x.to)}">
+    <label>Qofka bixiyey</label><input id="f" value="${esc(x.by)}">
+    <label>Faahfaahin</label><input id="n" value="${esc(x.nb)}">
+    <button class="btn w" id="sv">Kaydi</button>
+    ${i>=0?`<button class="btn d w" id="dl" style="margin-top:8px">Tirtir</button>`:""}`);
+  $("#sv").onclick=()=>{
+    if(busy) return;
+    const o={d:$("#a").value,a:Math.max(0,+$("#b").value||0),s:$("#c").value.trim(),
+      to:$("#e").value.trim(),by:$("#f").value.trim(),nb:$("#n").value};
+    if(!o.a) return toast("Lacag geli");
+    busy=true;
+    if(API) return op("saveX",{r:x.r,...o}).finally(()=>busy=false);
+    i<0?S.x.push(o):S.x[i]=o;save();close();render();busy=false;
+  };
+  if(i>=0) $("#dl").onclick=()=>{
+    if(!confirm("Tirtir bixintan?")) return;
+    if(API) return op("delX",{r:x.r});
+    S.x.splice(i,1);save();close();render();
+  };
+}
 
-function ex(i){const x=i<0?{d:td(),a:"",s:"",to:"",by:"",nb:""}:S.x[i];
- md(`<h2>${i<0?"Bixin cusub":"Wax ka beddel"}</h2><label>Taariikh</label><input id="a" type="date" value="${esc(x.d)}"><label>Lacagta ($)</label><input id="b" type="number" value="${x.a}"><label>Sababta loo bixiyey</label><input id="c" value="${esc(x.s)}"><label>Qofka loo tuuray</label><input id="e" value="${esc(x.to)}"><label>Qofka bixiyey</label><input id="f" value="${esc(x.by)}"><label>Faahfaahin</label><input id="n" value="${esc(x.nb)}"><button class="btn w" id="sv">Kaydi</button>${i>=0?`<button class="btn d w" id="dl" style="margin-top:8px">Tirtir</button>`:""}`);
- $("#sv").onclick=()=>{const o={d:$("#a").value,a:+$("#b").value||0,s:$("#c").value.trim(),to:$("#e").value.trim(),by:$("#f").value.trim(),nb:$("#n").value};if(API)return op("saveX",{r:x.r,...o});i<0?S.x.push(o):S.x[i]=o;save();close();render()};
- if(i>=0)$("#dl").onclick=()=>{if(confirm("Tirtir?")){if(API)return op("delX",{r:x.r});S.x.splice(i,1);save();close();render()}}}
+/* =====================================================================
+   API OPERATIONS (preserved contract)
+   ===================================================================== */
+async function op(name,data,silent){
+  const t=$("#toast"); if(!silent){t.textContent="Waa la kaydinayaa…";t.classList.add("on");}
+  try{
+    const r=await fetch(API,{method:"POST",
+      headers:{"Content-Type":"text/plain;charset=utf-8"},
+      body:JSON.stringify({pass:PW,op:name,...data})});
+    const j=await r.json();
+    if(j.error) throw j.error;
+    if(!silent){close();await pull();}
+    return j;
+  }catch(e){
+    toast("Cillad: "+e);
+    throw e;
+  }finally{
+    if(!silent){setTimeout(()=>t.classList.remove("on"),400);}
+  }
+}
 
-render();pull();document.addEventListener("visibilitychange",()=>{if(!document.hidden)pull()});
-</script></body></html>
+/* =====================================================================
+   SYNC / PULL
+   ===================================================================== */
+async function pull(showMsg){
+  if(!API){setSync("init"); render(); return;}
+  setSync("loading");
+  try{
+    const prevM=JSON.parse(JSON.stringify(S.m||[]));
+    const prevAutoT=(S.t||[]).filter(it=>it.auto);
+    const r=await fetch(API+(API.includes("?")?"&":"?")+"t="+Date.now());
+    const j=await r.json();
+    if(j.error) throw j.error;
+    const norm=normalizeData(j);
+    const changes=detectCellChanges(prevM,norm.m,norm.t);
+    const mergedT=[...norm.t,...prevAutoT];
+    changes.forEach(ch=>{
+      const dup=mergedT.some(t=>t.w===ch.w&&t.b===ch.b&&t.nb===ch.nb&&+t.a===+ch.a);
+      if(!dup) mergedT.push(ch);
+    });
+    S={m:norm.m,t:mergedT,x:norm.x};
+    save();
+    setSync("ok");
+    if(showMsg) toast("✓ La cusboonaysiiyay");
+  }catch(e){
+    setSync("err",String(e).slice(0,60));
+    if(showMsg) toast("Xiriirka Sheet lama gaadhin");
+  }
+  render();
+}
+
+/* =====================================================================
+   BINDINGS
+   ===================================================================== */
+function bind(){
+  /* group filter + search on members */
+  const gf=$("#gf"); if(gf) gf.onchange=e=>{grpFilter=e.target.value;render();};
+  const qi=$("#q"); if(qi) qi.oninput=e=>{
+    q=e.target.value; const p=e.target.selectionStart;
+    render();
+    const n=$("#q"); if(n){n.focus();n.setSelectionRange(p,p);}
+  };
+
+  /* personal report selectors */
+  const pGrp=$("#pGrp"); if(pGrp) pGrp.onchange=e=>{grpFilter=e.target.value;render();};
+  const pSel=$("#pSel"); if(pSel) pSel.onchange=e=>{selPersonIdx=+e.target.value;render();};
+
+  /* report actions */
+  const wa=$("#waBtn"); if(wa) wa.onclick=()=>shareWhatsApp(sub);
+  const pdf=$("#pdfBtn"); if(pdf) pdf.onclick=()=>downloadPdf(sub);
+  const cp=$("#copyBtn"); if(cp) cp.onclick=()=>copyText(sub);
+
+  /* report tabs */
+  $$("[data-s]").forEach(e=>e.onclick=()=>{sub=e.dataset.s;render();});
+
+  /* open modals */
+  $$("[data-m]").forEach(e=>e.onclick=()=>need(()=>em(+e.dataset.m)));
+  $$("[data-t]").forEach(e=>e.onclick=()=>need(()=>openQuickCollection(+e.dataset.t)));
+  $$("[data-x]").forEach(e=>e.onclick=()=>need(()=>ex(+e.dataset.x)));
+}
+
+/* FAB — context-aware */
+$("#fab").onclick=()=>need(()=>{
+  if(tab==="m") em(-1);
+  else if(tab==="t") openQuickCollection(-1);
+  else ex(-1);
+});
+
+/* =====================================================================
+   BACKUP / RESTORE
+   ===================================================================== */
+function dl(name,text,type){
+  const a=document.createElement("a");
+  a.href=URL.createObjectURL(new Blob([text],{type:type||"application/json"}));
+  a.download=name; document.body.appendChild(a); a.click();
+  setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove();},1500);
+}
+
+/* =====================================================================
+   BOOT
+   ===================================================================== */
+render();
+pull();
+document.addEventListener("visibilitychange",()=>{ if(!document.hidden && API) pull(); });
+</script>
+</body>
+</html>
