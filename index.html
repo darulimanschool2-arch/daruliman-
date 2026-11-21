@@ -674,7 +674,7 @@ function viewMembers(){
         </div>
         <div style="text-align:right;min-width:80px">
           <b class="ok">${fmtMoney(paid(m))}</b><br>
-          <small class="${ob>0?'bad':'ok'}">${ob>0?'maqan '+fmtMoney(ob):'✓ buuxa'}</small>
+          <small class="${ob>0?'bad':'ok'}">${ob>0?'maqan '+fmtMoney(ob):'✓ OK'}</small>
         </div>
       </div>`;
     }).join("") || `<small style="text-align:center;display:block;padding:16px">Xubin lama helin</small>`}
@@ -798,7 +798,7 @@ function reportPersonal(){
               const v=+m.p[k]||0;
               const billed = k<cur;
               const rem = billed ? Math.max(0,monthlyDue-v) : 0;
-              const stTxt = monthlyDue>0 && v>=monthlyDue ? "Buuxa ✓" :
+              const stTxt = monthlyDue>0 && v>=monthlyDue ? "OK ✓" :
                             v>0 ? "Qayb" : billed ? "Maqan" : "Weli lama dallacin";
               const stCls = (monthlyDue>0 && v>=monthlyDue) ? "ok" : rem>0 ? "bad" : "";
               return `<tr>
@@ -842,7 +842,7 @@ function reportMonthly(){
             <td class="${o.miss>0&&!future?'bad':''}">${future?'—':fmtMoney(o.miss)}</td>
             <td>${future?'—':o.pc+'%'}</td>
             <td>${future?'—':o.n+'/'+S.m.length}</td>
-            <td>${future?'<small>Weli lama dallacin</small>':(o.miss>0?'<span class="bad">Maqan</span>':'<span class="ok">Buuxa</span>')}</td>
+            <td>${future?'<small>Weli lama dallacin</small>':(o.miss>0?'<span class="bad">Maqan</span>':'<span class="ok">OK</span>')}</td>
           </tr>`;
         }).join("")}
         <tr>
@@ -1097,7 +1097,7 @@ function buildPdfDoc(reportKey){
           const v=+m.p[k]||0;
           const billed=k<cur;
           const rem=billed?Math.max(0,md-v):0;
-          const st=md>0&&v>=md?"Buuxa":v>0?"Qayb":billed?"Maqan":"Weli lama dallacin";
+          const st=md>0&&v>=md?"OK":v>0?"Qayb":billed?"Maqan":"Weli lama dallacin";
           return [n, fmtMoney(md), fmtMoney(v), billed?fmtMoney(rem):"—", st];
         });
         addTable(["Bil","Laga rabo","La bixiyay","Ku dhiman","Xaalad"], rows);
@@ -1111,7 +1111,7 @@ function buildPdfDoc(reportKey){
           const fut=i>=cur;
           return [n, fmtMoney(o.R), fmtMoney(o.pd), fut?"—":fmtMoney(o.miss),
             fut?"—":o.pc+"%", fut?"—":`${o.n}/${S.m.length}`,
-            fut?"Weli lama dallacin":o.miss>0?"Maqan":"Buuxa"];
+            fut?"Weli lama dallacin":o.miss>0?"Maqan":"OK"];
         }).concat([["TOTAL",fmtMoney(t.yr),fmtMoney(t.pd),fmtMoney(t.miss),
           fmtPct(t.pd,t.yr),"",""]])
       );
