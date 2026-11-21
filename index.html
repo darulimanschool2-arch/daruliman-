@@ -3,26 +3,22 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Apps Script App</title>
-  <style>
-    html, body {
-      margin: 0;
-      padding: 0;
-      height: 100%;
-      width: 100%;
-      overflow: hidden;
-    }
-    iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
-    }
-  </style>
+  <title>Xogta Apps Script</title>
 </head>
 <body>
-  <iframe
-    src="https://script.google.com/macros/s/AKfycbw8kKEosj8EkV458_D2_f6C7oeMRLWMrBbNdowmo0aW8-pRtSH2Raen3EvWNVwqtRnnuA/exec"
-    allow="clipboard-write"
-  ></iframe>
+  <div id="output">Waa la soo rarayo...</div>
+
+  <script>
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw8kKEosj8EkV458_D2_f6C7oeMRLWMrBbNdowmo0aW8-pRtSH2Raen3EvWNVwqtRnnuA/exec";
+
+    fetch(SCRIPT_URL)
+      .then((res) => res.text())
+      .then((data) => {
+        document.getElementById("output").innerText = data;
+      })
+      .catch((err) => {
+        document.getElementById("output").innerText = "Khalad ayaa dhacay: " + err.message;
+      });
+  </script>
 </body>
 </html>
