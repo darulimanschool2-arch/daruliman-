@@ -1,96 +1,182 @@
 <!DOCTYPE html>
-<html lang="so">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Darul Iman - Xogta</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 20px;
-      background: #f4f6f9;
-      color: #222;
-    }
-    h2 {
-      margin-bottom: 12px;
-    }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      background: #fff;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
-    }
-    th, td {
-      border: 1px solid #ddd;
-      padding: 8px 10px;
-      text-align: left;
-      font-size: 14px;
-    }
-    th {
-      background: #1e3a8a;
-      color: #fff;
-    }
-    tr:nth-child(even) {
-      background: #f9fafb;
-    }
-  </style>
-</head>
-<body>
-  <h2>Xogta Kasoo Baxday Apps Script</h2>
-  <div id="status">Waa la soo rarayo...</div>
+<html lang="so"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0f7a55"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><title>Reer Kulmiye Cali – Lacagta Qaraanka</title>
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);--bg:#f4f6f3;--card:#fff;--tx:#14231c;--mu:#6a7a72;--br:#dfe6e1;--pr:#0f7a55;--pr2:#e3f4ec;--rd:#c4372b;--rd2:#fbe9e7;--am:#b7791f;--am2:#fdf3dc;--bl:#2b6cb0}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#0e1612;--card:#17221c;--tx:#e8f1ec;--mu:#8da197;--br:#26352d;--pr:#35c590;--pr2:#16372b;--rd:#ff7b6e;--rd2:#3a1d1a;--am:#f0b95a;--am2:#3a2e14;--bl:#7db4f0}}
+:root[data-theme=dark]{--bg:#0e1612;--card:#17221c;--tx:#e8f1ec;--mu:#8da197;--br:#26352d;--pr:#35c590;--pr2:#16372b;--rd:#ff7b6e;--rd2:#3a1d1a;--am:#f0b95a;--am2:#3a2e14;--bl:#7db4f0}
+html,body{margin:0;background:var(--bg);color:var(--tx);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--pr);z-index:10}
+header{background:var(--pr);color:#fff;padding:14px 16px 16px;display:flex;justify-content:space-between;align-items:center;gap:8px}
+header h1{font-size:17px;margin:0}header small{opacity:.85;font-size:12px}
+.lock{background:#ffffff26;border:0;color:#fff;border-radius:20px;padding:8px 12px;font-size:13px;cursor:pointer}
+main{padding:14px 14px 90px;max-width:760px;margin:auto}
+nav{position:fixed;bottom:0;left:0;right:0;background:var(--card);border-top:1px solid var(--br);display:flex;padding:6px 4px calc(6px + env(safe-area-inset-bottom,0px));z-index:5}
+nav button{flex:1;background:none;border:0;color:var(--mu);font-size:11px;padding:6px 0;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px}
+nav button span{font-size:20px}nav button.on{color:var(--pr);font-weight:700}
+.g{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.c{background:var(--card);border:1px solid var(--br);border-radius:14px;padding:14px;margin-bottom:10px}
+.k small{color:var(--mu);font-size:12px}.k b{display:block;font-size:22px;margin-top:4px}
+.ok{color:var(--pr)}.bad{color:var(--rd)}.warn{color:var(--am)}
+h2{font-size:15px;margin:16px 2px 8px}
+.bar{height:9px;background:var(--br);border-radius:9px;overflow:hidden}.bar i{display:block;height:100%;background:var(--pr)}
+.mrow{display:grid;grid-template-columns:42px 1fr 78px;gap:8px;align-items:center;font-size:13px;margin:7px 0}
+.row{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:10px 0;border-bottom:1px solid var(--br);font-size:14px}
+.row:last-child{border:0}.row small{color:var(--mu)}
+.chips{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px}
+.chip{font-size:11px;padding:3px 7px;border-radius:10px;background:var(--br);color:var(--mu)}
+.chip.p{background:var(--pr2);color:var(--pr)}.chip.m{background:var(--rd2);color:var(--rd)}.chip.h{background:var(--am2);color:var(--am)}
+input,select,textarea{width:100%;padding:11px;border:1px solid var(--br);border-radius:10px;background:var(--bg);color:var(--tx);font:inherit;font-size:15px;margin:4px 0 10px}
+label{font-size:12px;color:var(--mu)}
+.btn{background:var(--pr);color:#fff;border:0;border-radius:10px;padding:12px 16px;font-size:15px;cursor:pointer;font-weight:600}
+.btn.s{background:var(--pr2);color:var(--pr)}.btn.d{background:var(--rd2);color:var(--rd)}.btn.w{width:100%}
+.top{display:flex;gap:8px;margin-bottom:10px}.top input{margin:0}
+.md{position:fixed;inset:0;background:#000a;z-index:20;display:none;align-items:flex-end;justify-content:center}
+.md.on{display:flex}.md>div{background:var(--card);width:100%;max-width:560px;max-height:92vh;overflow:auto;border-radius:18px 18px 0 0;padding:18px 16px calc(18px + env(safe-area-inset-bottom,0px))}
+.pg{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+.tw{overflow-x:auto}table{border-collapse:collapse;width:100%;font-size:13px}th,td{padding:8px 6px;text-align:right;border-bottom:1px solid var(--br);white-space:nowrap}th:first-child,td:first-child{text-align:left}th{color:var(--mu);font-weight:600}
+.tabs{display:flex;gap:6px;margin-bottom:10px;overflow-x:auto}.tabs button{border:1px solid var(--br);background:var(--card);color:var(--tx);border-radius:18px;padding:7px 13px;font-size:13px;white-space:nowrap}.tabs button.on{background:var(--pr);color:#fff;border-color:var(--pr)}
+.fab{position:fixed;right:16px;bottom:calc(76px + env(safe-area-inset-bottom,0px));width:54px;height:54px;border-radius:27px;font-size:28px;background:var(--pr);color:#fff;border:0;box-shadow:0 4px 14px #0004;z-index:6;display:none}
+.st{font-size:11px;color:var(--mu);text-align:center;margin-top:14px}
+.modebar{background:var(--pr2);color:var(--pr);border:1px solid var(--br);border-radius:10px;padding:8px 12px;font-size:12px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center}
+</style></head><body>
+<header><div><h1>Reer Kulmiye Cali</h1><small>Lacagta Qaraanka · Apr – Dec 2026</small></div><div style="display:flex;gap:6px"><button class="lock" id="rf">↻</button><button class="lock" id="lk"></button></div></header>
+<main id="v"></main>
+<button class="fab" id="fab">+</button>
+<nav id="nv"></nav>
+<div class="md" id="md"><div id="mc"></div></div>
+<div id="bz" style="display:none;position:fixed;top:64px;left:50%;transform:translateX(-50%);background:var(--tx);color:var(--bg);padding:8px 16px;border-radius:20px;z-index:30;font-size:13px">Waa la keydinayaa…</div>
+<script>
+const DEFAULT_API="https://script.google.com/macros/s/AKfycbw8kKEosj8EkV458_D2_f6C7oeMRLWMrBbNdowmo0aW8-pRtSH2Raen3EvWNVwqtRnnuA/exec";
+const MN=["Apr","May","Jun","Jul","Ago","Sep","Oct","Nov","Dec"],MF=["April","May","Juun","Julay","Agoosto","Sebtembar","Oktoobar","Nofeembar","Deseembar"];
+let S={m:[],t:[],x:[]};
+let tab="r",unlocked=false,q="",doc=null,tmr,sub="b",fm=0;
+let API=localStorage.getItem("kul_api")||DEFAULT_API,PW="",stamp="";
+const nowM=Math.min(12,Math.max(4,new Date().getMonth()+1)),cur=nowM-4+1;
+const $=s=>document.querySelector(s),f=n=>(+n||0).toLocaleString("en-US"),esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 
-  <table id="dataTable" style="display:none;">
-    <thead>
-      <tr>
-        <th>#</th>
-        <th>Magaca (n)</th>
-        <th>Waalidka / Qaybta (g)</th>
-        <th>Taariikhda / Bilaha (d / b)</th>
-        <th>Faahfaahin / Dhibco</th>
-      </tr>
-    </thead>
-    <tbody id="tableBody"></tbody>
-  </table>
-
-  <script>
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw8kKEosj8EkV458_D2_f6C7oeMRLWMrBbNdowmo0aW8-pRtSH2Raen3EvWNVwqtRnnuA/exec";
-
-    fetch(SCRIPT_URL)
-      .then((res) => res.text())
-      .then((rawText) => {
-        const parsed = JSON.parse(rawText);
-        const rows = parsed.r || [];
-        const tbody = document.getElementById("tableBody");
-        const table = document.getElementById("dataTable");
-        const status = document.getElementById("status");
-
-        tbody.innerHTML = "";
-        rows.forEach((item, index) => {
-          const tr = document.createElement("tr");
-
-          const name = item.n || "-";
-          const groupOrParent = item.g || item.w || "-";
-          const dateOrMonth = item.d || item.b || "-";
-          const extra = item.p
-            ? item.p.join(", ")
-            : (item.c || item.a || "");
-
-          tr.innerHTML = `
-            <td>${index + 1}</td>
-            <td>${name}</td>
-            <td>${groupOrParent}</td>
-            <td>${dateOrMonth}</td>
-            <td>${extra}</td>
-          `;
-          tbody.appendChild(tr);
-        });
-
-        status.style.display = "none";
-        table.style.display = "table";
-      })
-      .catch((err) => {
-        document.getElementById("status").innerText = "Khalad ayaa dhacay: " + err.message;
+function normalizeData(j){
+  if(Array.isArray(j.m) || Array.isArray(j.t)){
+    return {m:j.m||[], t:j.t||[], x:j.x||[]};
+  }
+  const r=Array.isArray(j.r)?j.r:[];
+  const x=Array.isArray(j.x)?j.x:[];
+  const m=[];
+  const t=[];
+  r.forEach(item=>{
+    if(Array.isArray(item.p)){
+      m.push({
+        r:item.r,
+        n:item.n||"",
+        g:item.g||"",
+        d:+item.d||0,
+        p:item.p.slice(0,9).map(v=>+v||0).concat(Array(Math.max(0,9-item.p.length)).fill(0))
       });
-  </script>
-</body>
-</html>
+    } else if(item.c || item.a || item.w){
+      t.push({
+        r:item.r,
+        d:item.d||"",
+        b:item.b||"",
+        c:item.c||"",
+        w:item.w||"",
+        a:+item.a||0,
+        nb:item.nb||""
+      });
+    }
+  });
+  return {m,t,x};
+}
+
+function load(){try{const j=localStorage.getItem("kul2");if(j)S=normalizeData(JSON.parse(j));localStorage.removeItem("kul")}catch(e){}}
+load();
+async function save(){try{localStorage.setItem("kul2",JSON.stringify(S))}catch(e){}
+ clearTimeout(tmr);tmr=setTimeout(()=>{if(doc)doc.set({json:JSON.stringify(S)}).catch(()=>{})},400)}
+const due=(m,k=cur)=>m.d*k,paid=m=>m.p.reduce((a,b)=>a+b,0),paidTo=(m,k=cur)=>m.p.slice(0,k).reduce((a,b)=>a+b,0);
+const T=()=>{const R=S.m.reduce((a,m)=>a+m.d,0),yr=R*9,dn=R*cur,pd=S.m.reduce((a,m)=>a+paid(m),0),pdn=S.m.reduce((a,m)=>a+paidTo(m),0),ex=S.x.reduce((a,x)=>a+(+x.a||0),0),lg=S.t.reduce((a,t)=>a+(+t.a||0),0);
+ return{R,yr,dn,pd,pdn,miss:Math.max(0,dn-pdn),ex,hand:pd-ex,lg}};
+const mon=i=>{const R=S.m.reduce((a,m)=>a+m.d,0),pd=S.m.reduce((a,m)=>a+m.p[i],0),n=S.m.filter(m=>m.p[i]>=m.d&&m.d>0).length;return{R,pd,miss:R-pd,n,pc:R?Math.round(pd/R*100):0}};
+const owed=m=>{let l=[];for(let i=0;i<cur;i++)if(m.p[i]<m.d)l.push(i);return l};
+function lock(){$("#lk").textContent=unlocked?"🔓 Edit":"🔒 Reports"}
+$("#lk").onclick=()=>{
+  if(unlocked){
+    unlocked=false;
+    tab="r";
+    lock();
+    render();
+  } else {
+    ask();
+  }
+};
+function ask(cb){md(`<h2>Geli Password-ka Edit-ka</h2><input id="pw" type="password" placeholder="Password" autofocus><button class="btn w" id="go">Fur Edit</button><p class="bad" id="er"></p>`);
+ const go=async()=>{const p=$("#pw").value;$("#er").textContent="…";try{const r=await fetch(API,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({pass:p,op:"check"})});const j=await r.json();if(j.error)throw j.error;PW=p;unlocked=true;lock();close();render();cb&&cb()}catch(e){$("#er").textContent=String(e)}};$("#go").onclick=go;$("#pw").onkeydown=e=>e.key==="Enter"&&go()}
+function md(h){$("#mc").innerHTML=h;$("#md").classList.add("on")}function close(){$("#md").classList.remove("on")}
+$("#md").onclick=e=>{if(e.target.id==="md")close()};
+function need(cb){if(!unlocked)return;cb()}
+const NV=[["r","📝","Warbixin"],["d","📊","Dashboard"],["m","👥","Xubnaha"],["t","💵","Qabasho"],["x","🧾","Bixin"]];
+$("#nv").innerHTML=NV.map(n=>`<button data-t="${n[0]}"><span>${n[1]}</span>${n[2]}</button>`).join("");
+$("#nv").onclick=e=>{const b=e.target.closest("button");if(b){tab=b.dataset.t;q="";render();scrollTo(0,0)}};
+function render(){lock();document.querySelectorAll("nav button").forEach(b=>b.classList.toggle("on",b.dataset.t===tab));
+ $("#fab").style.display=(unlocked&&(tab==="m"||tab==="t"||tab==="x"))?"block":"none";
+ const banner=!unlocked?`<div class="modebar"><span>Habka: <b>Reports Only</b> (Edit waa xiran yahay)</span><span>Google Sheet toos</span></div>`:"";
+ $("#v").innerHTML=!API?vs():banner+({d:vd,m:vm,t:vt,x:vx,r:vr})[tab]()+`<div class="st">Xogta: ${S.m.length} xubnood · bilaha la xisaabay: ${cur} (Apr–${MN[cur-1]})${API?" · Sheet: "+stamp:" · Sheet ma xirna"}</div>`;bind()}
+function vs(){return`<div class="c"><h2 style="margin-top:0">🔗 Xiriir Google Sheet</h2><p style="font-size:14px;color:var(--mu)">Ku dheji Apps Script Web App URL (ka dhammaada /exec).</p><input id="su" value="${esc(API)}" placeholder="https://script.google.com/macros/s/.../exec"><button class="btn w" id="sa">Xiriir</button></div>`}
+function vd(){const t=T(),pc=t.dn?Math.round(t.pdn/t.dn*100):0;
+ const late=S.m.map(m=>({m,o:owed(m).reduce((a,i)=>a+m.d-m.p[i],0)})).filter(x=>x.o>0).sort((a,b)=>b.o-a.o).slice(0,5);
+ const last=[...S.t].slice(-4).reverse();
+ return`<div class="c"><small style="color:var(--mu)">Lacagta la hayo (qabasho − bixin)</small><b style="font-size:30px;display:block;margin:4px 0" class="${t.hand<0?"bad":"ok"}">$${f(t.hand)}</b>
+ <div class="bar"><i style="width:${Math.min(100,pc)}%"></i></div><small style="color:var(--mu)">${pc}% la qabtay ilaa ${MF[cur-1]} (${f(t.pdn)} / ${f(t.dn)})</small></div>
+ <div class="g"><div class="c k"><small>Hadafka sanadka</small><b>$${f(t.yr)}</b></div><div class="c k"><small>La qabtay (guud)</small><b class="ok">$${f(t.pd)}</b></div>
+ <div class="c k"><small>Maqan (ilaa hadda)</small><b class="bad">$${f(t.miss)}</b></div><div class="c k"><small>Bixin</small><b class="warn">$${f(t.ex)}</b></div></div>
+ <h2>Bil-bil</h2><div class="c">${MN.map((n,i)=>{const o=mon(i);return`<div class="mrow"><span>${n}</span><div class="bar"><i style="width:${Math.min(100,o.pc)}%;${i>=cur?"background:var(--mu)":""}"></i></div><b>${o.pc}%</b></div>`}).join("")}</div>
+ <h2>Ugu lacag-dhimanka</h2><div class="c">${late.map(x=>`<div class="row"><span>${esc(x.m.n)}<br><small>${owed(x.m).map(i=>MN[i]).join(", ")}</small></span><b class="bad">$${f(x.o)}</b></div>`).join("")||"<p class='ok'>Dhammaan waa bixiyeen ✓</p>"}</div>
+ <h2>Qabashooyinkii ugu dambeeyay</h2><div class="c">${last.map(x=>`<div class="row"><span>${esc(x.c)}<br><small>${esc(x.b)} · ${esc(x.d)}</small></span><b class="ok">$${f(x.a)}</b></div>`).join("")||"<small>Ma jiro</small>"}</div>`}
+function vm(){const L=S.m.map((m,i)=>({m,i})).filter(x=>x.m.n.toLowerCase().includes(q.toLowerCase())||x.m.g.toLowerCase().includes(q.toLowerCase()));
+ return`<div class="top"><input id="q" placeholder="🔍 Raadi magac..." value="${esc(q)}"></div><div class="c">${L.map(({m,i})=>{const o=owed(m),ob=o.reduce((a,k)=>a+m.d-m.p[k],0);
+ return`<div class="row" data-m="${i}" style="cursor:${unlocked?"pointer":"default"};align-items:flex-start"><div><b>${esc(m.n)}</b><br><small>${esc(m.g)} · bishii $${m.d}</small><div class="chips">${MN.map((n,k)=>`<span class="chip ${k>=cur?"":m.p[k]>=m.d?"p":m.p[k]>0?"h":"m"}">${n}</span>`).join("")}</div></div><div style="text-align:right"><b class="ok">$${f(paid(m))}</b><br><small class="${ob?"bad":"ok"}">${ob?"maqan $"+f(ob):"✓ buuxa"}</small></div></div>`}).join("")}</div>`}
+function vt(){const L=S.t.map((t,i)=>({t,i})).reverse();return`<div class="c k"><small>Wadarta la diiwaan geliyay (Qabasho)</small><b class="ok">$${f(T().lg)}</b></div><div class="c">${L.map(({t,i})=>`<div class="row" data-t="${i}" style="cursor:${unlocked?"pointer":"default"}"><span><b>${esc(t.c)}</b><br><small>${esc(t.b)} · ${esc(t.d)||"—"} · ${esc(t.w)}</small></span><b class="ok">$${f(t.a)}</b></div>`).join("")}</div>`}
+function vx(){const L=S.x.map((x,i)=>({x,i})).reverse();return`<div class="c k"><small>Wadarta lacagaha baxay</small><b class="warn">$${f(T().ex)}</b></div><div class="c">${L.map(({x,i})=>`<div class="row" data-x="${i}" style="cursor:${unlocked?"pointer":"default"}"><span><b>${esc(x.s)}</b><br><small>${esc(x.d)} · loo tuuray: ${esc(x.to)} · bixiyey: ${esc(x.by)}</small></span><b class="warn">$${f(x.a)}</b></div>`).join("")||"<p style='color:var(--mu)'>Weli wax lacag bixin ah lama gelin.</p>"}</div>`}
+function colls(){const o={};S.t.forEach(t=>{const k=t.c||"?";o[k]=(o[k]||0)+(+t.a||0)});return Object.entries(o).sort((a,b)=>b[1]-a[1])}
+function vr(){const t=T();const tb={b:`<div class="tw c"><table><tr><th>Bil</th><th>La rabo</th><th>La qabtay</th><th>Maqan</th><th>%</th><th>Bixiyey</th></tr>${MN.map((n,i)=>{const o=mon(i);return`<tr><td>${n}</td><td>${f(o.R)}</td><td class="ok">${f(o.pd)}</td><td class="${o.miss>0?"bad":""}">${f(o.miss)}</td><td>${o.pc}%</td><td>${o.n}/${S.m.length}</td></tr>`}).join("")}<tr><th>Total</th><th>${f(t.yr)}</th><th>${f(t.pd)}</th><th>${f(t.yr-t.pd)}</th><th></th><th></th></tr></table></div>`,
+ p:`<div class="tw c"><table><tr><th>Magac</th><th>Bixiyey</th><th>Maqan</th><th>Bilaha ku dhiman</th></tr>${S.m.map(m=>({m,o:owed(m)})).sort((a,b)=>b.o.length-a.o.length).map(({m,o})=>`<tr><td>${esc(m.n)}</td><td class="ok">${f(paid(m))}</td><td class="${o.length?"bad":"ok"}">${f(o.reduce((a,k)=>a+m.d-m.p[k],0))}</td><td style="white-space:normal;text-align:left">${o.map(k=>MN[k]).join(", ")||"✓"}</td></tr>`).join("")}</table></div>`,
+ c:`<div class="c">${colls().map(([k,v])=>`<div class="row"><span>${esc(k)}</span><b class="ok">$${f(v)}</b></div>`).join("")}</div>`,
+ g:`<div class="c"><div class="row"><span>Lacagaha la qabtay (xubnaha)</span><b class="ok">$${f(t.pd)}</b></div><div class="row"><span>Lagu diiwaan geliyay Qabasho</span><b>$${f(t.lg)}</b></div><div class="row"><span>Farqi (aan la diiwaan gelin)</span><b class="${t.pd-t.lg?"warn":"ok"}">$${f(t.pd-t.lg)}</b></div><div class="row"><span>Lacag baxday</span><b class="warn">$${f(t.ex)}</b></div><div class="row"><span>Lacagta la hayo</span><b>$${f(t.hand)}</b></div><div class="row"><span>Lacagta maqan (ilaa ${MN[cur-1]})</span><b class="bad">$${f(t.miss)}</b></div></div><button class="btn w" id="sh">📋 Koobiyee warbixin (WhatsApp)</button> <button class="btn s w" id="cs" style="margin-top:8px">⬇️ Soo deji CSV</button><button class="btn s w" id="bk" style="margin-top:8px">💾 Backup (keydi nuqul)</button>${unlocked?`<button class="btn s w" id="rs" style="margin-top:8px">♻️ Soo celi backup</button><input id="fi" type="file" accept=".json,application/json" style="display:none"><button class="btn w" id="ap" style="margin-top:8px">🔗 ${API?"Beddel":"Xiriir"} Google Sheet</button>`:""}`};
+ return`<div class="tabs">${[["b","Bil-bil"],["p","Xubnaha"],["c","Qabeyaasha"],["g","Guud"]].map(a=>`<button data-s="${a[0]}" class="${sub===a[0]?"on":""}">${a[1]}</button>`).join("")}</div>${tb[sub]}`}
+function rep(){const t=T();const l=S.m.map(m=>({m,o:owed(m)})).filter(x=>x.o.length);
+ return`*Reer Kulmiye Cali – Warbixin*\nHadafka: $${f(t.yr)}\nLa qabtay: $${f(t.pd)}\nBixin: $${f(t.ex)}\nLa hayo: $${f(t.hand)}\nMaqan (ilaa ${MN[cur-1]}): $${f(t.miss)}\n\n*Ku dhiman:*\n`+l.map(x=>`- ${x.m.n}: ${x.o.map(k=>MN[k]).join(", ")}`).join("\n")}
+function setApi(){md(`<h2>Xiriir Google Sheet</h2><label>Apps Script Web App URL</label><input id="au" value="${esc(API)}" placeholder="https://script.google.com/macros/s/.../exec"><button class="btn w" id="as">Kaydi</button>`);
+ $("#as").onclick=()=>{API=$("#au").value.trim();localStorage.setItem("kul_api",API);close();API?pull():render()}}
+async function pull(){if(!API)return;try{const r=await fetch(API+(API.includes("?")?"&":"?")+"t="+Date.now());const j=await r.json();if(j.error)throw j.error;S=normalizeData(j);save();stamp=new Date().toLocaleTimeString("en-GB").slice(0,5)}catch(e){stamp="⚠️ lama gaadhin"}render()}
+async function op(name,data){const z=$("#bz");z.style.display="block";try{const r=await fetch(API,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({pass:PW,op:name,...data})});const j=await r.json();if(j.error)throw j.error;close();await pull()}catch(e){alert("Cillad: "+e)}finally{z.style.display="none"}}
+$("#rf").onclick=()=>API?pull():alert("Marka hore ku xir Google Sheet");
+function dl(n,t,ty){const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([t],{type:ty||"application/json"}));a.download=n;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},1500)}
+function bind(){const sa=$("#sa");if(sa)sa.onclick=()=>{const u=$("#su").value.trim();if(!/^https:\/\/script\.google\.com\//.test(u))return alert("URL-ku waa inuu ka bilaabmaa https://script.google.com/");API=u;localStorage.setItem("kul_api",API);pull()};const ap=$("#ap");if(ap)ap.onclick=()=>need(setApi);const bk=$("#bk");if(bk)bk.onclick=()=>dl("kulmiye-backup-"+td()+".json",JSON.stringify(S));
+ const rs=$("#rs");if(rs)rs.onclick=()=>need(()=>$("#fi").click());
+ const fi=$("#fi");if(fi)fi.onchange=e=>{const f0=e.target.files[0];if(!f0)return;const r=new FileReader();r.onload=()=>{try{const o=normalizeData(JSON.parse(r.result));if(!o.m.length&&!o.t.length)throw 0;if(confirm("Xogta hadda jirta ayaa lagu beddelayaa backup-kan. Sii wad?")){S=o;save();render()}}catch(x){alert("Fayl-kan ma aha backup sax ah")}};r.readAsText(f0)};
+const qi=$("#q");if(qi)qi.oninput=e=>{q=e.target.value;const p=e.target.selectionStart;render();const n=$("#q");n.focus();n.setSelectionRange(p,p)};
+ document.querySelectorAll("[data-m]").forEach(e=>e.onclick=()=>need(()=>em(+e.dataset.m)));
+ document.querySelectorAll("[data-t]").forEach(e=>e.onclick=()=>need(()=>et(+e.dataset.t)));
+ document.querySelectorAll("[data-x]").forEach(e=>e.onclick=()=>need(()=>ex(+e.dataset.x)));
+ document.querySelectorAll("[data-s]").forEach(e=>e.onclick=()=>{sub=e.dataset.s;render()});
+ const sh=$("#sh");if(sh)sh.onclick=async()=>{try{await navigator.clipboard.writeText(rep());sh.textContent="✓ La koobiyeeyay"}catch(e){md(`<h2>Warbixin</h2><textarea rows=12>${esc(rep())}</textarea>`)}};
+ const cs=$("#cs");if(cs)cs.onclick=async()=>{const rows=[["Magac","Group","Bishii",...MN,"Total","Maqan"],...S.m.map(m=>[m.n,m.g,m.d,...m.p,paid(m),owed(m).reduce((a,k)=>a+m.d-m.p[k],0)])];
+  dl("kulmiye-warbixin.csv",rows.map(r=>r.map(c=>'"'+String(c).replace(/"/g,'""')+'"').join(",")).join("\n"),"text/csv")}}
+$("#fab").onclick=()=>need(()=>tab==="m"?em(-1):tab==="t"?et(-1):ex(-1));
+const td=()=>new Date().toISOString().slice(0,10);
+function em(i){const m=i<0?{n:"",g:"",d:10,p:Array(9).fill(0)}:S.m[i];
+ md(`<h2>${i<0?"Xubin cusub":esc(m.n)}</h2><label>Magac</label><input id="a" value="${esc(m.n)}"><label>Group / Qoys</label><input id="b" value="${esc(m.g)}"><label>Bishii la rabo ($)</label><input id="c" type="number" value="${m.d}"><label>Lacagta bil kasta</label><div class="pg">${MN.map((n,k)=>`<div><label>${n}</label><input class="pp" type="number" value="${m.p[k]||""}" style="margin:2px 0"></div>`).join("")}</div>
+ <button class="btn w" id="sv">Kaydi</button>${i>=0?`<button class="btn d w" id="dl" style="margin-top:8px">Tirtir</button>`:""}`);
+ $("#sv").onclick=()=>{const o={n:$("#a").value.trim(),g:$("#b").value.trim(),d:+$("#c").value||0,p:[...document.querySelectorAll(".pp")].map(x=>+x.value||0)};if(!o.n)return;if(API)return op("saveMember",{r:m.r,...o});i<0?S.m.push(o):S.m[i]=o;save();close();render()};
+ if(i>=0)$("#dl").onclick=()=>{if(confirm("Tirtir "+m.n+"?")){if(API)return op("delMember",{r:m.r});S.m.splice(i,1);save();close();render()}}}
+function et(i){const t=i<0?{d:td(),b:MN[cur-1],c:"",w:"",a:"",nb:""}:S.t[i];
+ md(`<h2>${i<0?"Qabasho cusub":"Wax ka beddel"}</h2><label>Taariikh</label><input id="a" type="date" value="${esc(t.d)}"><label>Bisha</label><input id="b" value="${esc(t.b)}"><label>Qofka soo aruuriyay</label><input id="c" value="${esc(t.c)}"><label>Dadka uu ka soo aruuriyay</label><input id="w" value="${esc(t.w)}"><label>Lacagta ($)</label><input id="e" type="number" value="${t.a}"><label>NB</label><input id="n" value="${esc(t.nb)}"><button class="btn w" id="sv">Kaydi</button>${i>=0?`<button class="btn d w" id="dl" style="margin-top:8px">Tirtir</button>`:""}`);
+ $("#sv").onclick=()=>{const o={d:$("#a").value,b:$("#b").value,c:$("#c").value.trim(),w:$("#w").value.trim(),a:+$("#e").value||0,nb:$("#n").value};if(API)return op("saveT",{r:t.r,...o});i<0?S.t.push(o):S.t[i]=o;save();close();render()};
+ if(i>=0)$("#dl").onclick=()=>{if(confirm("Tirtir?")){if(API)return op("delT",{r:t.r});S.t.splice(i,1);save();close();render()}}}
+function ex(i){const x=i<0?{d:td(),a:"",s:"",to:"",by:"",nb:""}:S.x[i];
+ md(`<h2>${i<0?"Bixin cusub":"Wax ka beddel"}</h2><label>Taariikh</label><input id="a" type="date" value="${esc(x.d)}"><label>Lacagta ($)</label><input id="b" type="number" value="${x.a}"><label>Sababta loo bixiyey</label><input id="c" value="${esc(x.s)}"><label>Qofka loo tuuray</label><input id="e" value="${esc(x.to)}"><label>Qofka bixiyey</label><input id="f" value="${esc(x.by)}"><label>Faahfaahin</label><input id="n" value="${esc(x.nb)}"><button class="btn w" id="sv">Kaydi</button>${i>=0?`<button class="btn d w" id="dl" style="margin-top:8px">Tirtir</button>`:""}`);
+ $("#sv").onclick=()=>{const o={d:$("#a").value,a:+$("#b").value||0,s:$("#c").value.trim(),to:$("#e").value.trim(),by:$("#f").value.trim(),nb:$("#n").value};if(API)return op("saveX",{r:x.r,...o});i<0?S.x.push(o):S.x[i]=o;save();close();render()};
+ if(i>=0)$("#dl").onclick=()=>{if(confirm("Tirtir?")){if(API)return op("delX",{r:x.r});S.x.splice(i,1);save();close();render()}}}
+render();pull();document.addEventListener("visibilitychange",()=>{if(!document.hidden)pull()});
+</script></body></html>
