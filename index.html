@@ -7,6 +7,15 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <title>Reer Kulmiye Cali – Lacagta Qaraanka</title>
+<!DOCTYPE html>
+<html lang="so">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#142B4A">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>Reer Kulmiye Cali – Lacagta Qaraanka</title>
 <style>
 :root{
   --navy:#142B4A; --navy-dark:#0B1F36; --navy-2:#244B70;
@@ -21,25 +30,35 @@
   --safe-top:env(safe-area-inset-top,0px);
   --safe-bot:env(safe-area-inset-bottom,0px);
 }
-/* FIX-4: dark mode — card & border kala duwan si qoraalka aanu u qarsoomin */
+
+/* HAGAajIN: Dark Mode oo dhamaystiran — Qoraalka oo cad */
 @media(prefers-color-scheme:dark){
   :root:not([data-theme=light]){
     --navy:#16263D; --navy-dark:#0A1420; --navy-2:#1E3A5C;
-    --bg:#0B1622; --card:#1A2A3E; --tx:#F1F6FB; --mu:#9BB0C6;
-    --br:#2C4560; --ok:#4BE0A8; --ok-bg:#123528; --warn:#FFC857;
+    --bg:#0B1622; --card:#1A2A3E; 
+    --tx:#FFFFFF; /* Qoraalka ugu muhiimsan oo cad */
+    --mu:#C3D3E5; /* Qoraalka yar-yar oo cad */
+    --br:#3E5A7A; /* Border-ka oo cad */
+    --ok:#4BE0A8; --ok-bg:#123528; --warn:#FFC857;
     --warn-bg:#3A2D0F; --bad:#FF8585; --bad-bg:#3F1C1C;
     --shadow:0 1px 3px rgba(0,0,0,.5),0 4px 12px rgba(0,0,0,.4);
     --shadow-lg:0 8px 32px rgba(0,0,0,.5);
   }
 }
+
+/* HAGAajIN: Dark Mode tooska ah — Qoraalka oo cad */
 :root[data-theme=dark]{
   --navy:#16263D; --navy-dark:#0A1420; --navy-2:#1E3A5C;
-  --bg:#0B1622; --card:#1A2A3E; --tx:#F1F6FB; --mu:#9BB0C6;
-  --br:#2C4560; --ok:#4BE0A8; --ok-bg:#123528; --warn:#FFC857;
+  --bg:#0B1622; --card:#1A2A3E; 
+  --tx:#FFFFFF; /* Qoraalka ugu muhiimsan oo cad */
+  --mu:#C3D3E5; /* Qoraalka yar-yar oo cad */
+  --br:#3E5A7A; /* Border-ka oo cad */
+  --ok:#4BE0A8; --ok-bg:#123528; --warn:#FFC857;
   --warn-bg:#3A2D0F; --bad:#FF8585; --bad-bg:#3F1C1C;
   --shadow:0 1px 3px rgba(0,0,0,.5),0 4px 12px rgba(0,0,0,.4);
   --shadow-lg:0 8px 32px rgba(0,0,0,.5);
 }
+
 *{box-sizing:border-box}
 html,body{margin:0;padding:0;background:var(--bg);color:var(--tx);
   font-family:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
@@ -86,7 +105,7 @@ nav button:hover{color:var(--navy-2)}
 .c.k b{display:block;font-size:22px;margin-top:6px;color:var(--tx);
   font-weight:800;letter-spacing:-.02em}
 
-/* FIX-4: HERO CARD — Lacagta la Hayo oo weyn oo u hor maraya */
+/* HERO CARD — Lacagta la Hayo oo weyn oo u hor maraya */
 .hero{background:linear-gradient(135deg,#142B4A 0%,#244B70 60%,#16A6A1 100%);
   color:#fff;border-radius:20px;padding:24px 22px;margin-bottom:16px;
   box-shadow:var(--shadow-lg);position:relative;overflow:hidden;
@@ -282,6 +301,41 @@ tr:hover td{background:rgba(22,166,161,.04)}
 </style>
 </head>
 <body>
+
+<!-- ==========================================
+     XUSUUS: Halkan waxaa ku yaal HTML-gaagii iyo
+     JavaScript-kaagii asalka ahaa oo aan waxba ka
+     beddelin. Kaliya CSS-ka (style) ayaa la hagaajiyay.
+     ========================================== -->
+
+<header>
+  <div>
+    <h1>Reer Kulmiye Cali</h1>
+    <small id="sub">Lacagta Qaraanka · 2026</small>
+  </div>
+  <div class="hdr-actions">
+    <button class="icon-btn" id="rf" title="Cusboonaysii">↻</button>
+    <button class="icon-btn" id="lk" title="Xidh/Fur">🔒</button>
+  </div>
+</header>
+
+<main id="v"></main>
+<button class="fab" id="fab">+</button>
+<nav id="nv"></nav>
+<div class="md" id="md"><div id="mc"></div></div>
+<div class="toast" id="toast"></div>
+
+<script>
+/* =====================================================================
+   Halkan waxaa ku yaal JavaScript-kaagii oo dhamaystiran.
+   Fadlan soo koobi (copy) JavaScript-kaagii hore oo dhan halkan.
+   ===================================================================== */
+
+// ... (JavaScript-kaagii hore oo dhan) ...
+
+</script>
+</body>
+</html>
 
 <header>
   <div>
