@@ -1,1 +1,96 @@
+<!DOCTYPE html>
+<html lang="so">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Darul Iman - Xogta</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background: #f4f6f9;
+      color: #222;
+    }
+    h2 {
+      margin-bottom: 12px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #fff;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px 10px;
+      text-align: left;
+      font-size: 14px;
+    }
+    th {
+      background: #1e3a8a;
+      color: #fff;
+    }
+    tr:nth-child(even) {
+      background: #f9fafb;
+    }
+  </style>
+</head>
+<body>
+  <h2>Xogta Kasoo Baxday Apps Script</h2>
+  <div id="status">Waa la soo rarayo...</div>
 
+  <table id="dataTable" style="display:none;">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Magaca (n)</th>
+        <th>Waalidka / Qaybta (g)</th>
+        <th>Taariikhda / Bilaha (d / b)</th>
+        <th>Faahfaahin / Dhibco</th>
+      </tr>
+    </thead>
+    <tbody id="tableBody"></tbody>
+  </table>
+
+  <script>
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw8kKEosj8EkV458_D2_f6C7oeMRLWMrBbNdowmo0aW8-pRtSH2Raen3EvWNVwqtRnnuA/exec";
+
+    fetch(SCRIPT_URL)
+      .then((res) => res.text())
+      .then((rawText) => {
+        const parsed = JSON.parse(rawText);
+        const rows = parsed.r || [];
+        const tbody = document.getElementById("tableBody");
+        const table = document.getElementById("dataTable");
+        const status = document.getElementById("status");
+
+        tbody.innerHTML = "";
+        rows.forEach((item, index) => {
+          const tr = document.createElement("tr");
+
+          const name = item.n || "-";
+          const groupOrParent = item.g || item.w || "-";
+          const dateOrMonth = item.d || item.b || "-";
+          const extra = item.p
+            ? item.p.join(", ")
+            : (item.c || item.a || "");
+
+          tr.innerHTML = `
+            <td>${index + 1}</td>
+            <td>${name}</td>
+            <td>${groupOrParent}</td>
+            <td>${dateOrMonth}</td>
+            <td>${extra}</td>
+          `;
+          tbody.appendChild(tr);
+        });
+
+        status.style.display = "none";
+        table.style.display = "table";
+      })
+      .catch((err) => {
+        document.getElementById("status").innerText = "Khalad ayaa dhacay: " + err.message;
+      });
+  </script>
+</body>
+</html>
