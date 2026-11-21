@@ -57,6 +57,7 @@ let tab="d",unlocked=false,q="",doc=null,tmr,sub="b",fm=0;
 let API=localStorage.getItem("kul_api")||DEFAULT_API,PW="",stamp="";
 const nowM=Math.min(12,Math.max(4,new Date().getMonth()+1)),cur=nowM-4+1;
 const $=s=>document.querySelector(s),f=n=>(+n||0).toLocaleString("en-US"),esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const td=()=>new Date().toISOString().slice(0,10);
 
 function normalizeData(j){
   if(Array.isArray(j.m) || Array.isArray(j.t)){
@@ -83,11 +84,54 @@ function normalizeData(j){
         c:item.c||"",
         w:item.w||"",
         a:+item.a||0,
-        nb:item.nb||""
+        nb:item.nb||"",
+        auto:!!item.auto
       });
     }
   });
   return {m,t,x};
+}
+
+function detectCellChanges(prevM, nextM, existingT){
+  const added=[];
+  const todayStr=td();
+  const prevMap=new Map();
+  (prevM||[]).forEach((item,idx)=>{
+    const key=(item.r!==undefined && item.r!==null)?String(item.r):(item.n+"|"+idx);
+    prevMap.set(key,item);
+  });
+
+  (nextM||[]).forEach((item,idx)=>{
+    const key=(item.r!==undefined && item.r!==null)?String(item.r):(item.n+"|"+idx);
+    const oldItem=prevMap.get(key);
+    const oldP=oldItem && Array.isArray(oldItem.p)?oldItem.p:Array(9).fill(0);
+    const newP=Array.isArray(item.p)?item.p:Array(9).fill(0);
+
+    for(let k=0;k<9;k++){
+      const beforeVal=+oldP[k]||0;
+      const afterVal=+newP[k]||0;
+      if(afterVal>beforeVal){
+        const diff=afterVal-beforeVal;
+        const alreadyInSheet=(existingT||[]).some(t=>
+          String(t.w||"").toLowerCase().includes(String(item.n||"").toLowerCase()) &&
+          String(t.b||"").toLowerCase()===MN[k].toLowerCase() &&
+          (+t.a===afterVal || +t.a===diff)
+        );
+        if(!alreadyInSheet){
+          added.push({
+            d:todayStr,
+            b:MN[k],
+            c:item.g || "Sheet Update",
+            w:item.n || "Xubin",
+            a:diff,
+            nb:beforeVal===0 ? `Unug madhnaa -> $${afterVal}` : `Kordhay $${beforeVal} -> $${afterVal}`,
+            auto:true
+          });
+        }
+      }
+    }
+  });
+  return added;
 }
 
 function load(){try{const j=localStorage.getItem("kul2");if(j)S=normalizeData(JSON.parse(j));localStorage.removeItem("kul")}catch(e){}}
@@ -122,20 +166,32 @@ function render(){lock();document.querySelectorAll("nav button").forEach(b=>b.cl
  const banner=!unlocked?`<div class="modebar"><span>Habka: <b>Reports Only</b> (Edit waa xiran yahay)</span><span>Google Sheet toos</span></div>`:"";
  $("#v").innerHTML=!API?vs():banner+({d:vd,m:vm,t:vt,x:vx,r:vr})[tab]()+`<div class="st">Xogta: ${S.m.length} xubnood · bilaha la xisaabay: ${cur} (Apr–${MN[cur-1]})${API?" · Sheet: "+stamp:" · Sheet ma xirna"}</div>`;bind()}
 function vs(){return`<div class="c"><h2 style="margin-top:0">🔗 Xiriir Google Sheet</h2><p style="font-size:14px;color:var(--mu)">Ku dheji Apps Script Web App URL (ka dhammaada /exec).</p><input id="su" value="${esc(API)}" placeholder="https://script.google.com/macros/s/.../exec"><button class="btn w" id="sa">Xiriir</button></div>`}
-function vd(){const t=T(),pc=t.dn?Math.round(t.pdn/t.dn*100):0;
- const late=S.m.map(m=>({m,o:owed(m).reduce((a,i)=>a+m.d-m.p[i],0)})).filter(x=>x.o>0).sort((a,b)=>b.o-a.o).slice(0,5);
- const last=[...S.t].slice(-4).reverse();
- return`<div class="c"><small style="color:var(--mu)">Lacagta la hayo (qabasho − bixin)</small><b style="font-size:30px;display:block;margin:4px 0" class="${t.hand<0?"bad":"ok"}">$${f(t.hand)}</b>
- <div class="bar"><i style="width:${Math.min(100,pc)}%"></i></div><small style="color:var(--mu)">${pc}% la qabtay ilaa ${MF[cur-1]} (${f(t.pdn)} / ${f(t.dn)})</small></div>
- <div class="g"><div class="c k"><small>Hadafka sanadka</small><b>$${f(t.yr)}</b></div><div class="c k"><small>La qabtay (guud)</small><b class="ok">$${f(t.pd)}</b></div>
- <div class="c k"><small>Maqan (ilaa hadda)</small><b class="bad">$${f(t.miss)}</b></div><div class="c k"><small>Bixin</small><b class="warn">$${f(t.ex)}</b></div></div>
- <h2>Bil-bil</h2><div class="c">${MN.map((n,i)=>{const o=mon(i);return`<div class="mrow"><span>${n}</span><div class="bar"><i style="width:${Math.min(100,o.pc)}%;${i>=cur?"background:var(--mu)":""}"></i></div><b>${o.pc}%</b></div>`}).join("")}</div>
- <h2>Ugu lacag-dhimanka</h2><div class="c">${late.map(x=>`<div class="row"><span>${esc(x.m.n)}<br><small>${owed(x.m).map(i=>MN[i]).join(", ")}</small></span><b class="bad">$${f(x.o)}</b></div>`).join("")||"<p class='ok'>Dhammaan waa bixiyeen ✓</p>"}</div>
- <h2>Qabashooyinkii ugu dambeeyay</h2><div class="c">${last.map(x=>`<div class="row"><span>${esc(x.c)}<br><small>${esc(x.b)} · ${esc(x.d)}</small></span><b class="ok">$${f(x.a)}</b></div>`).join("")||"<small>Ma jiro</small>"}</div>`}
+
+function vd(){
+  const t=T(),pc=t.dn?Math.round(t.pdn/t.dn*100):0;
+  const stats=S.m.map(m=>{
+    const o=owed(m);
+    const amt=o.reduce((a,i)=>a+(m.d-m.p[i]),0);
+    return {m,o,cnt:o.length,amt};
+  }).filter(x=>x.amt>0 || x.cnt>0);
+
+  const byMonths=[...stats].sort((a,b)=>b.cnt-a.cnt || b.amt-a.amt).slice(0,5);
+  const byAmount=[...stats].sort((a,b)=>b.amt-a.amt || b.cnt-a.cnt).slice(0,5);
+  const last=[...S.t].slice(-4).reverse();
+
+  return`<div class="c"><small style="color:var(--mu)">Lacagta la hayo (qabasho − bixin)</small><b style="font-size:30px;display:block;margin:4px 0" class="${t.hand<0?"bad":"ok"}">$${f(t.hand)}</b>
+  <div class="bar"><i style="width:${Math.min(100,pc)}%"></i></div><small style="color:var(--mu)">${pc}% la qabtay ilaa ${MF[cur-1]} (${f(t.pdn)} / ${f(t.dn)})</small></div>
+  <div class="g"><div class="c k"><small>Hadafka sanadka</small><b>$${f(t.yr)}</b></div><div class="c k"><small>La qabtay (guud)</small><b class="ok">$${f(t.pd)}</b></div>
+  <div class="c k"><small>Maqan (ilaa hadda)</small><b class="bad">$${f(t.miss)}</b></div><div class="c k"><small>Bixin</small><b class="warn">$${f(t.ex)}</b></div></div>
+  <h2>Bil-bil</h2><div class="c">${MN.map((n,i)=>{const o=mon(i);return`<div class="mrow"><span>${n}</span><div class="bar"><i style="width:${Math.min(100,o.pc)}%;${i>=cur?"background:var(--mu)":""}"></i></div><b>${o.pc}%</b></div>`}).join("")}</div>
+  <h2>Ugu lacag-dhimanka · 1) Bilaha ugu badan</h2><div class="c">${byMonths.map(x=>`<div class="row"><span><b>${esc(x.m.n)}</b><br><small>${x.o.map(i=>MN[i]).join(", ")||"—"} · maqan $${f(x.amt)}</small></span><b class="bad">${x.cnt} bilood</b></div>`).join("")||"<p class='ok'>Dhammaan waa bixiyeen ✓</p>"}</div>
+  <h2>Ugu lacag-dhimanka · 2) Total lacagta ugu badan</h2><div class="c">${byAmount.map(x=>`<div class="row"><span><b>${esc(x.m.n)}</b><br><small>${x.o.map(i=>MN[i]).join(", ")||"—"} (${x.cnt} bilood)</small></span><b class="bad">$${f(x.amt)}</b></div>`).join("")||"<p class='ok'>Dhammaan waa bixiyeen ✓</p>"}</div>
+  <h2>Qabashooyinkii ugu dambeeyay</h2><div class="c">${last.map(x=>`<div class="row"><span><b>${esc(x.w||x.c)}</b><br><small>Bisha: ${esc(x.b)} · ${esc(x.d)} · ${esc(x.nb||x.c)}</small></span><b class="ok">$${f(x.a)}</b></div>`).join("")||"<small>Ma jiro</small>"}</div>`}
+
 function vm(){const L=S.m.map((m,i)=>({m,i})).filter(x=>x.m.n.toLowerCase().includes(q.toLowerCase())||x.m.g.toLowerCase().includes(q.toLowerCase()));
  return`<div class="top"><input id="q" placeholder="🔍 Raadi magac..." value="${esc(q)}"></div><div class="c">${L.map(({m,i})=>{const o=owed(m),ob=o.reduce((a,k)=>a+m.d-m.p[k],0);
  return`<div class="row" data-m="${i}" style="cursor:${unlocked?"pointer":"default"};align-items:flex-start"><div><b>${esc(m.n)}</b><br><small>${esc(m.g)} · bishii $${m.d}</small><div class="chips">${MN.map((n,k)=>`<span class="chip ${k>=cur?"":m.p[k]>=m.d?"p":m.p[k]>0?"h":"m"}">${n}</span>`).join("")}</div></div><div style="text-align:right"><b class="ok">$${f(paid(m))}</b><br><small class="${ob?"bad":"ok"}">${ob?"maqan $"+f(ob):"✓ buuxa"}</small></div></div>`}).join("")}</div>`}
-function vt(){const L=S.t.map((t,i)=>({t,i})).reverse();return`<div class="c k"><small>Wadarta la diiwaan geliyay (Qabasho)</small><b class="ok">$${f(T().lg)}</b></div><div class="c">${L.map(({t,i})=>`<div class="row" data-t="${i}" style="cursor:${unlocked?"pointer":"default"}"><span><b>${esc(t.c)}</b><br><small>${esc(t.b)} · ${esc(t.d)||"—"} · ${esc(t.w)}</small></span><b class="ok">$${f(t.a)}</b></div>`).join("")}</div>`}
+function vt(){const L=S.t.map((t,i)=>({t,i})).reverse();return`<div class="c k"><small>Wadarta la diiwaan geliyay (Qabasho)</small><b class="ok">$${f(T().lg)}</b></div><div class="c">${L.map(({t,i})=>`<div class="row" data-t="${i}" style="cursor:${unlocked?"pointer":"default"}"><span><b>${esc(t.w||t.c)}</b><br><small>Bisha: ${esc(t.b)} · ${esc(t.d)||"—"} · ${esc(t.nb||t.c)}</small></span><b class="ok">$${f(t.a)}</b></div>`).join("")}</div>`}
 function vx(){const L=S.x.map((x,i)=>({x,i})).reverse();return`<div class="c k"><small>Wadarta lacagaha baxay</small><b class="warn">$${f(T().ex)}</b></div><div class="c">${L.map(({x,i})=>`<div class="row" data-x="${i}" style="cursor:${unlocked?"pointer":"default"}"><span><b>${esc(x.s)}</b><br><small>${esc(x.d)} · loo tuuray: ${esc(x.to)} · bixiyey: ${esc(x.by)}</small></span><b class="warn">$${f(x.a)}</b></div>`).join("")||"<p style='color:var(--mu)'>Weli wax lacag bixin ah lama gelin.</p>"}</div>`}
 function colls(){const o={};S.t.forEach(t=>{const k=t.c||"?";o[k]=(o[k]||0)+(+t.a||0)});return Object.entries(o).sort((a,b)=>b[1]-a[1])}
 function vr(){const t=T();const tb={b:`<div class="tw c"><table><tr><th>Bil</th><th>La rabo</th><th>La qabtay</th><th>Maqan</th><th>%</th><th>Bixiyey</th></tr>${MN.map((n,i)=>{const o=mon(i);return`<tr><td>${n}</td><td>${f(o.R)}</td><td class="ok">${f(o.pd)}</td><td class="${o.miss>0?"bad":""}">${f(o.miss)}</td><td>${o.pc}%</td><td>${o.n}/${S.m.length}</td></tr>`}).join("")}<tr><th>Total</th><th>${f(t.yr)}</th><th>${f(t.pd)}</th><th>${f(t.yr-t.pd)}</th><th></th><th></th></tr></table></div>`,
@@ -147,7 +203,31 @@ function rep(){const t=T();const l=S.m.map(m=>({m,o:owed(m)})).filter(x=>x.o.len
  return`*Reer Kulmiye Cali – Warbixin*\nHadafka: $${f(t.yr)}\nLa qabtay: $${f(t.pd)}\nBixin: $${f(t.ex)}\nLa hayo: $${f(t.hand)}\nMaqan (ilaa ${MN[cur-1]}): $${f(t.miss)}\n\n*Ku dhiman:*\n`+l.map(x=>`- ${x.m.n}: ${x.o.map(k=>MN[k]).join(", ")}`).join("\n")}
 function setApi(){md(`<h2>Xiriir Google Sheet</h2><label>Apps Script Web App URL</label><input id="au" value="${esc(API)}" placeholder="https://script.google.com/macros/s/.../exec"><button class="btn w" id="as">Kaydi</button>`);
  $("#as").onclick=()=>{API=$("#au").value.trim();localStorage.setItem("kul_api",API);close();API?pull():render()}}
-async function pull(){if(!API)return;try{const r=await fetch(API+(API.includes("?")?"&":"?")+"t="+Date.now());const j=await r.json();if(j.error)throw j.error;S=normalizeData(j);save();stamp=new Date().toLocaleTimeString("en-GB").slice(0,5)}catch(e){stamp="⚠️ lama gaadhin"}render()}
+
+async function pull(){
+  if(!API)return;
+  try{
+    const prevM=JSON.parse(JSON.stringify(S.m||[]));
+    const prevAutoT=(S.t||[]).filter(item=>item.auto);
+    const r=await fetch(API+(API.includes("?")?"&":"?")+"t="+Date.now());
+    const j=await r.json();
+    if(j.error)throw j.error;
+    const norm=normalizeData(j);
+    const newChanges=detectCellChanges(prevM, norm.m, norm.t);
+    const mergedT=[...norm.t, ...prevAutoT];
+    newChanges.forEach(ch=>{
+      const dup=mergedT.some(t=>t.w===ch.w && t.b===ch.b && t.nb===ch.nb && +t.a===+ch.a);
+      if(!dup)mergedT.push(ch);
+    });
+    S={m:norm.m, t:mergedT, x:norm.x};
+    save();
+    stamp=new Date().toLocaleTimeString("en-GB").slice(0,5);
+  }catch(e){
+    stamp="⚠️ lama gaadhin";
+  }
+  render();
+}
+
 async function op(name,data){const z=$("#bz");z.style.display="block";try{const r=await fetch(API,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({pass:PW,op:name,...data})});const j=await r.json();if(j.error)throw j.error;close();await pull()}catch(e){alert("Cillad: "+e)}finally{z.style.display="none"}}
 $("#rf").onclick=()=>API?pull():alert("Marka hore ku xir Google Sheet");
 function dl(n,t,ty){const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([t],{type:ty||"application/json"}));a.download=n;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},1500)}
@@ -163,7 +243,6 @@ const qi=$("#q");if(qi)qi.oninput=e=>{q=e.target.value;const p=e.target.selectio
  const cs=$("#cs");if(cs)cs.onclick=async()=>{const rows=[["Magac","Group","Bishii",...MN,"Total","Maqan"],...S.m.map(m=>[m.n,m.g,m.d,...m.p,paid(m),owed(m).reduce((a,k)=>a+m.d-m.p[k],0)])];
   dl("kulmiye-warbixin.csv",rows.map(r=>r.map(c=>'"'+String(c).replace(/"/g,'""')+'"').join(",")).join("\n"),"text/csv")}}
 $("#fab").onclick=()=>need(()=>tab==="m"?em(-1):tab==="t"?et(-1):ex(-1));
-const td=()=>new Date().toISOString().slice(0,10);
 function em(i){const m=i<0?{n:"",g:"",d:10,p:Array(9).fill(0)}:S.m[i];
  md(`<h2>${i<0?"Xubin cusub":esc(m.n)}</h2><label>Magac</label><input id="a" value="${esc(m.n)}"><label>Group / Qoys</label><input id="b" value="${esc(m.g)}"><label>Bishii la rabo ($)</label><input id="c" type="number" value="${m.d}"><label>Lacagta bil kasta</label><div class="pg">${MN.map((n,k)=>`<div><label>${n}</label><input class="pp" type="number" value="${m.p[k]||""}" style="margin:2px 0"></div>`).join("")}</div>
  <button class="btn w" id="sv">Kaydi</button>${i>=0?`<button class="btn d w" id="dl" style="margin-top:8px">Tirtir</button>`:""}`);
