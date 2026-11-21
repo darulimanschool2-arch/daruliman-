@@ -53,7 +53,7 @@ label{font-size:12px;color:var(--mu)}
 const DEFAULT_API="https://script.google.com/macros/s/AKfycbw8kKEosj8EkV458_D2_f6C7oeMRLWMrBbNdowmo0aW8-pRtSH2Raen3EvWNVwqtRnnuA/exec";
 const MN=["Apr","May","Jun","Jul","Ago","Sep","Oct","Nov","Dec"],MF=["April","May","Juun","Julay","Agoosto","Sebtembar","Oktoobar","Nofeembar","Deseembar"];
 let S={m:[],t:[],x:[]};
-let tab="r",unlocked=false,q="",doc=null,tmr,sub="b",fm=0;
+let tab="d",unlocked=false,q="",doc=null,tmr,sub="b",fm=0;
 let API=localStorage.getItem("kul_api")||DEFAULT_API,PW="",stamp="";
 const nowM=Math.min(12,Math.max(4,new Date().getMonth()+1)),cur=nowM-4+1;
 const $=s=>document.querySelector(s),f=n=>(+n||0).toLocaleString("en-US"),esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
@@ -103,7 +103,6 @@ function lock(){$("#lk").textContent=unlocked?"🔓 Edit":"🔒 Reports"}
 $("#lk").onclick=()=>{
   if(unlocked){
     unlocked=false;
-    tab="r";
     lock();
     render();
   } else {
@@ -115,7 +114,7 @@ function ask(cb){md(`<h2>Geli Password-ka Edit-ka</h2><input id="pw" type="passw
 function md(h){$("#mc").innerHTML=h;$("#md").classList.add("on")}function close(){$("#md").classList.remove("on")}
 $("#md").onclick=e=>{if(e.target.id==="md")close()};
 function need(cb){if(!unlocked)return;cb()}
-const NV=[["r","📝","Warbixin"],["d","📊","Dashboard"],["m","👥","Xubnaha"],["t","💵","Qabasho"],["x","🧾","Bixin"]];
+const NV=[["d","📊","Dashboard"],["r","📝","Warbixin"],["m","👥","Xubnaha"],["t","💵","Qabasho"],["x","🧾","Bixin"]];
 $("#nv").innerHTML=NV.map(n=>`<button data-t="${n[0]}"><span>${n[1]}</span>${n[2]}</button>`).join("");
 $("#nv").onclick=e=>{const b=e.target.closest("button");if(b){tab=b.dataset.t;q="";render();scrollTo(0,0)}};
 function render(){lock();document.querySelectorAll("nav button").forEach(b=>b.classList.toggle("on",b.dataset.t===tab));
