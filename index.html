@@ -8,7 +8,6 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <title>Reer Kulmiye Cali – Lacagta Qaraanka</title>
 <style>
-/* ============ DESIGN TOKENS (NAVY BLUE) ============ */
 :root{
   --navy:#142B4A; --navy-dark:#0B1F36; --navy-2:#244B70;
   --teal:#16A6A1; --bg:#F3F6FA; --card:#FFFFFF;
@@ -47,7 +46,6 @@ h1,h2,h3,h4{margin:0;font-weight:700;letter-spacing:-.01em}
 a{color:var(--teal)}
 small{color:var(--mu)}
 
-/* ============ HEADER ============ */
 header{background:var(--navy);color:#fff;padding:calc(12px + var(--safe-top)) 16px 14px;
   display:flex;justify-content:space-between;align-items:center;gap:10px;
   box-shadow:0 2px 8px rgba(0,0,0,.15);position:sticky;top:0;z-index:8}
@@ -59,10 +57,8 @@ header small{color:#BFD1E5;font-size:11px;display:block;margin-top:2px}
   align-items:center;justify-content:center;transition:background .15s}
 .icon-btn:hover{background:rgba(255,255,255,.22)}
 
-/* ============ LAYOUT ============ */
 main{padding:16px 14px calc(92px + var(--safe-bot));max-width:1080px;margin:0 auto}
 
-/* ============ NAV ============ */
 nav{position:fixed;bottom:0;left:0;right:0;background:var(--card);
   border-top:1px solid var(--br);display:flex;
   padding:6px 4px calc(6px + var(--safe-bot));z-index:7;box-shadow:0 -2px 8px rgba(0,0,0,.06)}
@@ -74,7 +70,6 @@ nav button.on{color:var(--navy)}
 :root[data-theme=dark] nav button.on{color:var(--teal)}
 nav button:hover{color:var(--navy-2)}
 
-/* ============ CARDS ============ */
 .g{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
 @media(min-width:640px){.g{grid-template-columns:repeat(4,1fr)}}
 .c{background:var(--card);border:1px solid var(--br);border-radius:var(--radius);
@@ -86,12 +81,10 @@ nav button:hover{color:var(--navy-2)}
 h2{font-size:15px;margin:18px 2px 10px;color:var(--navy)}
 :root[data-theme=dark] h2{color:var(--teal)}
 
-/* ============ STAT COLORS ============ */
 .ok{color:var(--ok)!important}.bad{color:var(--bad)!important}
 .warn{color:var(--warn)!important}.navy{color:var(--navy)!important}
 .teal{color:var(--teal)!important}
 
-/* ============ BARS ============ */
 .bar{height:9px;background:var(--br);border-radius:9px;overflow:hidden;margin:6px 0}
 .bar i{display:block;height:100%;background:linear-gradient(90deg,var(--navy),var(--teal));
   border-radius:9px;transition:width .4s}
@@ -99,13 +92,11 @@ h2{font-size:15px;margin:18px 2px 10px;color:var(--navy)}
   align-items:center;font-size:13px;margin:8px 0}
 .mrow b{text-align:right;font-variant-numeric:tabular-nums}
 
-/* ============ ROWS ============ */
 .row{display:flex;justify-content:space-between;align-items:flex-start;
   gap:10px;padding:11px 0;border-bottom:1px solid var(--br);font-size:14px}
 .row:last-child{border:0}
 .row b{font-variant-numeric:tabular-nums}
 
-/* ============ CHIPS ============ */
 .chips{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px}
 .chip{font-size:10px;padding:3px 7px;border-radius:8px;
   background:var(--br);color:var(--mu);font-weight:600}
@@ -114,7 +105,6 @@ h2{font-size:15px;margin:18px 2px 10px;color:var(--navy)}
 .chip.h{background:var(--warn-bg);color:var(--warn)}
 .chip.f{background:var(--bg);color:var(--mu)}
 
-/* ============ FORMS ============ */
 input,select,textarea{width:100%;padding:11px 12px;border:1px solid var(--br);
   border-radius:10px;background:var(--card);color:var(--tx);
   font:inherit;font-size:15px;margin:4px 0 12px;transition:border-color .15s}
@@ -123,7 +113,6 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--navy-2);
 label{font-size:12px;font-weight:600;color:var(--mu);
   display:block;margin-top:4px;letter-spacing:.01em}
 
-/* ============ BUTTONS ============ */
 .btn{background:var(--navy);color:#fff;border:0;border-radius:10px;
   padding:11px 16px;font-size:14px;cursor:pointer;font-weight:600;
   display:inline-flex;align-items:center;justify-content:center;gap:6px;
@@ -139,7 +128,6 @@ label{font-size:12px;font-weight:600;color:var(--mu);
 .act-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
 @media(max-width:380px){.act-grid{grid-template-columns:1fr}}
 
-/* ============ TABS ============ */
 .tabs{display:flex;gap:6px;margin-bottom:12px;overflow-x:auto;padding-bottom:2px;
   scrollbar-width:none}
 .tabs::-webkit-scrollbar{display:none}
@@ -148,11 +136,9 @@ label{font-size:12px;font-weight:600;color:var(--mu);
   font-weight:600;cursor:pointer;transition:all .15s}
 .tabs button.on{background:var(--navy);color:#fff;border-color:var(--navy)}
 
-/* ============ TOP ROW ============ */
 .top{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap}
 .top input,.top select{margin:0;flex:1;min-width:140px}
 
-/* ============ MODAL ============ */
 .md{position:fixed;inset:0;background:rgba(11,31,54,.55);z-index:20;
   display:none;align-items:flex-end;justify-content:center;
   backdrop-filter:blur(2px)}
@@ -165,12 +151,10 @@ label{font-size:12px;font-weight:600;color:var(--mu);
 .md h2{margin-top:0;margin-bottom:14px;color:var(--navy)}
 :root[data-theme=dark] .md h2{color:var(--teal)}
 
-/* ============ GRID 9 MONTHS ============ */
 .pg{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px}
 .pg label{margin:0 0 2px;font-size:10px}
 .pg input{margin:0;padding:8px;font-size:13px}
 
-/* ============ TABLE ============ */
 .tw{overflow-x:auto;-webkit-overflow-scrolling:touch}
 table{border-collapse:collapse;width:100%;font-size:13px;min-width:520px}
 th,td{padding:9px 8px;text-align:right;border-bottom:1px solid var(--br);
@@ -181,7 +165,6 @@ th{color:var(--mu);font-weight:700;font-size:11px;text-transform:uppercase;
 :root[data-theme=dark] th{background:var(--navy-dark)}
 tr:hover td{background:rgba(22,166,161,.04)}
 
-/* ============ FAB ============ */
 .fab{position:fixed;right:16px;bottom:calc(80px + var(--safe-bot));
   width:56px;height:56px;border-radius:28px;font-size:26px;
   background:var(--navy);color:#fff;border:0;
@@ -189,7 +172,6 @@ tr:hover td{background:rgba(22,166,161,.04)}
   cursor:pointer;transition:transform .1s}
 .fab:hover{transform:scale(1.05)}.fab:active{transform:scale(.95)}
 
-/* ============ STATUS / TOAST ============ */
 .st{font-size:11px;color:var(--mu);text-align:center;margin-top:16px;
   line-height:1.6}
 .status-bar{display:flex;align-items:center;gap:6px;font-size:11px;
@@ -205,7 +187,6 @@ tr:hover td{background:rgba(22,166,161,.04)}
   box-shadow:0 6px 20px rgba(0,0,0,.3);max-width:90vw;text-align:center}
 .toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
 
-/* ============ PERSONAL CARD ============ */
 .p-card{background:linear-gradient(140deg,var(--navy) 0%,var(--navy-2) 100%);
   color:#fff;border-radius:16px;padding:20px;margin-bottom:12px;
   box-shadow:0 8px 24px rgba(20,43,74,.25)}
@@ -222,14 +203,12 @@ tr:hover td{background:rgba(22,166,161,.04)}
 .list-pill.ok{background:var(--ok-bg);color:var(--ok)}
 .list-pill.bad{background:var(--bad-bg);color:var(--bad)}
 
-/* ============ MODE BAR ============ */
 .modebar{background:var(--warn-bg);color:var(--warn);border:1px solid var(--br);
   border-radius:10px;padding:9px 12px;font-size:12px;margin-bottom:12px;
   display:flex;justify-content:space-between;align-items:center;gap:8px;
   flex-wrap:wrap;font-weight:600}
 .modebar.on{background:var(--ok-bg);color:var(--ok)}
 
-/* ============ PRINT ============ */
 @media print{
   header,nav,.fab,.modebar,.tabs,.no-print,.st,.status-bar,.toast,.icon-btn,
   .act-grid,#fab{display:none!important}
@@ -264,35 +243,30 @@ tr:hover td{background:rgba(22,166,161,.04)}
 
 <script>
 /* =====================================================================
-   REER KULMIYE CALI — Redesigned App
+   REER KULMIYE CALI — Redesigned App (FIXED password-gate bug)
    Preserves: API URL, kul2/kul_api keys, S.m/S.t/S.x, all ops,
    {pass, op, ...data} format, password gate.
    ===================================================================== */
 
-/* ---------- CONSTANTS (unchanged contract) ---------- */
 const DEFAULT_API="https://script.google.com/macros/s/AKfycbw8kKEosj8EkV458_D2_f6C7oeMRLWMrBbNdowmo0aW8-pRtSH2Raen3EvWNVwqtRnnuA/exec";
 const MN=["Apr","May","Jun","Jul","Ago","Sep","Oct","Nov","Dec"];
-const MF=["April","May","Juun","Julay","Agoosto","Sebtembar","Oktoobar","Nofeembar","Deseembar"];
 const GROUPS=["Maxamuud Kulmiye","Xasan Kulmiye","Axmed Kulmiye"];
 const YEAR=2026;
 
-/* ---------- STATE ---------- */
 let S={m:[],t:[],x:[]};
 let tab="d", unlocked=false, q="", grpFilter="", selPersonIdx=0;
 let doc=null, tmr=null, sub="s";
 let API=localStorage.getItem("kul_api")||DEFAULT_API;
 let PW="", stamp="", syncState="init", syncErr="";
-let busy=false; // prevents duplicate submits
-let pdfLibs=null; // lazy-loaded
+let busy=false;
+let pdfLibs=null;
 
-/* current billing month (0-indexed) */
 const now=new Date();
 const yrNow=now.getFullYear();
 const mNow=now.getMonth()+1;
 const cur = yrNow>YEAR ? 9 : Math.min(9, Math.max(0, mNow-4));
 const billedLabel = cur===0 ? "Weli bil lama dallacin" : `Apr–${MN[cur-1]}`;
 
-/* ---------- HELPERS ---------- */
 const $=s=>document.querySelector(s);
 const $$=s=>document.querySelectorAll(s);
 const f=n=>(+n||0).toLocaleString("en-US");
@@ -311,7 +285,6 @@ function setSync(state,err){
   stamp = state==="ok" ? new Date().toLocaleTimeString("en-GB",{hour:"2-digit",minute:"2-digit"}) : stamp;
 }
 
-/* ---------- DATA NORMALIZATION (preserved) ---------- */
 function normalizeData(j){
   if(Array.isArray(j.m)||Array.isArray(j.t)){
     return {m:j.m||[], t:j.t||[], x:j.x||[]};
@@ -331,7 +304,6 @@ function normalizeData(j){
   return {m,t,x};
 }
 
-/* Detect cell changes made directly in the Sheet (preserved) */
 function detectCellChanges(prevM,nextM,existingT){
   const added=[]; const todayStr=td();
   const prevMap=new Map();
@@ -362,7 +334,6 @@ function detectCellChanges(prevM,nextM,existingT){
   return added;
 }
 
-/* ---------- PERSISTENCE ---------- */
 function load(){
   try{
     const j=localStorage.getItem("kul2");
@@ -377,21 +348,19 @@ async function save(){
   tmr=setTimeout(()=>{ if(doc) doc.set({json:JSON.stringify(S)}).catch(()=>{}); },400);
 }
 
-/* ---------- CORE CALCULATIONS (verified) ---------- */
 const paid   = m => (m.p||[]).reduce((a,b)=>a+(+b||0),0);
 const paidTo = (m,k=cur) => (m.p||[]).slice(0,k).reduce((a,b)=>a+(+b||0),0);
 const owed   = m => { const l=[]; for(let i=0;i<cur;i++) if((+m.p[i]||0) < (+m.d||0)) l.push(i); return l; };
 const owedAmt= m => owed(m).reduce((a,k)=>a+((+m.d||0)-(+m.p[k]||0)),0);
-const monthDue = (m,k) => (+m.d||0) * k;
 
 function T(){
-  const R=S.m.reduce((a,m)=>a+(+m.d||0),0);      // monthly target (all members)
+  const R=S.m.reduce((a,m)=>a+(+m.d||0),0);
   const yr=R*9;
-  const dn=R*cur;                                  // due for billed months
-  const pd=S.m.reduce((a,m)=>a+paid(m),0);         // all-time collected from member grid
-  const pdn=S.m.reduce((a,m)=>a+paidTo(m),0);      // collected for billed months
-  const ex=S.x.reduce((a,x)=>a+(+x.a||0),0);       // expenses
-  const lg=S.t.reduce((a,t)=>a+(+t.a||0),0);       // logged collections
+  const dn=R*cur;
+  const pd=S.m.reduce((a,m)=>a+paid(m),0);
+  const pdn=S.m.reduce((a,m)=>a+paidTo(m),0);
+  const ex=S.x.reduce((a,x)=>a+(+x.a||0),0);
+  const lg=S.t.reduce((a,t)=>a+(+t.a||0),0);
   return {R,yr,dn,pd,pdn,miss:Math.max(0,dn-pdn),ex,lg,hand:pd-ex};
 }
 function mon(i){
@@ -409,17 +378,16 @@ function membersStats(){
   return S.m.map((m,i)=>({m,i,o:owed(m),amt:owedAmt(m),pd:paid(m)})).sort((a,b)=>b.amt-a.amt);
 }
 
-/* ---------- RENDER SHELL ---------- */
 function lock(){ $("#lk").textContent=unlocked?"🔓":"🔒"; }
 $("#lk").onclick=()=>{ if(unlocked){unlocked=false;lock();render();} else ask(); };
 $("#rf").onclick=()=>API?pull(true):toast("Marka hore ku xir Google Sheet");
 
-/* Password verification (unchanged API contract) */
 function ask(cb){
   md(`<h2>Geli Password-ka Edit-ka</h2>
     <input id="pw" type="password" placeholder="Password" autofocus>
     <button class="btn w" id="go">Fur Edit</button>
-    <p class="bad" id="er" style="min-height:18px;margin-top:8px"></p>`);
+    <p class="bad" id="er" style="min-height:18px;margin-top:8px"></p>
+    <button class="btn s w" id="cx" style="margin-top:6px">Ka noqo</button>`);
   const go=async()=>{
     const p=$("#pw").value;
     if(!p) return;
@@ -435,14 +403,19 @@ function ask(cb){
     finally{ $("#go").disabled=false; }
   };
   $("#go").onclick=go;
+  $("#cx").onclick=close;
   $("#pw").onkeydown=e=>e.key==="Enter"&&go();
 }
 function md(h){ $("#mc").innerHTML=h; $("#md").classList.add("on"); }
 function close(){ $("#md").classList.remove("on"); }
 $("#md").onclick=e=>{ if(e.target.id==="md") close(); };
-function need(cb){ if(!unlocked) return ask(cb); cb(); }
 
-/* Nav */
+/* FIX: only true edit actions call need(); read/export actions do NOT. */
+function need(cb){
+  if(unlocked) return cb();
+  ask(cb);
+}
+
 const NV=[["d","📊","Dashboard"],["r","📝","Warbixin"],["m","👥","Xubnaha"],["t","💵","Qabasho"],["x","🧾","Bixin"]];
 $("#nv").innerHTML=NV.map(n=>`<button data-t="${n[0]}"><span>${n[1]}</span>${n[2]}</button>`).join("");
 $("#nv").onclick=e=>{
@@ -450,7 +423,6 @@ $("#nv").onclick=e=>{
   if(b){ tab=b.dataset.t; q=""; render(); scrollTo(0,0); }
 };
 
-/* Master render */
 function render(){
   lock();
   $$("nav button").forEach(b=>b.classList.toggle("on",b.dataset.t===tab));
@@ -477,9 +449,6 @@ function render(){
   bind();
 }
 
-/* =====================================================================
-   DASHBOARD
-   ===================================================================== */
 function viewDash(){
   const t=T();
   const pc = t.dn ? Math.round(t.pdn/t.dn*100) : 0;
@@ -567,9 +536,6 @@ function viewDash(){
   </div>`;
 }
 
-/* =====================================================================
-   MEMBERS
-   ===================================================================== */
 function viewMembers(){
   const L = S.m.map((m,i)=>({m,i})).filter(x=>{
     const mq = !q || x.m.n.toLowerCase().includes(q.toLowerCase()) ||
@@ -610,9 +576,6 @@ function viewMembers(){
   </div>`;
 }
 
-/* =====================================================================
-   COLLECTIONS
-   ===================================================================== */
 function viewCollections(){
   const L = S.t.map((t,i)=>({t,i})).reverse();
   const total = S.t.reduce((a,t)=>a+(+t.a||0),0);
@@ -628,9 +591,6 @@ function viewCollections(){
   </div>`;
 }
 
-/* =====================================================================
-   EXPENSES
-   ===================================================================== */
 function viewExpenses(){
   const L = S.x.map((x,i)=>({x,i})).reverse();
   const total = S.x.reduce((a,x)=>a+(+x.a||0),0);
@@ -646,9 +606,6 @@ function viewExpenses(){
   </div>`;
 }
 
-/* =====================================================================
-   REPORTS — 5 types, shared plumbing
-   ===================================================================== */
 function viewReport(){
   const tb = {
     s: reportPersonal(),
@@ -670,7 +627,6 @@ function viewReport(){
   </div>`;
 }
 
-/* --- Personal report (improved) --- */
 function reportPersonal(){
   const pool = S.m.map((m,i)=>({m,i})).filter(x=>!grpFilter || (x.m.g||"").toLowerCase().includes(grpFilter.toLowerCase()));
   const list = pool.length ? pool : S.m.map((m,i)=>({m,i}));
@@ -763,7 +719,6 @@ function reportPersonal(){
   </div>`;
 }
 
-/* --- Monthly report --- */
 function reportMonthly(){
   const t=T();
   return `
@@ -800,7 +755,6 @@ function reportMonthly(){
   </div>`;
 }
 
-/* --- Members report --- */
 function reportMembers(){
   const rows = membersStats();
   return `
@@ -826,7 +780,6 @@ function reportMembers(){
   </div>`;
 }
 
-/* --- Collectors report --- */
 function reportCollectors(){
   const rows = collectorsSummary();
   const total = rows.reduce((a,r)=>a+r[1].total,0);
@@ -859,7 +812,6 @@ function reportCollectors(){
   </div>`;
 }
 
-/* --- General report --- */
 function reportGeneral(){
   const t=T();
   return `
@@ -876,9 +828,6 @@ function reportGeneral(){
   </div>`;
 }
 
-/* =====================================================================
-   REPORT TEXT FOR WHATSAPP / COPY
-   ===================================================================== */
 function waTextFor(reportKey){
   const t=T();
   const header = `*Reer Kulmiye Cali — Warbixin ${YEAR}*\nKa soo baxay: ${todayLong()}\nXilliga la dallacay: ${billedLabel}\n\n`;
@@ -924,7 +873,6 @@ function waTextFor(reportKey){
       rows.map(([n,v])=>`${n}: ${v.count} diiwaan · ${fmtMoney(v.total)}`).join("\n")+
       `\n\n*TOTAL*: ${fmtMoney(tot)} (${S.t.length} diiwaan)`;
   }
-  // general
   return header+"📊 *Guud*\n\n"+
     `Hadafka sanadka: ${fmtMoney(t.yr)}\n`+
     `La qabtay (grid): ${fmtMoney(t.pd)}\n`+
@@ -935,9 +883,6 @@ function waTextFor(reportKey){
     `Qabasho: ${fmtPct(t.pdn,t.dn)}`;
 }
 
-/* =====================================================================
-   PDF GENERATION (jsPDF + AutoTable, CDN)
-   ===================================================================== */
 function loadPdfLibs(){
   if(pdfLibs) return Promise.resolve(pdfLibs);
   if(window.jspdf && window.jspdf.jsPDF && window.jspdf.jsPDF.API.autoTable){
@@ -968,7 +913,6 @@ function buildPdfDoc(reportKey){
     const title=titles[reportKey]||"Warbixin";
     const monthInfo = billedLabel;
 
-    /* header */
     doc.setFillColor(20,43,74);
     doc.rect(0,0,W,26,"F");
     doc.setTextColor(255,255,255);
@@ -981,13 +925,11 @@ function buildPdfDoc(reportKey){
     let y=32;
     doc.setTextColor(24,40,59);
 
-    /* title strip */
     doc.setFont("helvetica","bold"); doc.setFontSize(13);
     doc.text(title.toUpperCase(), margin, y); y+=3;
     doc.setDrawColor(22,166,161); doc.setLineWidth(.7);
     doc.line(margin,y,margin+38,y); y+=7;
 
-    /* helper to add table */
     const addTable=(headers,rows,opts={})=>{
       doc.autoTable({
         startY:y, head:[headers], body:rows, margin:{left:margin,right:margin},
@@ -998,11 +940,9 @@ function buildPdfDoc(reportKey){
         theme:"grid",
         ...opts,
         didDrawPage:(data)=>{
-          /* footer */
           const ph=doc.internal.pageSize.getHeight();
           doc.setFontSize(8); doc.setTextColor(120,128,150);
-          doc.text(`Reer Kulmiye Cali — ${title} — ${todayLong()}`,
-            margin, ph-6);
+          doc.text(`Reer Kulmiye Cali — ${title} — ${todayLong()}`, margin, ph-6);
           doc.text(`Bog ${data.pageNumber}`, W-margin, ph-6, {align:"right"});
         }
       });
@@ -1100,12 +1040,8 @@ function pdfFilename(reportKey){
   return `${map[reportKey]}-${YEAR}.pdf`;
 }
 
-/* =====================================================================
-   WHATSAPP & COPY
-   ===================================================================== */
 async function shareWhatsApp(reportKey){
   const text=waTextFor(reportKey);
-  /* try to generate + share actual PDF first */
   try{
     const doc=await buildPdfDoc(reportKey);
     const blob=doc.output("blob");
@@ -1114,7 +1050,6 @@ async function shareWhatsApp(reportKey){
       await navigator.share({files:[file],text,title:"Warbixin"});
       return;
     }
-    /* fall back: download + open WhatsApp text */
     doc.save(pdfFilename(reportKey));
     toast("PDF la soo dejiyay. Hadda WhatsApp ayaa furmaya — fadlan ku lifaaq PDF-ka.");
   }catch(e){
@@ -1143,9 +1078,6 @@ async function copyText(reportKey){
   catch(e){ md(`<h2>Warbixin</h2><textarea rows="14">${esc(text)}</textarea>`); }
 }
 
-/* =====================================================================
-   MODALS — MEMBER / COLLECTION / EXPENSE
-   ===================================================================== */
 function em(i){
   const m=i<0?{n:"",g:GROUPS[0],d:10,p:Array(9).fill(0)}:S.m[i];
   md(`<h2>${i<0?"Xubin Cusub":"Wax ka beddel"}</h2>
@@ -1179,7 +1111,6 @@ function em(i){
   };
 }
 
-/* QUICK COLLECTION — fixed edit/delete reversal logic */
 function openQuickCollection(editIdx){
   if(!S.m.length) return toast("Xubno kuma jiraan");
   const existing = editIdx>=0 ? S.t[editIdx] : null;
@@ -1259,7 +1190,6 @@ function openQuickCollection(editIdx){
       const d=$("#qDate").value||td();
       const nb=$("#qNb").value.trim();
 
-      /* --- FIXED LOGIC: reverse original, then apply new --- */
       const applyMember = (mem, monthIdx, amount)=>{
         const copy=JSON.parse(JSON.stringify(mem));
         const prev=+copy.p[monthIdx]||0;
@@ -1270,24 +1200,20 @@ function openQuickCollection(editIdx){
       const tRecord={ d, b:MN[k], c:col, w:member.n, a:amt, nb };
 
       if(existing){
-        /* determine original member and month from existing record */
         const oldMemberName = existing.w;
         const oldMonthIdx = MN.indexOf(existing.b);
         const oldAmt = +existing.a||0;
         const oldMemberIdx = S.m.findIndex(x=>x.n===oldMemberName);
 
         if(API){
-          /* backend: saveMember update + saveT update-by-r */
           busy=true;
           const tasks=[];
-          /* reverse from old member/month */
           if(oldMemberIdx>=0 && oldMonthIdx>=0){
             const oldM=S.m[oldMemberIdx];
             const reversed=JSON.parse(JSON.stringify(oldM));
             reversed.p[oldMonthIdx]=Math.max(0,(+reversed.p[oldMonthIdx]||0)-oldAmt);
             tasks.push(op("saveMember",{r:oldM.r,...reversed},true));
           }
-          /* apply new to selected member/month (may be same row → backend sees final) */
           const newM=S.m[activeMemberIdx];
           const applied=applyMember(newM,k,amt);
           tasks.push(op("saveMember",{r:newM.r,...applied},true));
@@ -1295,7 +1221,6 @@ function openQuickCollection(editIdx){
           Promise.all(tasks).then(()=>{close();pull(true);}).finally(()=>busy=false);
           return;
         }
-        /* local-only path */
         if(oldMemberIdx>=0 && oldMonthIdx>=0){
           const oldM=S.m[oldMemberIdx];
           oldM.p[oldMonthIdx]=Math.max(0,(+oldM.p[oldMonthIdx]||0)-oldAmt);
@@ -1305,7 +1230,6 @@ function openQuickCollection(editIdx){
         save();close();render();return;
       }
 
-      /* new collection */
       if(API){
         busy=true;
         const newM=S.m[activeMemberIdx];
@@ -1377,9 +1301,6 @@ function ex(i){
   };
 }
 
-/* =====================================================================
-   API OPERATIONS (preserved contract)
-   ===================================================================== */
 async function op(name,data,silent){
   const t=$("#toast"); if(!silent){t.textContent="Waa la kaydinayaa…";t.classList.add("on");}
   try{
@@ -1398,9 +1319,6 @@ async function op(name,data,silent){
   }
 }
 
-/* =====================================================================
-   SYNC / PULL
-   ===================================================================== */
 async function pull(showMsg){
   if(!API){setSync("init"); render(); return;}
   setSync("loading");
@@ -1428,11 +1346,9 @@ async function pull(showMsg){
   render();
 }
 
-/* =====================================================================
-   BINDINGS
-   ===================================================================== */
+/* ============ BINDINGS (FIXED) ============ */
 function bind(){
-  /* group filter + search on members */
+  /* members filter/search — NO password needed */
   const gf=$("#gf"); if(gf) gf.onchange=e=>{grpFilter=e.target.value;render();};
   const qi=$("#q"); if(qi) qi.oninput=e=>{
     q=e.target.value; const p=e.target.selectionStart;
@@ -1440,34 +1356,31 @@ function bind(){
     const n=$("#q"); if(n){n.focus();n.setSelectionRange(p,p);}
   };
 
-  /* personal report selectors */
+  /* personal report selectors — NO password needed */
   const pGrp=$("#pGrp"); if(pGrp) pGrp.onchange=e=>{grpFilter=e.target.value;render();};
   const pSel=$("#pSel"); if(pSel) pSel.onchange=e=>{selPersonIdx=+e.target.value;render();};
 
-  /* report actions */
+  /* report action buttons — NO password needed */
   const wa=$("#waBtn"); if(wa) wa.onclick=()=>shareWhatsApp(sub);
   const pdf=$("#pdfBtn"); if(pdf) pdf.onclick=()=>downloadPdf(sub);
   const cp=$("#copyBtn"); if(cp) cp.onclick=()=>copyText(sub);
 
-  /* report tabs */
-  $$("[data-s]").forEach(e=>e.onclick=()=>{sub=e.dataset.s;render();});
+  /* report tabs — NO password needed (FIX: these were hijacked before) */
+  $$(".tabs button[data-s]").forEach(e=>e.onclick=()=>{sub=e.dataset.s;render();});
 
-  /* open modals */
+  /* ===== EDIT ACTIONS — password required ===== */
   $$("[data-m]").forEach(e=>e.onclick=()=>need(()=>em(+e.dataset.m)));
   $$("[data-t]").forEach(e=>e.onclick=()=>need(()=>openQuickCollection(+e.dataset.t)));
   $$("[data-x]").forEach(e=>e.onclick=()=>need(()=>ex(+e.dataset.x)));
 }
 
-/* FAB — context-aware */
+/* FAB — context-aware; only edit actions get password gate */
 $("#fab").onclick=()=>need(()=>{
   if(tab==="m") em(-1);
   else if(tab==="t") openQuickCollection(-1);
   else ex(-1);
 });
 
-/* =====================================================================
-   BACKUP / RESTORE
-   ===================================================================== */
 function dl(name,text,type){
   const a=document.createElement("a");
   a.href=URL.createObjectURL(new Blob([text],{type:type||"application/json"}));
@@ -1475,9 +1388,6 @@ function dl(name,text,type){
   setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove();},1500);
 }
 
-/* =====================================================================
-   BOOT
-   ===================================================================== */
 render();
 pull();
 document.addEventListener("visibilitychange",()=>{ if(!document.hidden && API) pull(); });
