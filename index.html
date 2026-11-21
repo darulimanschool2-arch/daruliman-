@@ -209,6 +209,20 @@ tr:hover td{background:rgba(22,166,161,.04)}
   flex-wrap:wrap;font-weight:600}
 .modebar.on{background:var(--ok-bg);color:var(--ok)}
 
+/* FIX-2: password field with eye toggle */
+.pw-wrap{position:relative;margin:4px 0 12px}
+.pw-wrap input{margin:0;padding-right:52px}
+.pw-eye{position:absolute;right:6px;top:50%;transform:translateY(-50%);
+  background:transparent;border:0;font-size:20px;cursor:pointer;
+  width:40px;height:40px;display:flex;align-items:center;justify-content:center;
+  color:var(--mu);border-radius:8px}
+.pw-eye:hover{background:var(--bg)}
+.pw-clear{position:absolute;right:44px;top:50%;transform:translateY(-50%);
+  background:transparent;border:0;font-size:16px;cursor:pointer;
+  width:32px;height:32px;display:flex;align-items:center;justify-content:center;
+  color:var(--mu);border-radius:8px}
+.pw-clear:hover{background:var(--bg)}
+
 @media print{
   header,nav,.fab,.modebar,.tabs,.no-print,.st,.status-bar,.toast,.icon-btn,
   .act-grid,#fab{display:none!important}
@@ -243,9 +257,8 @@ tr:hover td{background:rgba(22,166,161,.04)}
 
 <script>
 /* =====================================================================
-   REER KULMIYE CALI — Redesigned App (FIXED password-gate bug)
-   Preserves: API URL, kul2/kul_api keys, S.m/S.t/S.x, all ops,
-   {pass, op, ...data} format, password gate.
+   REER KULMIYE CALI — Redesigned App
+   FIX-2: PDF mobile sizing, remove QOYS from reports, password UX
    ===================================================================== */
 
 const DEFAULT_API="https://script.google.com/macros/s/AKfycbw8kKEosj8EkV458_D2_f6C7oeMRLWMrBbNdowmo0aW8-pRtSH2Raen3EvWNVwqtRnnuA/exec";
@@ -382,16 +395,43 @@ function lock(){ $("#lk").textContent=unlocked?"🔓":"🔒"; }
 $("#lk").onclick=()=>{ if(unlocked){unlocked=false;lock();render();} else ask(); };
 $("#rf").onclick=()=>API?pull(true):toast("Marka hore ku xir Google Sheet");
 
+/* FIX-2: password modal with eye + clear + cancel */
 function ask(cb){
   md(`<h2>Geli Password-ka Edit-ka</h2>
-    <input id="pw" type="password" placeholder="Password" autofocus>
+    <div class="pw-wrap">
+      <input id="pw" type="password" placeholder="Password" autocomplete="off"
+        autofocus inputmode="text">
+      <button type="button" class="pw-clear" id="clr" title="Tirtir">✕</button>
+      <button type="button" class="pw-eye" id="eye" title="Muuji/Qari">👁</button>
+    </div>
     <button class="btn w" id="go">Fur Edit</button>
     <p class="bad" id="er" style="min-height:18px;margin-top:8px"></p>
     <button class="btn s w" id="cx" style="margin-top:6px">Ka noqo</button>`);
+
+  const input=$("#pw");
+  const eye=$("#eye");
+  const clr=$("#clr");
+  const goBtn=$("#go");
+
+  /* eye toggle */
+  eye.onclick=()=>{
+    const isPw=input.type==="password";
+    input.type=isPw?"text":"password";
+    eye.textContent=isPw?"🙈":"👁";
+    input.focus();
+  };
+
+  /* clear button */
+  clr.onclick=()=>{ input.value=""; input.focus(); };
+
+  /* cancel */
+  $("#cx").onclick=()=>{ close(); };
+
+  /* submit */
   const go=async()=>{
-    const p=$("#pw").value;
-    if(!p) return;
-    $("#er").textContent="…"; $("#go").disabled=true;
+    const p=input.value;
+    if(!p){ $("#er").textContent="Password geli"; input.focus(); return; }
+    $("#er").textContent="…"; goBtn.disabled=true;
     try{
       const r=await fetch(API,{method:"POST",
         headers:{"Content-Type":"text/plain;charset=utf-8"},
@@ -399,18 +439,28 @@ function ask(cb){
       const j=await r.json();
       if(j.error) throw j.error;
       PW=p; unlocked=true; lock(); close(); render(); cb&&cb();
-    }catch(e){ $("#er").textContent="Password khaldan ama xiriir ma jiro"; }
-    finally{ $("#go").disabled=false; }
+    }catch(e){
+      $("#er").textContent="Password khaldan ama xiriir ma jiro";
+      input.select();
+    }
+    finally{ goBtn.disabled=false; }
   };
-  $("#go").onclick=go;
-  $("#cx").onclick=close;
-  $("#pw").onkeydown=e=>e.key==="Enter"&&go();
+  goBtn.onclick=go;
+
+  /* FIX-2: keyboard — Backspace/Delete work natively; Enter submits; Escape cancels */
+  input.onkeydown=e=>{
+    if(e.key==="Enter"){ e.preventDefault(); go(); }
+    if(e.key==="Escape"){ e.preventDefault(); close(); }
+    /* Backspace & Delete are native — no intercept needed */
+  };
+
+  /* focus + select after paint */
+  setTimeout(()=>{ try{ input.focus(); input.select(); }catch(e){} },60);
 }
 function md(h){ $("#mc").innerHTML=h; $("#md").classList.add("on"); }
 function close(){ $("#md").classList.remove("on"); }
 $("#md").onclick=e=>{ if(e.target.id==="md") close(); };
 
-/* FIX: only true edit actions call need(); read/export actions do NOT. */
 function need(cb){
   if(unlocked) return cb();
   ask(cb);
@@ -627,6 +677,7 @@ function viewReport(){
   </div>`;
 }
 
+/* FIX-2: Personal report — QOYSKA removed from card, dropdown, table */
 function reportPersonal(){
   const pool = S.m.map((m,i)=>({m,i})).filter(x=>!grpFilter || (x.m.g||"").toLowerCase().includes(grpFilter.toLowerCase()));
   const list = pool.length ? pool : S.m.map((m,i)=>({m,i}));
@@ -657,7 +708,7 @@ function reportPersonal(){
     </select>
     <label>Dooro Qofka</label>
     <select id="pSel">
-      ${list.map(({m:pm,i:idx})=>`<option value="${idx}" ${idx===selPersonIdx?"selected":""}>${esc(pm.n)} — ${esc(pm.g||"—")}</option>`).join("")}
+      ${list.map(({m:pm,i:idx})=>`<option value="${idx}" ${idx===selPersonIdx?"selected":""}>${esc(pm.n)}</option>`).join("")}
     </select>
   </div>
 
@@ -665,7 +716,6 @@ function reportPersonal(){
     <div class="p-card">
       <small>Warbixinta Qaraanka Shaqsiyeed · ${YEAR}</small>
       <h3>${esc(m.n)}</h3>
-      <small>Qoyska: <b>${esc(m.g||"—")}</b></small>
       <div class="p-grid">
         <div class="p-box"><small>Bishii</small><b>${fmtMoney(monthlyDue)}</b></div>
         <div class="p-box"><small>Sanadka (9 bil)</small><b>${fmtMoney(yearGoal)}</b></div>
@@ -755,6 +805,7 @@ function reportMonthly(){
   </div>`;
 }
 
+/* FIX-2: Members report — QOYS column removed */
 function reportMembers(){
   const rows = membersStats();
   return `
@@ -762,12 +813,11 @@ function reportMembers(){
     <h2 style="margin-top:0">Warbixin Xubnaha · ${YEAR}</h2>
     <div class="tw">
       <table>
-        <thead><tr><th>Magac</th><th>Qoys</th><th>Bishii</th><th>La bixiyay</th><th>Maqan</th><th>Bilo</th><th>Xaalad</th></tr></thead>
+        <thead><tr><th>Magac</th><th>Bishii</th><th>La bixiyay</th><th>Maqan</th><th>Bilo</th><th>Xaalad</th></tr></thead>
         <tbody>
           ${rows.map(x=>`
             <tr>
               <td>${esc(x.m.n)}</td>
-              <td>${esc((x.m.g||"—").replace(" Kulmiye",""))}</td>
               <td>${fmtMoney(x.m.d)}</td>
               <td class="ok">${fmtMoney(x.pd)}</td>
               <td class="${x.amt>0?'bad':''}">${fmtMoney(x.amt)}</td>
@@ -828,6 +878,7 @@ function reportGeneral(){
   </div>`;
 }
 
+/* FIX-2: WhatsApp text — QOYSKA removed */
 function waTextFor(reportKey){
   const t=T();
   const header = `*Reer Kulmiye Cali — Warbixin ${YEAR}*\nKa soo baxay: ${todayLong()}\nXilliga la dallacay: ${billedLabel}\n\n`;
@@ -842,7 +893,7 @@ function waTextFor(reportKey){
       if(k<cur && v<md) dueM.push(`${n} (maqan ${fmtMoney(md-v)})`);
     });
     return header+
-      `👤 *${m.n}*\nQoyska: ${m.g||"—"}\n\n`+
+      `👤 *${m.n}*\n\n`+
       `💵 Bishii: *${fmtMoney(md)}*\n`+
       `📅 Sanadka (9 bil): *${fmtMoney(yg)}*\n`+
       `✅ La bixiyay: *${fmtMoney(tp)}*\n`+
@@ -903,46 +954,75 @@ function loadPdfLibs(){
     });
 }
 
+/* FIX-2: PDF sizing — bigger fonts on mobile, QOYS removed */
 function buildPdfDoc(reportKey){
   return loadPdfLibs().then(({jsPDF})=>{
     const t=T();
-    const doc=new jsPDF({orientation:"portrait",unit:"mm",format:"a4"});
+    /* Detect mobile */
+    const isMobile = /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent)
+                     || window.innerWidth < 700;
+
+    /* On mobile: use landscape for wide tables, portrait for narrow */
+    const wideReports = ["b","p","c"];
+    const useLandscape = isMobile && wideReports.includes(reportKey);
+    const orientation = useLandscape ? "landscape" : "portrait";
+
+    const doc=new jsPDF({orientation, unit:"mm", format:"a4", compress:true});
     const W=doc.internal.pageSize.getWidth();
-    const margin=14;
+    const H=doc.internal.pageSize.getHeight();
+    /* Bigger margins/fonts on mobile so text is readable */
+    const margin = isMobile ? 8 : 14;
+    const baseFont = isMobile ? 11 : 8.5;
+    const headFont = isMobile ? 11 : 8.5;
+    const titleFont = isMobile ? 16 : 13;
+
     const titles={s:"Warbixin Shaqsi",b:"Warbixin Bil-bil",p:"Warbixin Xubnaha",c:"Warbixin Qabeyaasha",g:"Warbixin Guud"};
     const title=titles[reportKey]||"Warbixin";
-    const monthInfo = billedLabel;
 
+    /* header */
     doc.setFillColor(20,43,74);
-    doc.rect(0,0,W,26,"F");
+    doc.rect(0,0,W,isMobile?30:26,"F");
     doc.setTextColor(255,255,255);
-    doc.setFont("helvetica","bold"); doc.setFontSize(14);
-    doc.text("Reer Kulmiye Cali", margin, 11);
-    doc.setFont("helvetica","normal"); doc.setFontSize(9);
-    doc.text(`Warbixin: ${title} · Sanadka ${YEAR} · Xilliga: ${monthInfo}`, margin, 17);
-    doc.text(`Taariikhda: ${todayLong()}`, W-margin, 17, {align:"right"});
+    doc.setFont("helvetica","bold"); doc.setFontSize(isMobile?16:14);
+    doc.text("Reer Kulmiye Cali", margin, isMobile?12:11);
+    doc.setFont("helvetica","normal"); doc.setFontSize(isMobile?10:9);
+    doc.text(`Warbixin: ${title} · Sanadka ${YEAR} · Xilliga: ${billedLabel}`,
+      margin, isMobile?20:17);
+    doc.text(`Taariikhda: ${todayLong()}`, W-margin, isMobile?20:17, {align:"right"});
 
-    let y=32;
+    let y = isMobile ? 38 : 32;
     doc.setTextColor(24,40,59);
 
-    doc.setFont("helvetica","bold"); doc.setFontSize(13);
+    doc.setFont("helvetica","bold"); doc.setFontSize(titleFont);
     doc.text(title.toUpperCase(), margin, y); y+=3;
     doc.setDrawColor(22,166,161); doc.setLineWidth(.7);
-    doc.line(margin,y,margin+38,y); y+=7;
+    doc.line(margin,y,margin+38,y); y += isMobile?9:7;
 
     const addTable=(headers,rows,opts={})=>{
       doc.autoTable({
-        startY:y, head:[headers], body:rows, margin:{left:margin,right:margin},
-        styles:{fontSize:8.5, cellPadding:2, overflow:"linebreak",
-          lineColor:[226,232,240], lineWidth:.1, textColor:[24,40,59]},
-        headStyles:{fillColor:[20,43,74], textColor:[255,255,255], fontStyle:"bold", fontSize:8.5},
+        startY:y, head:[headers], body:rows,
+        margin:{left:margin,right:margin},
+        styles:{
+          fontSize: baseFont,
+          cellPadding: isMobile?3:2,
+          overflow:"linebreak",
+          lineColor:[226,232,240], lineWidth:.1,
+          textColor:[24,40,59],
+          minCellHeight: isMobile?8:0,
+        },
+        headStyles:{
+          fillColor:[20,43,74], textColor:[255,255,255],
+          fontStyle:"bold", fontSize: headFont,
+          cellPadding: isMobile?3:2,
+        },
         alternateRowStyles:{fillColor:[243,246,250]},
         theme:"grid",
         ...opts,
         didDrawPage:(data)=>{
           const ph=doc.internal.pageSize.getHeight();
-          doc.setFontSize(8); doc.setTextColor(120,128,150);
-          doc.text(`Reer Kulmiye Cali — ${title} — ${todayLong()}`, margin, ph-6);
+          doc.setFontSize(isMobile?9:8); doc.setTextColor(120,128,150);
+          doc.text(`Reer Kulmiye Cali — ${title} — ${todayLong()}`,
+            margin, ph-6);
           doc.text(`Bog ${data.pageNumber}`, W-margin, ph-6, {align:"right"});
         }
       });
@@ -953,10 +1033,11 @@ function buildPdfDoc(reportKey){
       const m=S.m[selPersonIdx]||S.m[0];
       if(m){
         const md=+m.d||0, yg=md*9, tp=paid(m), bo=owedAmt(m), yr=Math.max(0,yg-tp);
-        doc.setFontSize(10); doc.setFont("helvetica","bold");
-        doc.text(`Magaca: ${m.n}`, margin, y); y+=5;
+        doc.setFontSize(isMobile?13:10); doc.setFont("helvetica","bold");
+        doc.text(`Magaca: ${m.n}`, margin, y); y+=isMobile?7:5;
         doc.setFont("helvetica","normal");
-        doc.text(`Qoyska: ${m.g||"—"}`, margin, y); y+=7;
+        /* FIX-2: QOYS removed */
+        y+=isMobile?3:2;
         addTable(
           ["Lagu talagalay","Qiimaha"],
           [
@@ -992,9 +1073,10 @@ function buildPdfDoc(reportKey){
       );
     }
     else if(reportKey==="p"){
+      /* FIX-2: QOYS column removed */
       addTable(
-        ["Magac","Qoys","Bishii","La bixiyay","Maqan","Bilo","Xaalad"],
-        membersStats().map(x=>[x.m.n,(x.m.g||"—").replace(" Kulmiye",""),
+        ["Magac","Bishii","La bixiyay","Maqan","Bilo","Xaalad"],
+        membersStats().map(x=>[x.m.n,
           fmtMoney(x.m.d),fmtMoney(x.pd),fmtMoney(x.amt),x.o.length,
           x.o.length?"Maqan":"✓"])
       );
@@ -1156,7 +1238,7 @@ function openQuickCollection(editIdx){
       </select>
       <label>Qofka</label>
       <select id="qMem">
-        ${gList.map(({m:pm,i:idx})=>`<option value="${idx}" ${idx===activeMemberIdx?"selected":""}>${esc(pm.n)} (${esc(pm.g||"—")} · ${fmtMoney(pm.d)})</option>`).join("")}
+        ${gList.map(({m:pm,i:idx})=>`<option value="${idx}" ${idx===activeMemberIdx?"selected":""}>${esc(pm.n)} · ${fmtMoney(pm.d)}</option>`).join("")}
       </select>
       <label>Bisha</label>
       <select id="qMon">
@@ -1346,9 +1428,7 @@ async function pull(showMsg){
   render();
 }
 
-/* ============ BINDINGS (FIXED) ============ */
 function bind(){
-  /* members filter/search — NO password needed */
   const gf=$("#gf"); if(gf) gf.onchange=e=>{grpFilter=e.target.value;render();};
   const qi=$("#q"); if(qi) qi.oninput=e=>{
     q=e.target.value; const p=e.target.selectionStart;
@@ -1356,37 +1436,25 @@ function bind(){
     const n=$("#q"); if(n){n.focus();n.setSelectionRange(p,p);}
   };
 
-  /* personal report selectors — NO password needed */
   const pGrp=$("#pGrp"); if(pGrp) pGrp.onchange=e=>{grpFilter=e.target.value;render();};
   const pSel=$("#pSel"); if(pSel) pSel.onchange=e=>{selPersonIdx=+e.target.value;render();};
 
-  /* report action buttons — NO password needed */
   const wa=$("#waBtn"); if(wa) wa.onclick=()=>shareWhatsApp(sub);
   const pdf=$("#pdfBtn"); if(pdf) pdf.onclick=()=>downloadPdf(sub);
   const cp=$("#copyBtn"); if(cp) cp.onclick=()=>copyText(sub);
 
-  /* report tabs — NO password needed (FIX: these were hijacked before) */
   $$(".tabs button[data-s]").forEach(e=>e.onclick=()=>{sub=e.dataset.s;render();});
 
-  /* ===== EDIT ACTIONS — password required ===== */
   $$("[data-m]").forEach(e=>e.onclick=()=>need(()=>em(+e.dataset.m)));
   $$("[data-t]").forEach(e=>e.onclick=()=>need(()=>openQuickCollection(+e.dataset.t)));
   $$("[data-x]").forEach(e=>e.onclick=()=>need(()=>ex(+e.dataset.x)));
 }
 
-/* FAB — context-aware; only edit actions get password gate */
 $("#fab").onclick=()=>need(()=>{
   if(tab==="m") em(-1);
   else if(tab==="t") openQuickCollection(-1);
   else ex(-1);
 });
-
-function dl(name,text,type){
-  const a=document.createElement("a");
-  a.href=URL.createObjectURL(new Blob([text],{type:type||"application/json"}));
-  a.download=name; document.body.appendChild(a); a.click();
-  setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove();},1500);
-}
 
 render();
 pull();
