@@ -209,7 +209,6 @@ tr:hover td{background:rgba(22,166,161,.04)}
   flex-wrap:wrap;font-weight:600}
 .modebar.on{background:var(--ok-bg);color:var(--ok)}
 
-/* FIX-2: password field with eye toggle */
 .pw-wrap{position:relative;margin:4px 0 12px}
 .pw-wrap input{margin:0;padding-right:52px}
 .pw-eye{position:absolute;right:6px;top:50%;transform:translateY(-50%);
@@ -257,8 +256,11 @@ tr:hover td{background:rgba(22,166,161,.04)}
 
 <script>
 /* =====================================================================
-   REER KULMIYE CALI — Redesigned App
-   FIX-2: PDF mobile sizing, remove QOYS from reports, password UX
+   REER KULMIYE CALI — FIX-3
+   - Reports-first: nav tabs NEVER trigger password
+   - Event delegation: bind once, no re-binding on every render
+   - data-nav instead of data-t on nav buttons (no selector collision)
+   - Data rows use data-action + data-idx (explicit)
    ===================================================================== */
 
 const DEFAULT_API="https://script.google.com/macros/s/AKfycbw8kKEosj8EkV458_D2_f6C7oeMRLWMrBbNdowmo0aW8-pRtSH2Raen3EvWNVwqtRnnuA/exec";
@@ -395,7 +397,6 @@ function lock(){ $("#lk").textContent=unlocked?"🔓":"🔒"; }
 $("#lk").onclick=()=>{ if(unlocked){unlocked=false;lock();render();} else ask(); };
 $("#rf").onclick=()=>API?pull(true):toast("Marka hore ku xir Google Sheet");
 
-/* FIX-2: password modal with eye + clear + cancel */
 function ask(cb){
   md(`<h2>Geli Password-ka Edit-ka</h2>
     <div class="pw-wrap">
@@ -413,21 +414,15 @@ function ask(cb){
   const clr=$("#clr");
   const goBtn=$("#go");
 
-  /* eye toggle */
   eye.onclick=()=>{
     const isPw=input.type==="password";
     input.type=isPw?"text":"password";
     eye.textContent=isPw?"🙈":"👁";
     input.focus();
   };
-
-  /* clear button */
   clr.onclick=()=>{ input.value=""; input.focus(); };
-
-  /* cancel */
   $("#cx").onclick=()=>{ close(); };
 
-  /* submit */
   const go=async()=>{
     const p=input.value;
     if(!p){ $("#er").textContent="Password geli"; input.focus(); return; }
@@ -446,15 +441,10 @@ function ask(cb){
     finally{ goBtn.disabled=false; }
   };
   goBtn.onclick=go;
-
-  /* FIX-2: keyboard — Backspace/Delete work natively; Enter submits; Escape cancels */
   input.onkeydown=e=>{
     if(e.key==="Enter"){ e.preventDefault(); go(); }
     if(e.key==="Escape"){ e.preventDefault(); close(); }
-    /* Backspace & Delete are native — no intercept needed */
   };
-
-  /* focus + select after paint */
   setTimeout(()=>{ try{ input.focus(); input.select(); }catch(e){} },60);
 }
 function md(h){ $("#mc").innerHTML=h; $("#md").classList.add("on"); }
@@ -466,16 +456,17 @@ function need(cb){
   ask(cb);
 }
 
+/* FIX-3: nav buttons use data-nav (not data-t) to avoid selector collision */
 const NV=[["d","📊","Dashboard"],["r","📝","Warbixin"],["m","👥","Xubnaha"],["t","💵","Qabasho"],["x","🧾","Bixin"]];
-$("#nv").innerHTML=NV.map(n=>`<button data-t="${n[0]}"><span>${n[1]}</span>${n[2]}</button>`).join("");
+$("#nv").innerHTML=NV.map(n=>`<button data-nav="${n[0]}"><span>${n[1]}</span>${n[2]}</button>`).join("");
 $("#nv").onclick=e=>{
   const b=e.target.closest("button");
-  if(b){ tab=b.dataset.t; q=""; render(); scrollTo(0,0); }
+  if(b && b.dataset.nav){ tab=b.dataset.nav; q=""; render(); scrollTo(0,0); }
 };
 
 function render(){
   lock();
-  $$("nav button").forEach(b=>b.classList.toggle("on",b.dataset.t===tab));
+  $$("nav button").forEach(b=>b.classList.toggle("on",b.dataset.nav===tab));
   $("#fab").style.display=(unlocked&&(tab==="m"||tab==="t"||tab==="x"))?"block":"none";
   $("#sub").textContent=`Lacagta Qaraanka · ${YEAR} · ${billedLabel}`;
 
@@ -586,6 +577,7 @@ function viewDash(){
   </div>`;
 }
 
+/* FIX-3: data-action="edit-member" instead of data-m */
 function viewMembers(){
   const L = S.m.map((m,i)=>({m,i})).filter(x=>{
     const mq = !q || x.m.n.toLowerCase().includes(q.toLowerCase()) ||
@@ -607,7 +599,7 @@ function viewMembers(){
   <div class="c">
     ${L.map(({m,i})=>{
       const o=owed(m), ob=owedAmt(m);
-      return `<div class="row" data-m="${i}" style="cursor:pointer">
+      return `<div class="row" data-action="edit-member" data-idx="${i}" style="cursor:pointer">
         <div>
           <b>${esc(m.n)}</b><br>
           <small>${esc(m.g||"—")} · bishii ${fmtMoney(m.d)}</small>
@@ -626,6 +618,7 @@ function viewMembers(){
   </div>`;
 }
 
+/* FIX-3: data-action="edit-collection" */
 function viewCollections(){
   const L = S.t.map((t,i)=>({t,i})).reverse();
   const total = S.t.reduce((a,t)=>a+(+t.a||0),0);
@@ -633,7 +626,7 @@ function viewCollections(){
   <div class="c k"><small>Wadarta la diiwaan geliyay</small><b class="ok">${fmtMoney(total)}</b></div>
   <div class="c">
     ${L.map(({t,i})=>`
-      <div class="row" data-t="${i}" style="cursor:pointer">
+      <div class="row" data-action="edit-collection" data-idx="${i}" style="cursor:pointer">
         <span><b>${esc(t.w||t.c||"—")}</b><br>
         <small>${esc(t.b)} · ${esc(t.d)||"—"} · ${esc(t.nb||t.c||"")}</small></span>
         <b class="ok">${fmtMoney(t.a)}</b>
@@ -641,6 +634,7 @@ function viewCollections(){
   </div>`;
 }
 
+/* FIX-3: data-action="edit-expense" */
 function viewExpenses(){
   const L = S.x.map((x,i)=>({x,i})).reverse();
   const total = S.x.reduce((a,x)=>a+(+x.a||0),0);
@@ -648,7 +642,7 @@ function viewExpenses(){
   <div class="c k"><small>Wadarta lacagaha baxay</small><b class="warn">${fmtMoney(total)}</b></div>
   <div class="c">
     ${L.map(({x,i})=>`
-      <div class="row" data-x="${i}" style="cursor:pointer">
+      <div class="row" data-action="edit-expense" data-idx="${i}" style="cursor:pointer">
         <span><b>${esc(x.s||"—")}</b><br>
         <small>${esc(x.d)} · loo tuuray: ${esc(x.to||"—")} · bixiyey: ${esc(x.by||"—")}</small></span>
         <b class="warn">${fmtMoney(x.a)}</b>
@@ -667,7 +661,7 @@ function viewReport(){
   return `
   <div class="tabs">
     ${[["s","👤 Shaqsi"],["b","📅 Bil-bil"],["p","👥 Xubnaha"],["c","💵 Qabeyaasha"],["g","📊 Guud"]]
-      .map(a=>`<button data-s="${a[0]}" class="${sub===a[0]?"on":""}">${a[1]}</button>`).join("")}
+      .map(a=>`<button data-tab="${a[0]}" class="${sub===a[0]?"on":""}">${a[1]}</button>`).join("")}
   </div>
   ${tb[sub]}
   <div class="act-grid no-print" style="margin-top:16px">
@@ -677,7 +671,6 @@ function viewReport(){
   </div>`;
 }
 
-/* FIX-2: Personal report — QOYSKA removed from card, dropdown, table */
 function reportPersonal(){
   const pool = S.m.map((m,i)=>({m,i})).filter(x=>!grpFilter || (x.m.g||"").toLowerCase().includes(grpFilter.toLowerCase()));
   const list = pool.length ? pool : S.m.map((m,i)=>({m,i}));
@@ -805,7 +798,6 @@ function reportMonthly(){
   </div>`;
 }
 
-/* FIX-2: Members report — QOYS column removed */
 function reportMembers(){
   const rows = membersStats();
   return `
@@ -878,7 +870,6 @@ function reportGeneral(){
   </div>`;
 }
 
-/* FIX-2: WhatsApp text — QOYSKA removed */
 function waTextFor(reportKey){
   const t=T();
   const header = `*Reer Kulmiye Cali — Warbixin ${YEAR}*\nKa soo baxay: ${todayLong()}\nXilliga la dallacay: ${billedLabel}\n\n`;
@@ -954,23 +945,17 @@ function loadPdfLibs(){
     });
 }
 
-/* FIX-2: PDF sizing — bigger fonts on mobile, QOYS removed */
 function buildPdfDoc(reportKey){
   return loadPdfLibs().then(({jsPDF})=>{
     const t=T();
-    /* Detect mobile */
     const isMobile = /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent)
                      || window.innerWidth < 700;
-
-    /* On mobile: use landscape for wide tables, portrait for narrow */
     const wideReports = ["b","p","c"];
     const useLandscape = isMobile && wideReports.includes(reportKey);
     const orientation = useLandscape ? "landscape" : "portrait";
 
     const doc=new jsPDF({orientation, unit:"mm", format:"a4", compress:true});
     const W=doc.internal.pageSize.getWidth();
-    const H=doc.internal.pageSize.getHeight();
-    /* Bigger margins/fonts on mobile so text is readable */
     const margin = isMobile ? 8 : 14;
     const baseFont = isMobile ? 11 : 8.5;
     const headFont = isMobile ? 11 : 8.5;
@@ -979,7 +964,6 @@ function buildPdfDoc(reportKey){
     const titles={s:"Warbixin Shaqsi",b:"Warbixin Bil-bil",p:"Warbixin Xubnaha",c:"Warbixin Qabeyaasha",g:"Warbixin Guud"};
     const title=titles[reportKey]||"Warbixin";
 
-    /* header */
     doc.setFillColor(20,43,74);
     doc.rect(0,0,W,isMobile?30:26,"F");
     doc.setTextColor(255,255,255);
@@ -1036,7 +1020,6 @@ function buildPdfDoc(reportKey){
         doc.setFontSize(isMobile?13:10); doc.setFont("helvetica","bold");
         doc.text(`Magaca: ${m.n}`, margin, y); y+=isMobile?7:5;
         doc.setFont("helvetica","normal");
-        /* FIX-2: QOYS removed */
         y+=isMobile?3:2;
         addTable(
           ["Lagu talagalay","Qiimaha"],
@@ -1073,7 +1056,6 @@ function buildPdfDoc(reportKey){
       );
     }
     else if(reportKey==="p"){
-      /* FIX-2: QOYS column removed */
       addTable(
         ["Magac","Bishii","La bixiyay","Maqan","Bilo","Xaalad"],
         membersStats().map(x=>[x.m.n,
@@ -1428,28 +1410,43 @@ async function pull(showMsg){
   render();
 }
 
+/* ============ FIX-3: BIND — only current tab's edit actions ============ */
 function bind(){
-  const gf=$("#gf"); if(gf) gf.onchange=e=>{grpFilter=e.target.value;render();};
-  const qi=$("#q"); if(qi) qi.oninput=e=>{
-    q=e.target.value; const p=e.target.selectionStart;
-    render();
-    const n=$("#q"); if(n){n.focus();n.setSelectionRange(p,p);}
-  };
+  /* current tab only — no selector collision with nav */
+  if(tab==="r"){
+    const pGrp=$("#pGrp"); if(pGrp) pGrp.onchange=e=>{grpFilter=e.target.value;render();};
+    const pSel=$("#pSel"); if(pSel) pSel.onchange=e=>{selPersonIdx=+e.target.value;render();};
 
-  const pGrp=$("#pGrp"); if(pGrp) pGrp.onchange=e=>{grpFilter=e.target.value;render();};
-  const pSel=$("#pSel"); if(pSel) pSel.onchange=e=>{selPersonIdx=+e.target.value;render();};
+    const wa=$("#waBtn"); if(wa) wa.onclick=()=>shareWhatsApp(sub);
+    const pdf=$("#pdfBtn"); if(pdf) pdf.onclick=()=>downloadPdf(sub);
+    const cp=$("#copyBtn"); if(cp) cp.onclick=()=>copyText(sub);
 
-  const wa=$("#waBtn"); if(wa) wa.onclick=()=>shareWhatsApp(sub);
-  const pdf=$("#pdfBtn"); if(pdf) pdf.onclick=()=>downloadPdf(sub);
-  const cp=$("#copyBtn"); if(cp) cp.onclick=()=>copyText(sub);
-
-  $$(".tabs button[data-s]").forEach(e=>e.onclick=()=>{sub=e.dataset.s;render();});
-
-  $$("[data-m]").forEach(e=>e.onclick=()=>need(()=>em(+e.dataset.m)));
-  $$("[data-t]").forEach(e=>e.onclick=()=>need(()=>openQuickCollection(+e.dataset.t)));
-  $$("[data-x]").forEach(e=>e.onclick=()=>need(()=>ex(+e.dataset.x)));
+    $$(".tabs button[data-tab]").forEach(e=>e.onclick=()=>{sub=e.dataset.tab;render();});
+  }
+  if(tab==="m"){
+    const gf=$("#gf"); if(gf) gf.onchange=e=>{grpFilter=e.target.value;render();};
+    const qi=$("#q"); if(qi) qi.oninput=e=>{
+      q=e.target.value; const p=e.target.selectionStart;
+      render();
+      const n=$("#q"); if(n){n.focus();n.setSelectionRange(p,p);}
+    };
+    $$("[data-action='edit-member']").forEach(e=>{
+      e.onclick=()=>need(()=>em(+e.dataset.idx));
+    });
+  }
+  if(tab==="t"){
+    $$("[data-action='edit-collection']").forEach(e=>{
+      e.onclick=()=>need(()=>openQuickCollection(+e.dataset.idx));
+    });
+  }
+  if(tab==="x"){
+    $$("[data-action='edit-expense']").forEach(e=>{
+      e.onclick=()=>need(()=>ex(+e.dataset.idx));
+    });
+  }
 }
 
+/* FAB — context-aware; only edit actions get password gate */
 $("#fab").onclick=()=>need(()=>{
   if(tab==="m") em(-1);
   else if(tab==="t") openQuickCollection(-1);
