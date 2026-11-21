@@ -33,7 +33,7 @@ input,select,textarea{width:100%;padding:11px;border:1px solid var(--br);border-
 label{font-size:12px;color:var(--mu)}
 .btn{background:var(--pr);color:#fff;border:0;border-radius:10px;padding:12px 16px;font-size:15px;cursor:pointer;font-weight:600}
 .btn.s{background:var(--pr2);color:var(--pr)}.btn.d{background:var(--rd2);color:var(--rd)}.btn.w{width:100%}
-.top{display:flex;gap:8px;margin-bottom:10px}.top input{margin:0}
+.top{display:flex;gap:8px;margin-bottom:10px}.top input,.top select{margin:0}
 .md{position:fixed;inset:0;background:#000a;z-index:20;display:none;align-items:flex-end;justify-content:center}
 .md.on{display:flex}.md>div{background:var(--card);width:100%;max-width:560px;max-height:92vh;overflow:auto;border-radius:18px 18px 0 0;padding:18px 16px calc(18px + env(safe-area-inset-bottom,0px))}
 .pg{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
@@ -42,6 +42,25 @@ label{font-size:12px;color:var(--mu)}
 .fab{position:fixed;right:16px;bottom:calc(76px + env(safe-area-inset-bottom,0px));width:54px;height:54px;border-radius:27px;font-size:28px;background:var(--pr);color:#fff;border:0;box-shadow:0 4px 14px #0004;z-index:6;display:none}
 .st{font-size:11px;color:var(--mu);text-align:center;margin-top:14px}
 .modebar{background:var(--pr2);color:var(--pr);border:1px solid var(--br);border-radius:10px;padding:8px 12px;font-size:12px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center}
+
+/* Personal Report Card UI/UX */
+.p-card{background:linear-gradient(145deg,var(--pr),#0b5c40);color:#fff;border-radius:16px;padding:18px;margin-bottom:12px;box-shadow:0 6px 18px rgba(15,122,85,.18)}
+.p-card small{opacity:.88;display:block;font-size:12px}
+.p-card h3{margin:4px 0 2px;font-size:20px}
+.p-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
+.p-box{background:#ffffff1c;border-radius:10px;padding:10px}
+.p-box small{font-size:11px;opacity:.9}
+.p-box b{font-size:16px;display:block;margin-top:2px}
+.list-pill{display:inline-block;padding:4px 9px;border-radius:999px;font-size:12px;margin:3px 3px 0 0;font-weight:600}
+.list-pill.ok{background:var(--pr2);color:var(--pr)}
+.list-pill.bad{background:var(--rd2);color:var(--rd)}
+
+@media print{
+  header,nav,.fab,.modebar,.tabs,.no-print,.st{display:none!important}
+  body{background:#fff;color:#000}
+  main{padding:0;max-width:100%}
+  .c,.p-card{box-shadow:none;border:1px solid #ccc;break-inside:avoid}
+}
 </style></head><body>
 <header><div><h1>Reer Kulmiye Cali</h1><small>Lacagta Qaraanka · Apr – Dec 2026</small></div><div style="display:flex;gap:6px"><button class="lock" id="rf">↻</button><button class="lock" id="lk"></button></div></header>
 <main id="v"></main>
@@ -52,21 +71,16 @@ label{font-size:12px;color:var(--mu)}
 <script>
 const DEFAULT_API="https://script.google.com/macros/s/AKfycbw8kKEosj8EkV458_D2_f6C7oeMRLWMrBbNdowmo0aW8-pRtSH2Raen3EvWNVwqtRnnuA/exec";
 const MN=["Apr","May","Jun","Jul","Ago","Sep","Oct","Nov","Dec"],MF=["April","May","Juun","Julay","Agoosto","Sebtembar","Oktoobar","Nofeembar","Deseembar"];
+const GROUPS=["Maxamuud Kulmiye","Xasan Kulmiye","Axmed Kulmiye"];
 let S={m:[],t:[],x:[]};
-let tab="d",unlocked=false,q="",doc=null,tmr,sub="b",fm=0;
+let tab="d",unlocked=false,q="",grpFilter="",selPersonIdx=0,doc=null,tmr,sub="b";
 let API=localStorage.getItem("kul_api")||DEFAULT_API,PW="",stamp="";
 
-// Xeerka: Bil dhammaatay ayaa la qaadaa (1-da bisha xigta ayaa la dallacaa)
-// Apr (month 4) -> 0 bilood la dallacay
-// Nov (month 11) -> 7 bilood la dallacay (Apr..Oct)
-// Dec (month 12) -> 8 bilood la dallacay (Apr..Nov)
-// Jan 2027+ -> 9 bilood la dallacay (Apr..Dec)
 const now=new Date();
 const yrNow=now.getFullYear();
 const mNow=now.getMonth()+1;
 const cur=yrNow>2026?9:Math.min(9,Math.max(0,mNow-4));
 const billedLabel=cur===0?"Weli bil lama dallacin":`Apr–${MN[cur-1]}`;
-const billedFull=cur===0?"bilaha la dallacay":MF[cur-1];
 
 const $=s=>document.querySelector(s),f=n=>(+n||0).toLocaleString("en-US"),esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const td=()=>new Date().toISOString().slice(0,10);
@@ -150,11 +164,14 @@ function load(){try{const j=localStorage.getItem("kul2");if(j)S=normalizeData(JS
 load();
 async function save(){try{localStorage.setItem("kul2",JSON.stringify(S))}catch(e){}
  clearTimeout(tmr);tmr=setTimeout(()=>{if(doc)doc.set({json:JSON.stringify(S)}).catch(()=>{})},400)}
+
 const due=(m,k=cur)=>m.d*k,paid=m=>m.p.reduce((a,b)=>a+b,0),paidTo=(m,k=cur)=>m.p.slice(0,k).reduce((a,b)=>a+b,0);
 const T=()=>{const R=S.m.reduce((a,m)=>a+m.d,0),yr=R*9,dn=R*cur,pd=S.m.reduce((a,m)=>a+paid(m),0),pdn=S.m.reduce((a,m)=>a+paidTo(m),0),ex=S.x.reduce((a,x)=>a+(+x.a||0),0),lg=S.t.reduce((a,t)=>a+(+t.a||0),0);
  return{R,yr,dn,pd,pdn,miss:Math.max(0,dn-pdn),ex,hand:pd-ex,lg}};
 const mon=i=>{const R=S.m.reduce((a,m)=>a+m.d,0),pd=S.m.reduce((a,m)=>a+m.p[i],0),n=S.m.filter(m=>m.p[i]>=m.d&&m.d>0).length;return{R,pd,miss:R-pd,n,pc:R?Math.round(pd/R*100):0}};
 const owed=m=>{let l=[];for(let i=0;i<cur;i++)if(m.p[i]<m.d)l.push(i);return l};
+const unpaidAnyMonth=m=>{let l=[];for(let i=0;i<9;i++)if((+m.p[i]||0)<(+m.d||0))l.push(i);return l};
+
 function lock(){$("#lk").textContent=unlocked?"🔓 Edit":"🔒 Reports"}
 $("#lk").onclick=()=>{
   if(unlocked){
@@ -170,13 +187,16 @@ function ask(cb){md(`<h2>Geli Password-ka Edit-ka</h2><input id="pw" type="passw
 function md(h){$("#mc").innerHTML=h;$("#md").classList.add("on")}function close(){$("#md").classList.remove("on")}
 $("#md").onclick=e=>{if(e.target.id==="md")close()};
 function need(cb){if(!unlocked)return;cb()}
+
 const NV=[["d","📊","Dashboard"],["r","📝","Warbixin"],["m","👥","Xubnaha"],["t","💵","Qabasho"],["x","🧾","Bixin"]];
 $("#nv").innerHTML=NV.map(n=>`<button data-t="${n[0]}"><span>${n[1]}</span>${n[2]}</button>`).join("");
 $("#nv").onclick=e=>{const b=e.target.closest("button");if(b){tab=b.dataset.t;q="";render();scrollTo(0,0)}};
+
 function render(){lock();document.querySelectorAll("nav button").forEach(b=>b.classList.toggle("on",b.dataset.t===tab));
  $("#fab").style.display=(unlocked&&(tab==="m"||tab==="t"||tab==="x"))?"block":"none";
  const banner=!unlocked?`<div class="modebar"><span>Habka: <b>Reports Only</b> (Edit waa xiran yahay)</span><span>${billedLabel}</span></div>`:"";
  $("#v").innerHTML=!API?vs():banner+({d:vd,m:vm,t:vt,x:vx,r:vr})[tab]()+`<div class="st">Xogta: ${S.m.length} xubnood · bilaha la dallacay: ${cur} (${billedLabel})${API?" · Sheet: "+stamp:" · Sheet ma xirna"}</div>`;bind()}
+
 function vs(){return`<div class="c"><h2 style="margin-top:0">🔗 Xiriir Google Sheet</h2><p style="font-size:14px;color:var(--mu)">Ku dheji Apps Script Web App URL (ka dhammaada /exec).</p><input id="su" value="${esc(API)}" placeholder="https://script.google.com/macros/s/.../exec"><button class="btn w" id="sa">Xiriir</button></div>`}
 
 function vd(){
@@ -200,19 +220,145 @@ function vd(){
   <h2>Ugu lacag-dhimanka · 2) Total lacagta ugu badan</h2><div class="c">${byAmount.map(x=>`<div class="row"><span><b>${esc(x.m.n)}</b><br><small>${x.o.map(i=>MN[i]).join(", ")||"—"} (${x.cnt} bilood)</small></span><b class="bad">$${f(x.amt)}</b></div>`).join("")||"<p class='ok'>Dhammaan waa bixiyeen ✓</p>"}</div>
   <h2>Qabashooyinkii ugu dambeeyay</h2><div class="c">${last.map(x=>`<div class="row"><span><b>${esc(x.w||x.c)}</b><br><small>Bisha: ${esc(x.b)} · ${esc(x.d)} · ${esc(x.nb||x.c)}</small></span><b class="ok">$${f(x.a)}</b></div>`).join("")||"<small>Ma jiro</small>"}</div>`}
 
-function vm(){const L=S.m.map((m,i)=>({m,i})).filter(x=>x.m.n.toLowerCase().includes(q.toLowerCase())||x.m.g.toLowerCase().includes(q.toLowerCase()));
- return`<div class="top"><input id="q" placeholder="🔍 Raadi magac..." value="${esc(q)}"></div><div class="c">${L.map(({m,i})=>{const o=owed(m),ob=o.reduce((a,k)=>a+m.d-m.p[k],0);
- return`<div class="row" data-m="${i}" style="cursor:${unlocked?"pointer":"default"};align-items:flex-start"><div><b>${esc(m.n)}</b><br><small>${esc(m.g)} · bishii $${m.d}</small><div class="chips">${MN.map((n,k)=>`<span class="chip ${k>=cur?"":m.p[k]>=m.d?"p":m.p[k]>0?"h":"m"}">${n}</span>`).join("")}</div></div><div style="text-align:right"><b class="ok">$${f(paid(m))}</b><br><small class="${ob?"bad":"ok"}">${ob?"maqan $"+f(ob):"✓ buuxa"}</small></div></div>`}).join("")}</div>`}
+function vm(){
+  const L=S.m.map((m,i)=>({m,i})).filter(x=>{
+    const matchQ=!q || x.m.n.toLowerCase().includes(q.toLowerCase()) || x.m.g.toLowerCase().includes(q.toLowerCase());
+    const matchG=!grpFilter || x.m.g.toLowerCase().includes(grpFilter.toLowerCase());
+    return matchQ && matchG;
+  });
+  return`<div class="top" style="flex-wrap:wrap">
+    <select id="gf" style="flex:1;min-width:150px">
+      <option value="">Dhammaan Qoysaska / Kooxaha</option>
+      ${GROUPS.map(g=>`<option value="${esc(g)}" ${grpFilter===g?"selected":""}>${esc(g)}</option>`).join("")}
+    </select>
+    <input id="q" style="flex:1;min-width:150px" placeholder="🔍 Raadi magac..." value="${esc(q)}">
+  </div>
+  <div class="c">${L.map(({m,i})=>{const o=owed(m),ob=o.reduce((a,k)=>a+m.d-m.p[k],0);
+   return`<div class="row" data-m="${i}" style="cursor:${unlocked?"pointer":"default"};align-items:flex-start"><div><b>${esc(m.n)}</b><br><small>${esc(m.g)} · bishii $${m.d}</small><div class="chips">${MN.map((n,k)=>`<span class="chip ${k>=cur?"":m.p[k]>=m.d?"p":m.p[k]>0?"h":"m"}">${n}</span>`).join("")}</div></div><div style="text-align:right"><b class="ok">$${f(paid(m))}</b><br><small class="${ob?"bad":"ok"}">${ob?"maqan $"+f(ob):"✓ buuxa"}</small></div></div>`}).join("")||"<small>Xubin lama helin</small>"}</div>`}
+
 function vt(){const L=S.t.map((t,i)=>({t,i})).reverse();return`<div class="c k"><small>Wadarta la diiwaan geliyay (Qabasho)</small><b class="ok">$${f(T().lg)}</b></div><div class="c">${L.map(({t,i})=>`<div class="row" data-t="${i}" style="cursor:${unlocked?"pointer":"default"}"><span><b>${esc(t.w||t.c)}</b><br><small>Bisha: ${esc(t.b)} · ${esc(t.d)||"—"} · ${esc(t.nb||t.c)}</small></span><b class="ok">$${f(t.a)}</b></div>`).join("")}</div>`}
+
 function vx(){const L=S.x.map((x,i)=>({x,i})).reverse();return`<div class="c k"><small>Wadarta lacagaha baxay</small><b class="warn">$${f(T().ex)}</b></div><div class="c">${L.map(({x,i})=>`<div class="row" data-x="${i}" style="cursor:${unlocked?"pointer":"default"}"><span><b>${esc(x.s)}</b><br><small>${esc(x.d)} · loo tuuray: ${esc(x.to)} · bixiyey: ${esc(x.by)}</small></span><b class="warn">$${f(x.a)}</b></div>`).join("")||"<p style='color:var(--mu)'>Weli wax lacag bixin ah lama gelin.</p>"}</div>`}
+
 function colls(){const o={};S.t.forEach(t=>{const k=t.c||"?";o[k]=(o[k]||0)+(+t.a||0)});return Object.entries(o).sort((a,b)=>b[1]-a[1])}
-function vr(){const t=T();const tb={b:`<div class="tw c"><table><tr><th>Bil</th><th>La rabo</th><th>La qabtay</th><th>Maqan</th><th>%</th><th>Bixiyey</th></tr>${MN.map((n,i)=>{const o=mon(i);return`<tr><td>${n}</td><td>${f(o.R)}</td><td class="ok">${f(o.pd)}</td><td class="${o.miss>0?"bad":""}">${f(o.miss)}</td><td>${o.pc}%</td><td>${o.n}/${S.m.length}</td></tr>`}).join("")}<tr><th>Total</th><th>${f(t.yr)}</th><th>${f(t.pd)}</th><th>${f(t.yr-t.pd)}</th><th></th><th></th></tr></table></div>`,
- p:`<div class="tw c"><table><tr><th>Magac</th><th>Bixiyey</th><th>Maqan</th><th>Bilaha ku dhiman</th></tr>${S.m.map(m=>({m,o:owed(m)})).sort((a,b)=>b.o.length-a.o.length).map(({m,o})=>`<tr><td>${esc(m.n)}</td><td class="ok">${f(paid(m))}</td><td class="${o.length?"bad":"ok"}">${f(o.reduce((a,k)=>a+m.d-m.p[k],0))}</td><td style="white-space:normal;text-align:left">${o.map(k=>MN[k]).join(", ")||"✓"}</td></tr>`).join("")}</table></div>`,
- c:`<div class="c">${colls().map(([k,v])=>`<div class="row"><span>${esc(k)}</span><b class="ok">$${f(v)}</b></div>`).join("")}</div>`,
- g:`<div class="c"><div class="row"><span>Lacagaha la qabtay (xubnaha)</span><b class="ok">$${f(t.pd)}</b></div><div class="row"><span>Lagu diiwaan geliyay Qabasho</span><b>$${f(t.lg)}</b></div><div class="row"><span>Farqi (aan la diiwaan gelin)</span><b class="${t.pd-t.lg?"warn":"ok"}">$${f(t.pd-t.lg)}</b></div><div class="row"><span>Lacag baxday</span><b class="warn">$${f(t.ex)}</b></div><div class="row"><span>Lacagta la hayo</span><b>$${f(t.hand)}</b></div><div class="row"><span>Lacagta maqan (${billedLabel})</span><b class="bad">$${f(t.miss)}</b></div></div><button class="btn w" id="sh">📋 Koobiyee warbixin (WhatsApp)</button> <button class="btn s w" id="cs" style="margin-top:8px">⬇️ Soo deji CSV</button><button class="btn s w" id="bk" style="margin-top:8px">💾 Backup (keydi nuqul)</button>${unlocked?`<button class="btn s w" id="rs" style="margin-top:8px">♻️ Soo celi backup</button><input id="fi" type="file" accept=".json,application/json" style="display:none"><button class="btn w" id="ap" style="margin-top:8px">🔗 ${API?"Beddel":"Xiriir"} Google Sheet</button>`:""}`};
- return`<div class="tabs">${[["b","Bil-bil"],["p","Xubnaha"],["c","Qabeyaasha"],["g","Guud"]].map(a=>`<button data-s="${a[0]}" class="${sub===a[0]?"on":""}">${a[1]}</button>`).join("")}</div>${tb[sub]}`}
+
+function personalReportView(){
+  const filteredMembers=S.m.map((m,i)=>({m,i})).filter(x=>!grpFilter || x.m.g.toLowerCase().includes(grpFilter.toLowerCase()));
+  const pool=filteredMembers.length?filteredMembers:S.m.map((m,i)=>({m,i}));
+  if(!pool.length)return`<div class="c"><small>Xog xubno ah lama hayo.</small></div>`;
+
+  const currentEntry=pool.find(x=>x.i===selPersonIdx) || pool[0];
+  selPersonIdx=currentEntry.i;
+  const m=currentEntry.m;
+
+  const monthlyDue=+m.d||0;
+  const yearGoal=monthlyDue*9;
+  const billedDue=monthlyDue*cur;
+  const totalPaidAll=paid(m);
+  const totalOwedBilled=owed(m).reduce((a,k)=>a+(monthlyDue-(+m.p[k]||0)),0);
+  const totalOwedYear=Math.max(0,yearGoal-totalPaidAll);
+
+  const paidMonths=[];
+  const dueMonths=[];
+  MN.forEach((name,k)=>{
+    const val=+m.p[k]||0;
+    if(val>0){
+      paidMonths.push({name,k,val,full:val>=monthlyDue && monthlyDue>0});
+    }
+    if(k<cur && val<monthlyDue){
+      dueMonths.push({name,k,rem:Math.max(0,monthlyDue-val)});
+    }
+  });
+
+  return`<div class="c no-print">
+    <label>Kala saar Qoyska / Kooxda</label>
+    <select id="pGrp">
+      <option value="">Dhammaan Qoysaska</option>
+      ${GROUPS.map(g=>`<option value="${esc(g)}" ${grpFilter===g?"selected":""}>${esc(g)}</option>`).join("")}
+    </select>
+
+    <label>Dooro Magaca Qofka (Drop-down)</label>
+    <select id="pSel">
+      ${pool.map(({m:pm,i:idx})=>`<option value="${idx}" ${idx===selPersonIdx?"selected":""}>${esc(pm.n)} (${esc(pm.g||"—")})</option>`).join("")}
+    </select>
+  </div>
+
+  <div id="personalPrintable">
+    <div class="p-card">
+      <small>Warbixinta Qaraanka Shaqsiyeed · 2026</small>
+      <h3>${esc(m.n)}</h3>
+      <small>Kooxda / Qoyska: <b>${esc(m.g||"—")}</b></small>
+      <div class="p-grid">
+        <div class="p-box"><small>Laga rabo bil kasta</small><b>$${f(monthlyDue)}</b></div>
+        <div class="p-box"><small>Lacagta guud (9 bilood)</small><b>$${f(yearGoal)}</b></div>
+        <div class="p-box"><small>Wadarta la bixiyay</small><b>$${f(totalPaidAll)}</b></div>
+        <div class="p-box"><small>Wadarta ku dhiman (${billedLabel})</small><b>$${f(totalOwedBilled)}</b></div>
+      </div>
+    </div>
+
+    <div class="c">
+      <h2 style="margin-top:0">Bilaha uu lacagta bixiyey (${paidMonths.length})</h2>
+      <div>${paidMonths.length
+        ? paidMonths.map(x=>`<span class="list-pill ok">${x.name}: $${f(x.val)}${x.full?" ✓":" (dhiman)"}</span>`).join("")
+        : `<small>Weli bilna lacag lagama bixin.</small>`}</div>
+
+      <h2>Bilaha ku dhiman (${dueMonths.length} · ${billedLabel})</h2>
+      <div>${dueMonths.length
+        ? dueMonths.map(x=>`<span class="list-pill bad">${x.name}: maqan $${f(x.rem)}</span>`).join("")
+        : `<span class="list-pill ok">Wax lacag ah kuma dhiman bilaha la dallacay ✓</span>`}</div>
+
+      <h2>Totals & Faahfaahin Bil-bil</h2>
+      <div class="tw">
+        <table>
+          <thead>
+            <tr><th>Bil</th><th>Laga rabo</th><th>La bixiyay</th><th>Ku dhiman</th><th>Xaalad</th></tr>
+          </thead>
+          <tbody>
+            ${MN.map((name,k)=>{
+              const pVal=+m.p[k]||0;
+              const isBilled=k<cur;
+              const rem=isBilled?Math.max(0,monthlyDue-pVal):0;
+              const stText=pVal>=monthlyDue && monthlyDue>0?"Buuxa ✓":(pVal>0?"Qayb":(isBilled?"Maqan":"Weli lama dallacin"));
+              const stCls=pVal>=monthlyDue && monthlyDue>0?"ok":(rem>0?"bad":"");
+              return`<tr>
+                <td>${name}</td>
+                <td>$${f(monthlyDue)}</td>
+                <td class="ok">$${f(pVal)}</td>
+                <td class="${rem>0?"bad":""}">$${f(rem)}</td>
+                <td class="${stCls}">${stText}</td>
+              </tr>`;
+            }).join("")}
+            <tr>
+              <th>TOTAL</th>
+              <th>$${f(yearGoal)}</th>
+              <th class="ok">$${f(totalPaidAll)}</th>
+              <th class="bad">$${f(totalOwedBilled)}</th>
+              <th>Sanad: $${f(totalOwedYear)}</th>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <button class="btn w no-print" id="printPdfBtn">📄 Daabac / Keydi PDF (Warbixin Shaqsi)</button>`;
+}
+
+function vr(){
+  const t=T();
+  const tb={
+    b:`<div class="tw c"><table><tr><th>Bil</th><th>La rabo</th><th>La qabtay</th><th>Maqan</th><th>%</th><th>Bixiyey</th></tr>${MN.map((n,i)=>{const o=mon(i);return`<tr><td>${n}</td><td>${f(o.R)}</td><td class="ok">${f(o.pd)}</td><td class="${o.miss>0?"bad":""}">${f(o.miss)}</td><td>${o.pc}%</td><td>${o.n}/${S.m.length}</td></tr>`}).join("")}<tr><th>Total</th><th>${f(t.yr)}</th><th>${f(t.pd)}</th><th>${f(t.yr-t.pd)}</th><th></th><th></th></tr></table></div>`,
+    p:`<div class="tw c"><table><tr><th>Magac</th><th>Bixiyey</th><th>Maqan</th><th>Bilaha ku dhiman</th></tr>${S.m.map(m=>({m,o:owed(m)})).sort((a,b)=>b.o.length-a.o.length).map(({m,o})=>`<tr><td>${esc(m.n)}</td><td class="ok">${f(paid(m))}</td><td class="${o.length?"bad":"ok"}">${f(o.reduce((a,k)=>a+m.d-m.p[k],0))}</td><td style="white-space:normal;text-align:left">${o.map(k=>MN[k]).join(", ")||"✓"}</td></tr>`).join("")}</table></div>`,
+    s:personalReportView(),
+    c:`<div class="c">${colls().map(([k,v])=>`<div class="row"><span>${esc(k)}</span><b class="ok">$${f(v)}</b></div>`).join("")}</div>`,
+    g:`<div class="c"><div class="row"><span>Lacagaha la qabtay (xubnaha)</span><b class="ok">$${f(t.pd)}</b></div><div class="row"><span>Lagu diiwaan geliyay Qabasho</span><b>$${f(t.lg)}</b></div><div class="row"><span>Farqi (aan la diiwaan gelin)</span><b class="${t.pd-t.lg?"warn":"ok"}">$${f(t.pd-t.lg)}</b></div><div class="row"><span>Lacag baxday</span><b class="warn">$${f(t.ex)}</b></div><div class="row"><span>Lacagta la hayo</span><b>$${f(t.hand)}</b></div><div class="row"><span>Lacagta maqan (${billedLabel})</span><b class="bad">$${f(t.miss)}</b></div></div><button class="btn w" id="sh">📋 Koobiyee warbixin (WhatsApp)</button> <button class="btn s w" id="cs" style="margin-top:8px">⬇️ Soo deji CSV</button><button class="btn s w" id="bk" style="margin-top:8px">💾 Backup (keydi nuqul)</button>${unlocked?`<button class="btn s w" id="rs" style="margin-top:8px">♻️ Soo celi backup</button><input id="fi" type="file" accept=".json,application/json" style="display:none"><button class="btn w" id="ap" style="margin-top:8px">🔗 ${API?"Beddel":"Xiriir"} Google Sheet</button>`:""}`
+  };
+  return`<div class="tabs">${[["b","Bil-bil"],["p","Xubnaha"],["s","👤 Shaqsi"],["c","Qabeyaasha"],["g","Guud"]].map(a=>`<button data-s="${a[0]}" class="${sub===a[0]?"on":""}">${a[1]}</button>`).join("")}</div>${tb[sub]}`
+}
+
 function rep(){const t=T();const l=S.m.map(m=>({m,o:owed(m)})).filter(x=>x.o.length);
  return`*Reer Kulmiye Cali – Warbixin*\nHadafka: $${f(t.yr)}\nLa qabtay: $${f(t.pd)}\nBixin: $${f(t.ex)}\nLa hayo: $${f(t.hand)}\nMaqan (${billedLabel}): $${f(t.miss)}\n\n*Ku dhiman:*\n`+l.map(x=>`- ${x.m.n}: ${x.o.map(k=>MN[k]).join(", ")}`).join("\n")}
+
 function setApi(){md(`<h2>Xiriir Google Sheet</h2><label>Apps Script Web App URL</label><input id="au" value="${esc(API)}" placeholder="https://script.google.com/macros/s/.../exec"><button class="btn w" id="as">Kaydi</button>`);
  $("#as").onclick=()=>{API=$("#au").value.trim();localStorage.setItem("kul_api",API);close();API?pull():render()}}
 
@@ -243,30 +389,176 @@ async function pull(){
 async function op(name,data){const z=$("#bz");z.style.display="block";try{const r=await fetch(API,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({pass:PW,op:name,...data})});const j=await r.json();if(j.error)throw j.error;close();await pull()}catch(e){alert("Cillad: "+e)}finally{z.style.display="none"}}
 $("#rf").onclick=()=>API?pull():alert("Marka hore ku xir Google Sheet");
 function dl(n,t,ty){const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([t],{type:ty||"application/json"}));a.download=n;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},1500)}
-function bind(){const sa=$("#sa");if(sa)sa.onclick=()=>{const u=$("#su").value.trim();if(!/^https:\/\/script\.google\.com\//.test(u))return alert("URL-ku waa inuu ka bilaabmaa https://script.google.com/");API=u;localStorage.setItem("kul_api",API);pull()};const ap=$("#ap");if(ap)ap.onclick=()=>need(setApi);const bk=$("#bk");if(bk)bk.onclick=()=>dl("kulmiye-backup-"+td()+".json",JSON.stringify(S));
- const rs=$("#rs");if(rs)rs.onclick=()=>need(()=>$("#fi").click());
- const fi=$("#fi");if(fi)fi.onchange=e=>{const f0=e.target.files[0];if(!f0)return;const r=new FileReader();r.onload=()=>{try{const o=normalizeData(JSON.parse(r.result));if(!o.m.length&&!o.t.length)throw 0;if(confirm("Xogta hadda jirta ayaa lagu beddelayaa backup-kan. Sii wad?")){S=o;save();render()}}catch(x){alert("Fayl-kan ma aha backup sax ah")}};r.readAsText(f0)};
-const qi=$("#q");if(qi)qi.oninput=e=>{q=e.target.value;const p=e.target.selectionStart;render();const n=$("#q");n.focus();n.setSelectionRange(p,p)};
- document.querySelectorAll("[data-m]").forEach(e=>e.onclick=()=>need(()=>em(+e.dataset.m)));
- document.querySelectorAll("[data-t]").forEach(e=>e.onclick=()=>need(()=>et(+e.dataset.t)));
- document.querySelectorAll("[data-x]").forEach(e=>e.onclick=()=>need(()=>ex(+e.dataset.x)));
- document.querySelectorAll("[data-s]").forEach(e=>e.onclick=()=>{sub=e.dataset.s;render()});
- const sh=$("#sh");if(sh)sh.onclick=async()=>{try{await navigator.clipboard.writeText(rep());sh.textContent="✓ La koobiyeeyay"}catch(e){md(`<h2>Warbixin</h2><textarea rows=12>${esc(rep())}</textarea>`)}};
- const cs=$("#cs");if(cs)cs.onclick=async()=>{const rows=[["Magac","Group","Bishii",...MN,"Total","Maqan"],...S.m.map(m=>[m.n,m.g,m.d,...m.p,paid(m),owed(m).reduce((a,k)=>a+m.d-m.p[k],0)])];
-  dl("kulmiye-warbixin.csv",rows.map(r=>r.map(c=>'"'+String(c).replace(/"/g,'""')+'"').join(",")).join("\n"),"text/csv")}}
-$("#fab").onclick=()=>need(()=>tab==="m"?em(-1):tab==="t"?et(-1):ex(-1));
-function em(i){const m=i<0?{n:"",g:"",d:10,p:Array(9).fill(0)}:S.m[i];
- md(`<h2>${i<0?"Xubin cusub":esc(m.n)}</h2><label>Magac</label><input id="a" value="${esc(m.n)}"><label>Group / Qoys</label><input id="b" value="${esc(m.g)}"><label>Bishii la rabo ($)</label><input id="c" type="number" value="${m.d}"><label>Lacagta bil kasta</label><div class="pg">${MN.map((n,k)=>`<div><label>${n}</label><input class="pp" type="number" value="${m.p[k]||""}" style="margin:2px 0"></div>`).join("")}</div>
+
+function bind(){
+  const sa=$("#sa");if(sa)sa.onclick=()=>{const u=$("#su").value.trim();if(!/^https:\/\/script\.google\.com\//.test(u))return alert("URL-ku waa inuu ka bilaabmaa https://script.google.com/");API=u;localStorage.setItem("kul_api",API);pull()};
+  const ap=$("#ap");if(ap)ap.onclick=()=>need(setApi);
+  const bk=$("#bk");if(bk)bk.onclick=()=>dl("kulmiye-backup-"+td()+".json",JSON.stringify(S));
+  const rs=$("#rs");if(rs)rs.onclick=()=>need(()=>$("#fi").click());
+  const fi=$("#fi");if(fi)fi.onchange=e=>{const f0=e.target.files[0];if(!f0)return;const r=new FileReader();r.onload=()=>{try{const o=normalizeData(JSON.parse(r.result));if(!o.m.length&&!o.t.length)throw 0;if(confirm("Xogta hadda jirta ayaa lagu beddelayaa backup-kan. Sii wad?")){S=o;save();render()}}catch(x){alert("Fayl-kan ma aha backup sax ah")}};r.readAsText(f0)};
+  const qi=$("#q");if(qi)qi.oninput=e=>{q=e.target.value;const p=e.target.selectionStart;render();const n=$("#q");if(n){n.focus();n.setSelectionRange(p,p)}};
+  const gf=$("#gf");if(gf)gf.onchange=e=>{grpFilter=e.target.value;render()};
+  const pGrp=$("#pGrp");if(pGrp)pGrp.onchange=e=>{grpFilter=e.target.value;render()};
+  const pSel=$("#pSel");if(pSel)pSel.onchange=e=>{selPersonIdx=+e.target.value;render()};
+  const printBtn=$("#printPdfBtn");if(printBtn)printBtn.onclick=()=>window.print();
+
+  document.querySelectorAll("[data-m]").forEach(e=>e.onclick=()=>need(()=>em(+e.dataset.m)));
+  document.querySelectorAll("[data-t]").forEach(e=>e.onclick=()=>need(()=>openQuickCollection(+e.dataset.t)));
+  document.querySelectorAll("[data-x]").forEach(e=>e.onclick=()=>need(()=>ex(+e.dataset.x)));
+  document.querySelectorAll("[data-s]").forEach(e=>e.onclick=()=>{sub=e.dataset.s;render()});
+  const sh=$("#sh");if(sh)sh.onclick=async()=>{try{await navigator.clipboard.writeText(rep());sh.textContent="✓ La koobiyeeyay"}catch(e){md(`<h2>Warbixin</h2><textarea rows=12>${esc(rep())}</textarea>`)}};
+  const cs=$("#cs");if(cs)cs.onclick=async()=>{const rows=[["Magac","Group","Bishii",...MN,"Total","Maqan"],...S.m.map(m=>[m.n,m.g,m.d,...m.p,paid(m),owed(m).reduce((a,k)=>a+m.d-m.p[k],0)])];
+   dl("kulmiye-warbixin.csv",rows.map(r=>r.map(c=>'"'+String(c).replace(/"/g,'""')+'"').join(",")).join("\n"),"text/csv")};
+}
+
+$("#fab").onclick=()=>need(()=>{
+  if(tab==="m")em(-1);
+  else if(tab==="t")openQuickCollection(-1);
+  else ex(-1);
+});
+
+function openQuickCollection(editIdx){
+  if(!S.m.length)return alert("Xubno kuma jiraan liiska.");
+  const existing=editIdx>=0?S.t[editIdx]:null;
+  let activeGrp="";
+  let activeMemberIdx=0;
+
+  if(existing && existing.w){
+    const foundIdx=S.m.findIndex(m=>m.n.toLowerCase()===existing.w.toLowerCase());
+    if(foundIdx>=0)activeMemberIdx=foundIdx;
+  }
+
+  function getMembersInGroup(gName){
+    const list=S.m.map((m,i)=>({m,i})).filter(x=>!gName || x.m.g.toLowerCase().includes(gName.toLowerCase()));
+    return list.length?list:S.m.map((m,i)=>({m,i}));
+  }
+
+  function getDueMonthOptions(member){
+    const opts=[];
+    for(let k=0;k<9;k++){
+      const pVal=+member.p[k]||0;
+      const dVal=+member.d||0;
+      const rem=Math.max(0,dVal-pVal);
+      if(rem>0){
+        opts.push({k,name:MN[k],rem,pVal,dVal});
+      }
+    }
+    if(!opts.length){
+      for(let k=0;k<9;k++){
+        opts.push({k,name:MN[k],rem:+member.d||0,pVal:+member.p[k]||0,dVal:+member.d||0});
+      }
+    }
+    return opts;
+  }
+
+  function drawModal(chosenMonthIdx){
+    const gList=getMembersInGroup(activeGrp);
+    if(!gList.some(x=>x.i===activeMemberIdx))activeMemberIdx=gList[0].i;
+    const member=S.m[activeMemberIdx];
+    const mOpts=getDueMonthOptions(member);
+    const selectedOpt=mOpts.find(o=>o.k===chosenMonthIdx) || mOpts[0];
+    const autoAmt=existing?existing.a:selectedOpt.rem;
+
+    md(`<h2>${existing?"Wax ka beddel Qabasho":"Qabasho Cusub (Auto-Fill)"}</h2>
+      <label>1. Kala saar Kooxda / Qoyska</label>
+      <select id="qGrp">
+        <option value="">Dhammaan Qoysaska</option>
+        ${GROUPS.map(g=>`<option value="${esc(g)}" ${activeGrp===g?"selected":""}>${esc(g)}</option>`).join("")}
+      </select>
+
+      <label>2. Dooro Magaca Qofka (Drop-down)</label>
+      <select id="qMem">
+        ${gList.map(({m:pm,i:idx})=>`<option value="${idx}" ${idx===activeMemberIdx?"selected":""}>${esc(pm.n)} (${esc(pm.g||"—")} · $${pm.d}/bil)</option>`).join("")}
+      </select>
+
+      <label>3. Bilaha ku dhiman (Drop-down)</label>
+      <select id="qMon">
+        ${mOpts.map(o=>`<option value="${o.k}" ${o.k===selectedOpt.k?"selected":""}>${o.name} · maqan $${o.rem} (bixiyay $${o.pVal}/$${o.dVal})</option>`).join("")}
+      </select>
+
+      <label>4. Lacagta laga rabo / la qabtay ($) — Auto</label>
+      <input id="qAmt" type="number" value="${autoAmt}">
+
+      <label>Taariikh</label>
+      <input id="qDate" type="date" value="${esc(existing?existing.d:td())}">
+
+      <label>Qofka soo aruuriyay</label>
+      <input id="qCol" value="${esc(existing?existing.c:(activeGrp||member.g||""))}">
+
+      <label>NB / Faahfaahin</label>
+      <input id="qNb" value="${esc(existing?existing.nb:(`${selectedOpt.name} (${member.n})`))}">
+
+      <button class="btn w" id="qSave">Kaydi & U Dir Sheet-ka</button>
+      ${existing?`<button class="btn d w" id="qDel" style="margin-top:8px">Tirtir</button>`:""}`);
+
+    $("#qGrp").onchange=e=>{activeGrp=e.target.value;drawModal(null)};
+    $("#qMem").onchange=e=>{activeMemberIdx=+e.target.value;drawModal(null)};
+    $("#qMon").onchange=e=>{
+      const k=+e.target.value;
+      const opt=mOpts.find(o=>o.k===k)||selectedOpt;
+      $("#qAmt").value=opt.rem;
+      $("#qNb").value=`${opt.name} (${member.n})`;
+    };
+
+    $("#qSave").onclick=()=>{
+      const k=+$("#qMon").value;
+      const amt=+$("#qAmt").value||0;
+      const colName=$("#qCol").value.trim()||"Qabasho";
+      const dVal=$("#qDate").value||td();
+      const nbVal=$("#qNb").value.trim();
+
+      const updatedMember=JSON.parse(JSON.stringify(member));
+      updatedMember.p[k]=(+updatedMember.p[k]||0)+amt;
+
+      const tRecord={
+        d:dVal,
+        b:MN[k],
+        c:colName,
+        w:member.n,
+        a:amt,
+        nb:nbVal
+      };
+
+      if(API){
+        return op("saveMember",{r:member.r,...updatedMember}).then(()=>{
+          return op("saveT",{r:existing?existing.r:undefined,...tRecord});
+        });
+      }
+
+      S.m[activeMemberIdx]=updatedMember;
+      if(existing)S.t[editIdx]=tRecord;
+      else S.t.push(tRecord);
+      save();
+      close();
+      render();
+    };
+
+    if(existing && $("#qDel")){
+      $("#qDel").onclick=()=>{
+        if(confirm("Tirtir diiwaankan?")){
+          if(API)return op("delT",{r:existing.r});
+          S.t.splice(editIdx,1);
+          save();
+          close();
+          render();
+        }
+      };
+    }
+  }
+
+  drawModal(null);
+}
+
+function em(i){const m=i<0?{n:"",g:GROUPS[0],d:10,p:Array(9).fill(0)}:S.m[i];
+ md(`<h2>${i<0?"Xubin cusub":esc(m.n)}</h2><label>Magac</label><input id="a" value="${esc(m.n)}"><label>Group / Qoys</label><select id="b">${GROUPS.map(g=>`<option value="${esc(g)}" ${m.g===g?"selected":""}>${esc(g)}</option>`).join("")}<option value="${esc(m.g)}" ${!GROUPS.includes(m.g)?"selected":""}>${esc(m.g||"Kale")}</option></select><label>Bishii la rabo ($)</label><input id="c" type="number" value="${m.d}"><label>Lacagta bil kasta</label><div class="pg">${MN.map((n,k)=>`<div><label>${n}</label><input class="pp" type="number" value="${m.p[k]||""}" style="margin:2px 0"></div>`).join("")}</div>
  <button class="btn w" id="sv">Kaydi</button>${i>=0?`<button class="btn d w" id="dl" style="margin-top:8px">Tirtir</button>`:""}`);
  $("#sv").onclick=()=>{const o={n:$("#a").value.trim(),g:$("#b").value.trim(),d:+$("#c").value||0,p:[...document.querySelectorAll(".pp")].map(x=>+x.value||0)};if(!o.n)return;if(API)return op("saveMember",{r:m.r,...o});i<0?S.m.push(o):S.m[i]=o;save();close();render()};
  if(i>=0)$("#dl").onclick=()=>{if(confirm("Tirtir "+m.n+"?")){if(API)return op("delMember",{r:m.r});S.m.splice(i,1);save();close();render()}}}
-function et(i){const t=i<0?{d:td(),b:MN[Math.max(0,cur-1)],c:"",w:"",a:"",nb:""}:S.t[i];
- md(`<h2>${i<0?"Qabasho cusub":"Wax ka beddel"}</h2><label>Taariikh</label><input id="a" type="date" value="${esc(t.d)}"><label>Bisha</label><input id="b" value="${esc(t.b)}"><label>Qofka soo aruuriyay</label><input id="c" value="${esc(t.c)}"><label>Dadka uu ka soo aruuriyay</label><input id="w" value="${esc(t.w)}"><label>Lacagta ($)</label><input id="e" type="number" value="${t.a}"><label>NB</label><input id="n" value="${esc(t.nb)}"><button class="btn w" id="sv">Kaydi</button>${i>=0?`<button class="btn d w" id="dl" style="margin-top:8px">Tirtir</button>`:""}`);
- $("#sv").onclick=()=>{const o={d:$("#a").value,b:$("#b").value,c:$("#c").value.trim(),w:$("#w").value.trim(),a:+$("#e").value||0,nb:$("#n").value};if(API)return op("saveT",{r:t.r,...o});i<0?S.t.push(o):S.t[i]=o;save();close();render()};
- if(i>=0)$("#dl").onclick=()=>{if(confirm("Tirtir?")){if(API)return op("delT",{r:t.r});S.t.splice(i,1);save();close();render()}}}
+
 function ex(i){const x=i<0?{d:td(),a:"",s:"",to:"",by:"",nb:""}:S.x[i];
  md(`<h2>${i<0?"Bixin cusub":"Wax ka beddel"}</h2><label>Taariikh</label><input id="a" type="date" value="${esc(x.d)}"><label>Lacagta ($)</label><input id="b" type="number" value="${x.a}"><label>Sababta loo bixiyey</label><input id="c" value="${esc(x.s)}"><label>Qofka loo tuuray</label><input id="e" value="${esc(x.to)}"><label>Qofka bixiyey</label><input id="f" value="${esc(x.by)}"><label>Faahfaahin</label><input id="n" value="${esc(x.nb)}"><button class="btn w" id="sv">Kaydi</button>${i>=0?`<button class="btn d w" id="dl" style="margin-top:8px">Tirtir</button>`:""}`);
  $("#sv").onclick=()=>{const o={d:$("#a").value,a:+$("#b").value||0,s:$("#c").value.trim(),to:$("#e").value.trim(),by:$("#f").value.trim(),nb:$("#n").value};if(API)return op("saveX",{r:x.r,...o});i<0?S.x.push(o):S.x[i]=o;save();close();render()};
  if(i>=0)$("#dl").onclick=()=>{if(confirm("Tirtir?")){if(API)return op("delX",{r:x.r});S.x.splice(i,1);save();close();render()}}}
+
 render();pull();document.addEventListener("visibilitychange",()=>{if(!document.hidden)pull()});
 </script></body></html>
