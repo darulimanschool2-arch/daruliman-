@@ -11,30 +11,34 @@
 :root{
   --navy:#142B4A; --navy-dark:#0B1F36; --navy-2:#244B70;
   --teal:#16A6A1; --bg:#F3F6FA; --card:#FFFFFF;
-  --tx:#18283B; --mu:#718096; --br:#E2E8F0;
+  --tx:#18283B; --mu:#718096; --br:#CBD5E1;
   --ok:#16845B; --ok-bg:#E6F4EE;
   --warn:#D69A27; --warn-bg:#FBF3E2;
   --bad:#D64545; --bad-bg:#FBE9E9;
-  --shadow:0 1px 3px rgba(20,43,74,.08),0 4px 12px rgba(20,43,74,.06);
+  --shadow:0 1px 3px rgba(20,43,74,.10),0 4px 12px rgba(20,43,74,.08);
+  --shadow-lg:0 8px 32px rgba(20,43,74,.18);
   --radius:12px;
   --safe-top:env(safe-area-inset-top,0px);
   --safe-bot:env(safe-area-inset-bottom,0px);
 }
+/* FIX-4: dark mode — card & border kala duwan si qoraalka aanu u qarsoomin */
 @media(prefers-color-scheme:dark){
   :root:not([data-theme=light]){
     --navy:#16263D; --navy-dark:#0A1420; --navy-2:#1E3A5C;
-    --bg:#0B1622; --card:#132030; --tx:#E7EEF6; --mu:#8CA0B8;
-    --br:#22344A; --ok:#3ECf9A; --ok-bg:#123528; --warn:#F0B95A;
-    --warn-bg:#332811; --bad:#FF7B7B; --bad-bg:#3A1A1A;
-    --shadow:0 1px 3px rgba(0,0,0,.4),0 4px 12px rgba(0,0,0,.3);
+    --bg:#0B1622; --card:#1A2A3E; --tx:#F1F6FB; --mu:#9BB0C6;
+    --br:#2C4560; --ok:#4BE0A8; --ok-bg:#123528; --warn:#FFC857;
+    --warn-bg:#3A2D0F; --bad:#FF8585; --bad-bg:#3F1C1C;
+    --shadow:0 1px 3px rgba(0,0,0,.5),0 4px 12px rgba(0,0,0,.4);
+    --shadow-lg:0 8px 32px rgba(0,0,0,.5);
   }
 }
 :root[data-theme=dark]{
   --navy:#16263D; --navy-dark:#0A1420; --navy-2:#1E3A5C;
-  --bg:#0B1622; --card:#132030; --tx:#E7EEF6; --mu:#8CA0B8;
-  --br:#22344A; --ok:#3ECf9A; --ok-bg:#123528; --warn:#F0B95A;
-  --warn-bg:#332811; --bad:#FF7B7B; --bad-bg:#3A1A1A;
-  --shadow:0 1px 3px rgba(0,0,0,.4),0 4px 12px rgba(0,0,0,.3);
+  --bg:#0B1622; --card:#1A2A3E; --tx:#F1F6FB; --mu:#9BB0C6;
+  --br:#2C4560; --ok:#4BE0A8; --ok-bg:#123528; --warn:#FFC857;
+  --warn-bg:#3A2D0F; --bad:#FF8585; --bad-bg:#3F1C1C;
+  --shadow:0 1px 3px rgba(0,0,0,.5),0 4px 12px rgba(0,0,0,.4);
+  --shadow-lg:0 8px 32px rgba(0,0,0,.5);
 }
 *{box-sizing:border-box}
 html,body{margin:0;padding:0;background:var(--bg);color:var(--tx);
@@ -73,11 +77,52 @@ nav button:hover{color:var(--navy-2)}
 .g{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
 @media(min-width:640px){.g{grid-template-columns:repeat(4,1fr)}}
 .c{background:var(--card);border:1px solid var(--br);border-radius:var(--radius);
-  padding:16px;margin-bottom:12px;box-shadow:var(--shadow)}
+  padding:16px;margin-bottom:12px;box-shadow:var(--shadow);
+  transition:border-color .15s,box-shadow .15s}
+.c:hover{border-color:var(--navy-2)}
 .c.k{padding:14px}
-.c.k small{font-size:12px;font-weight:600;color:var(--mu);
+.c.k small{font-size:12px;font-weight:700;color:var(--mu);
   text-transform:uppercase;letter-spacing:.03em}
-.c.k b{display:block;font-size:22px;margin-top:6px;color:var(--tx)}
+.c.k b{display:block;font-size:22px;margin-top:6px;color:var(--tx);
+  font-weight:800;letter-spacing:-.02em}
+
+/* FIX-4: HERO CARD — Lacagta la Hayo oo weyn oo u hor maraya */
+.hero{background:linear-gradient(135deg,#142B4A 0%,#244B70 60%,#16A6A1 100%);
+  color:#fff;border-radius:20px;padding:24px 22px;margin-bottom:16px;
+  box-shadow:var(--shadow-lg);position:relative;overflow:hidden;
+  display:flex;align-items:center;gap:18px}
+.hero::before{content:"";position:absolute;right:-40px;top:-40px;
+  width:180px;height:180px;border-radius:50%;
+  background:rgba(255,255,255,.06);pointer-events:none}
+.hero::after{content:"";position:absolute;right:-80px;bottom:-80px;
+  width:220px;height:220px;border-radius:50%;
+  background:rgba(255,255,255,.04);pointer-events:none}
+.hero-icon{font-size:52px;line-height:1;flex-shrink:0;
+  filter:drop-shadow(0 2px 8px rgba(0,0,0,.3))}
+.hero-body{flex:1;min-width:0;position:relative;z-index:1}
+.hero-label{font-size:13px;font-weight:700;color:#D6E6F5;
+  text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px}
+.hero-amount{font-size:42px;font-weight:900;color:#fff;line-height:1.05;
+  letter-spacing:-.03em;word-break:break-word;
+  text-shadow:0 2px 8px rgba(0,0,0,.25);
+  font-variant-numeric:tabular-nums}
+.hero-amount.neg{color:#FFD1D1}
+.hero-sub{font-size:12px;color:#C7DCEE;margin-top:8px;font-weight:500}
+.hero-badge{display:inline-block;background:rgba(255,255,255,.18);
+  color:#fff;font-size:11px;font-weight:700;padding:4px 10px;
+  border-radius:999px;margin-top:8px;letter-spacing:.02em}
+@media(max-width:420px){
+  .hero{padding:20px 18px;gap:14px;border-radius:16px}
+  .hero-icon{font-size:40px}
+  .hero-amount{font-size:34px}
+  .hero-label{font-size:11px}
+}
+@media(min-width:640px){
+  .hero{padding:28px 28px}
+  .hero-amount{font-size:52px}
+  .hero-icon{font-size:64px}
+}
+
 h2{font-size:15px;margin:18px 2px 10px;color:var(--navy)}
 :root[data-theme=dark] h2{color:var(--teal)}
 
@@ -90,16 +135,17 @@ h2{font-size:15px;margin:18px 2px 10px;color:var(--navy)}
   border-radius:9px;transition:width .4s}
 .mrow{display:grid;grid-template-columns:44px 1fr 52px;gap:10px;
   align-items:center;font-size:13px;margin:8px 0}
-.mrow b{text-align:right;font-variant-numeric:tabular-nums}
+.mrow b{text-align:right;font-variant-numeric:tabular-nums;
+  font-weight:700;color:var(--tx)}
 
 .row{display:flex;justify-content:space-between;align-items:flex-start;
   gap:10px;padding:11px 0;border-bottom:1px solid var(--br);font-size:14px}
 .row:last-child{border:0}
-.row b{font-variant-numeric:tabular-nums}
+.row b{font-variant-numeric:tabular-nums;font-weight:700}
 
 .chips{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px}
 .chip{font-size:10px;padding:3px 7px;border-radius:8px;
-  background:var(--br);color:var(--mu);font-weight:600}
+  background:var(--br);color:var(--tx);font-weight:700}
 .chip.p{background:var(--ok-bg);color:var(--ok)}
 .chip.m{background:var(--bad-bg);color:var(--bad)}
 .chip.h{background:var(--warn-bg);color:var(--warn)}
@@ -189,24 +235,24 @@ tr:hover td{background:rgba(22,166,161,.04)}
 
 .p-card{background:linear-gradient(140deg,var(--navy) 0%,var(--navy-2) 100%);
   color:#fff;border-radius:16px;padding:20px;margin-bottom:12px;
-  box-shadow:0 8px 24px rgba(20,43,74,.25)}
+  box-shadow:var(--shadow-lg)}
 .p-card small{opacity:.85;display:block;font-size:12px;color:#BFD1E5}
 .p-card h3{margin:6px 0 4px;font-size:22px;color:#fff}
 .p-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
-.p-box{background:rgba(255,255,255,.12);border-radius:10px;padding:12px}
-.p-box small{font-size:10px;opacity:.85;text-transform:uppercase;
-  letter-spacing:.04em;color:#BFD1E5}
+.p-box{background:rgba(255,255,255,.14);border-radius:10px;padding:12px}
+.p-box small{font-size:10px;opacity:.9;text-transform:uppercase;
+  letter-spacing:.04em;color:#D6E6F5}
 .p-box b{font-size:17px;display:block;margin-top:3px;color:#fff;
-  font-variant-numeric:tabular-nums}
+  font-variant-numeric:tabular-nums;font-weight:800}
 .list-pill{display:inline-block;padding:5px 10px;border-radius:999px;
-  font-size:12px;margin:3px 4px 0 0;font-weight:600}
+  font-size:12px;margin:3px 4px 0 0;font-weight:700}
 .list-pill.ok{background:var(--ok-bg);color:var(--ok)}
 .list-pill.bad{background:var(--bad-bg);color:var(--bad)}
 
 .modebar{background:var(--warn-bg);color:var(--warn);border:1px solid var(--br);
   border-radius:10px;padding:9px 12px;font-size:12px;margin-bottom:12px;
   display:flex;justify-content:space-between;align-items:center;gap:8px;
-  flex-wrap:wrap;font-weight:600}
+  flex-wrap:wrap;font-weight:700}
 .modebar.on{background:var(--ok-bg);color:var(--ok)}
 
 .pw-wrap{position:relative;margin:4px 0 12px}
@@ -224,7 +270,7 @@ tr:hover td{background:rgba(22,166,161,.04)}
 
 @media print{
   header,nav,.fab,.modebar,.tabs,.no-print,.st,.status-bar,.toast,.icon-btn,
-  .act-grid,#fab{display:none!important}
+  .act-grid,#fab,.hero{display:none!important}
   body{background:#fff;color:#000}
   main{padding:0;max-width:100%}
   .c,.p-card{box-shadow:none;border:1px solid #ccc;break-inside:avoid}
@@ -256,11 +302,10 @@ tr:hover td{background:rgba(22,166,161,.04)}
 
 <script>
 /* =====================================================================
-   REER KULMIYE CALI — FIX-3
-   - Reports-first: nav tabs NEVER trigger password
-   - Event delegation: bind once, no re-binding on every render
-   - data-nav instead of data-t on nav buttons (no selector collision)
-   - Data rows use data-action + data-idx (explicit)
+   REER KULMIYE CALI — FIX-4
+   - Hero card "Lacagta la Hayo" at top of dashboard
+   - Mobile dark-mode contrast fixed (border/background/color)
+   - Bold, high-contrast money text
    ===================================================================== */
 
 const DEFAULT_API="https://script.google.com/macros/s/AKfycbw8kKEosj8EkV458_D2_f6C7oeMRLWMrBbNdowmo0aW8-pRtSH2Raen3EvWNVwqtRnnuA/exec";
@@ -456,7 +501,6 @@ function need(cb){
   ask(cb);
 }
 
-/* FIX-3: nav buttons use data-nav (not data-t) to avoid selector collision */
 const NV=[["d","📊","Dashboard"],["r","📝","Warbixin"],["m","👥","Xubnaha"],["t","💵","Qabasho"],["x","🧾","Bixin"]];
 $("#nv").innerHTML=NV.map(n=>`<button data-nav="${n[0]}"><span>${n[1]}</span>${n[2]}</button>`).join("");
 $("#nv").onclick=e=>{
@@ -490,6 +534,7 @@ function render(){
   bind();
 }
 
+/* FIX-4: Dashboard with HERO card "Lacagta la Hayo" at top */
 function viewDash(){
   const t=T();
   const pc = t.dn ? Math.round(t.pdn/t.dn*100) : 0;
@@ -502,6 +547,17 @@ function viewDash(){
   const recentExp = [...S.x].slice(-4).reverse();
 
   return `
+  <!-- FIX-4: HERO CARD — Lacagta la Hayo (marka hore) -->
+  <div class="hero">
+    <div class="hero-icon">💰</div>
+    <div class="hero-body">
+      <div class="hero-label">Lacagta la Hayo</div>
+      <div class="hero-amount ${t.hand<0?'neg':''}">${fmtMoney(t.hand)}</div>
+      <div class="hero-sub">Qabasho ${fmtMoney(t.pd)} − Bixin ${fmtMoney(t.ex)}</div>
+      <div class="hero-badge">${billedLabel} · ${YEAR}</div>
+    </div>
+  </div>
+
   <div class="g">
     <div class="c k"><small>Xubnaha</small><b>${S.m.length}</b></div>
     <div class="c k"><small>Bishii (hadaf)</small><b class="navy">${fmtMoney(t.R)}</b></div>
@@ -577,7 +633,6 @@ function viewDash(){
   </div>`;
 }
 
-/* FIX-3: data-action="edit-member" instead of data-m */
 function viewMembers(){
   const L = S.m.map((m,i)=>({m,i})).filter(x=>{
     const mq = !q || x.m.n.toLowerCase().includes(q.toLowerCase()) ||
@@ -611,14 +666,13 @@ function viewMembers(){
         </div>
         <div style="text-align:right;min-width:80px">
           <b class="ok">${fmtMoney(paid(m))}</b><br>
-          <small class="${ob>0?'bad':'ok'}">${ob>0?'maqan '+fmtMoney(ob):'✓ '}</small>
+          <small class="${ob>0?'bad':'ok'}">${ob>0?'maqan '+fmtMoney(ob):'✓ buuxa'}</small>
         </div>
       </div>`;
     }).join("") || `<small style="text-align:center;display:block;padding:16px">Xubin lama helin</small>`}
   </div>`;
 }
 
-/* FIX-3: data-action="edit-collection" */
 function viewCollections(){
   const L = S.t.map((t,i)=>({t,i})).reverse();
   const total = S.t.reduce((a,t)=>a+(+t.a||0),0);
@@ -634,7 +688,6 @@ function viewCollections(){
   </div>`;
 }
 
-/* FIX-3: data-action="edit-expense" */
 function viewExpenses(){
   const L = S.x.map((x,i)=>({x,i})).reverse();
   const total = S.x.reduce((a,x)=>a+(+x.a||0),0);
@@ -737,7 +790,7 @@ function reportPersonal(){
               const v=+m.p[k]||0;
               const billed = k<cur;
               const rem = billed ? Math.max(0,monthlyDue-v) : 0;
-              const stTxt = monthlyDue>0 && v>=monthlyDue ? " ✓" :
+              const stTxt = monthlyDue>0 && v>=monthlyDue ? "Buuxa ✓" :
                             v>0 ? "Qayb" : billed ? "Maqan" : "Weli lama dallacin";
               const stCls = (monthlyDue>0 && v>=monthlyDue) ? "ok" : rem>0 ? "bad" : "";
               return `<tr>
@@ -781,7 +834,7 @@ function reportMonthly(){
             <td class="${o.miss>0&&!future?'bad':''}">${future?'—':fmtMoney(o.miss)}</td>
             <td>${future?'—':o.pc+'%'}</td>
             <td>${future?'—':o.n+'/'+S.m.length}</td>
-            <td>${future?'<small>Weli lama dallacin</small>':(o.miss>0?'<span class="bad">Maqan</span>':'<span class="ok">✓</span>')}</td>
+            <td>${future?'<small>Weli lama dallacin</small>':(o.miss>0?'<span class="bad">Maqan</span>':'<span class="ok">Buuxa</span>')}</td>
           </tr>`;
         }).join("")}
         <tr>
@@ -1036,7 +1089,7 @@ function buildPdfDoc(reportKey){
           const v=+m.p[k]||0;
           const billed=k<cur;
           const rem=billed?Math.max(0,md-v):0;
-          const st=md>0&&v>=md?"✓":v>0?"Qayb":billed?"Maqan":"Weli lama dallacin";
+          const st=md>0&&v>=md?"Buuxa":v>0?"Qayb":billed?"Maqan":"Weli lama dallacin";
           return [n, fmtMoney(md), fmtMoney(v), billed?fmtMoney(rem):"—", st];
         });
         addTable(["Bil","Laga rabo","La bixiyay","Ku dhiman","Xaalad"], rows);
@@ -1050,7 +1103,7 @@ function buildPdfDoc(reportKey){
           const fut=i>=cur;
           return [n, fmtMoney(o.R), fmtMoney(o.pd), fut?"—":fmtMoney(o.miss),
             fut?"—":o.pc+"%", fut?"—":`${o.n}/${S.m.length}`,
-            fut?"Weli lama dallacin":o.miss>0?"Maqan":"✓"];
+            fut?"Weli lama dallacin":o.miss>0?"Maqan":"Buuxa"];
         }).concat([["TOTAL",fmtMoney(t.yr),fmtMoney(t.pd),fmtMoney(t.miss),
           fmtPct(t.pd,t.yr),"",""]])
       );
@@ -1410,9 +1463,7 @@ async function pull(showMsg){
   render();
 }
 
-/* ============ FIX-3: BIND — only current tab's edit actions ============ */
 function bind(){
-  /* current tab only — no selector collision with nav */
   if(tab==="r"){
     const pGrp=$("#pGrp"); if(pGrp) pGrp.onchange=e=>{grpFilter=e.target.value;render();};
     const pSel=$("#pSel"); if(pSel) pSel.onchange=e=>{selPersonIdx=+e.target.value;render();};
@@ -1446,7 +1497,6 @@ function bind(){
   }
 }
 
-/* FAB — context-aware; only edit actions get password gate */
 $("#fab").onclick=()=>need(()=>{
   if(tab==="m") em(-1);
   else if(tab==="t") openQuickCollection(-1);
