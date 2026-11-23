@@ -4,17 +4,33 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#142B4A">
+<meta name="color-scheme" content="light dark">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <title>Reer Kulmiye Cali – Lacagta Qaraanka</title>
 <style>
+/* =====================================================================
+   MIDABADA — LIGHT (default)
+   Qiimayaasha qoraalka waxay ka gudbaan WCAG AA (4.5:1)
+   ===================================================================== */
 :root{
+  color-scheme:light;
   --navy:#142B4A; --navy-dark:#0B1F36; --navy-2:#244B70;
   --teal:#16A6A1; --bg:#F3F6FA; --card:#FFFFFF;
-  --tx:#18283B; --mu:#718096; --br:#CBD5E1;
-  --ok:#16845B; --ok-bg:#E6F4EE;
-  --warn:#D69A27; --warn-bg:#FBF3E2;
-  --bad:#D64545; --bad-bg:#FBE9E9;
+  --tx:#18283B; --mu:#556579; --br:#B6C3D4;
+  --ok:#11704D; --ok-bg:#E6F4EE;
+  --warn:#8A5A00; --warn-bg:#FBF3E2; --warn-dot:#D69A27;
+  --bad:#BF2F2F; --bad-bg:#FBE9E9;
+
+  /* Doorsoomayaal cusub (bedelaya :root[data-theme=dark] ... rules-kii hore) */
+  --h2:#142B4A;
+  --nav-on:#142B4A;
+  --teal-tx:#0B7F7B;
+  --btn:#142B4A; --btn-tx:#FFFFFF; --btn-s-tx:#142B4A;
+  --btn-teal:#0E7C78; --btn-wa:#0B7A6E;
+  --th-bg:#F3F6FA;
+  --bar-from:#142B4A;
+
   --shadow:0 1px 3px rgba(20,43,74,.10),0 4px 12px rgba(20,43,74,.08);
   --shadow-lg:0 8px 32px rgba(20,43,74,.18);
   --radius:12px;
@@ -22,30 +38,48 @@
   --safe-bot:env(safe-area-inset-bottom,0px);
 }
 
-/* Dark Mode (media) — Qoraalka oo cad */
+/* DARK — system-ka taleefanka (hadduu isticmaalaha gacanta u dooran light) */
 @media(prefers-color-scheme:dark){
   :root:not([data-theme=light]){
+    color-scheme:dark;
     --navy:#16263D; --navy-dark:#0A1420; --navy-2:#1E3A5C;
     --bg:#0B1622; --card:#1A2A3E;
-    --tx:#FFFFFF;
-    --mu:#C3D3E5;
-    --br:#3E5A7A;
-    --ok:#4BE0A8; --ok-bg:#123528; --warn:#FFC857;
-    --warn-bg:#3A2D0F; --bad:#FF8585; --bad-bg:#3F1C1C;
+    --tx:#FFFFFF; --mu:#C3D3E5; --br:#3E5A7A;
+    --ok:#4BE0A8; --ok-bg:#123528;
+    --warn:#FFC857; --warn-bg:#3A2D0F; --warn-dot:#FFC857;
+    --bad:#FF8585; --bad-bg:#3F1C1C;
+
+    --h2:#4FD1CB;
+    --nav-on:#4FD1CB;
+    --teal-tx:#4FD1CB;
+    --btn:#2F6FA8; --btn-tx:#FFFFFF; --btn-s-tx:#FFFFFF;
+    --btn-teal:#14938E; --btn-wa:#128C7E;
+    --th-bg:#0A1420;
+    --bar-from:#2F6FA8;
+
     --shadow:0 1px 3px rgba(0,0,0,.5),0 4px 12px rgba(0,0,0,.4);
     --shadow-lg:0 8px 32px rgba(0,0,0,.5);
   }
 }
 
-/* Dark Mode (toos) — Qoraalka oo cad */
+/* DARK — marka gacanta lagu dooro data-theme=dark */
 :root[data-theme=dark]{
+  color-scheme:dark;
   --navy:#16263D; --navy-dark:#0A1420; --navy-2:#1E3A5C;
   --bg:#0B1622; --card:#1A2A3E;
-  --tx:#FFFFFF;
-  --mu:#C3D3E5;
-  --br:#3E5A7A;
-  --ok:#4BE0A8; --ok-bg:#123528; --warn:#FFC857;
-  --warn-bg:#3A2D0F; --bad:#FF8585; --bad-bg:#3F1C1C;
+  --tx:#FFFFFF; --mu:#C3D3E5; --br:#3E5A7A;
+  --ok:#4BE0A8; --ok-bg:#123528;
+  --warn:#FFC857; --warn-bg:#3A2D0F; --warn-dot:#FFC857;
+  --bad:#FF8585; --bad-bg:#3F1C1C;
+
+  --h2:#4FD1CB;
+  --nav-on:#4FD1CB;
+  --teal-tx:#4FD1CB;
+  --btn:#2F6FA8; --btn-tx:#FFFFFF; --btn-s-tx:#FFFFFF;
+  --btn-teal:#14938E; --btn-wa:#128C7E;
+  --th-bg:#0A1420;
+  --bar-from:#2F6FA8;
+
   --shadow:0 1px 3px rgba(0,0,0,.5),0 4px 12px rgba(0,0,0,.4);
   --shadow-lg:0 8px 32px rgba(0,0,0,.5);
 }
@@ -57,7 +91,7 @@ html,body{margin:0;padding:0;background:var(--bg);color:var(--tx);
 body::before{content:"";position:fixed;inset:0 0 auto;height:var(--safe-top);
   background:var(--navy);z-index:10;pointer-events:none}
 h1,h2,h3,h4{margin:0;font-weight:700;letter-spacing:-.01em}
-a{color:var(--teal)}
+a{color:var(--teal-tx)}
 small{color:var(--mu)}
 
 header{background:var(--navy);color:#fff;padding:calc(12px + var(--safe-top)) 16px 14px;
@@ -80,9 +114,8 @@ nav button{flex:1;background:none;border:0;color:var(--mu);font-size:11px;
   padding:6px 0;cursor:pointer;display:flex;flex-direction:column;
   align-items:center;gap:2px;font-weight:600;border-radius:8px;transition:color .15s}
 nav button span{font-size:20px;line-height:1}
-nav button.on{color:var(--navy)}
-:root[data-theme=dark] nav button.on{color:var(--teal)}
-nav button:hover{color:var(--navy-2)}
+nav button.on{color:var(--nav-on)}
+nav button:hover{color:var(--nav-on)}
 
 .g{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
 @media(min-width:640px){.g{grid-template-columns:repeat(4,1fr)}}
@@ -96,8 +129,8 @@ nav button:hover{color:var(--navy-2)}
 .c.k b{display:block;font-size:22px;margin-top:6px;color:var(--tx);
   font-weight:800;letter-spacing:-.02em}
 
-/* HERO CARD — Lacagta la Hayo oo weyn oo u hor maraya */
-.hero{background:linear-gradient(135deg,#142B4A 0%,#244B70 60%,#16A6A1 100%);
+/* HERO CARD — gradient-ku wuxuu ku dhammaadaa midab mugdi ah si qoraalka cad u muuqdo */
+.hero{background:linear-gradient(135deg,#142B4A 0%,#244B70 65%,#1A6F7A 100%);
   color:#fff;border-radius:20px;padding:24px 22px;margin-bottom:16px;
   box-shadow:var(--shadow-lg);position:relative;overflow:hidden;
   display:flex;align-items:center;gap:18px}
@@ -110,14 +143,14 @@ nav button:hover{color:var(--navy-2)}
 .hero-icon{font-size:52px;line-height:1;flex-shrink:0;
   filter:drop-shadow(0 2px 8px rgba(0,0,0,.3))}
 .hero-body{flex:1;min-width:0;position:relative;z-index:1}
-.hero-label{font-size:13px;font-weight:700;color:#D6E6F5;
+.hero-label{font-size:13px;font-weight:700;color:#E6F0FA;
   text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px}
 .hero-amount{font-size:42px;font-weight:900;color:#fff;line-height:1.05;
   letter-spacing:-.03em;word-break:break-word;
   text-shadow:0 2px 8px rgba(0,0,0,.25);
   font-variant-numeric:tabular-nums}
 .hero-amount.neg{color:#FFD1D1}
-.hero-sub{font-size:12px;color:#C7DCEE;margin-top:8px;font-weight:500}
+.hero-sub{font-size:12px;color:#E3EEF8;margin-top:8px;font-weight:500}
 .hero-badge{display:inline-block;background:rgba(255,255,255,.18);
   color:#fff;font-size:11px;font-weight:700;padding:4px 10px;
   border-radius:999px;margin-top:8px;letter-spacing:.02em}
@@ -133,15 +166,14 @@ nav button:hover{color:var(--navy-2)}
   .hero-icon{font-size:64px}
 }
 
-h2{font-size:15px;margin:18px 2px 10px;color:var(--navy)}
-:root[data-theme=dark] h2{color:var(--teal)}
+h2{font-size:15px;margin:18px 2px 10px;color:var(--h2)}
 
 .ok{color:var(--ok)!important}.bad{color:var(--bad)!important}
 .warn{color:var(--warn)!important}.navy{color:var(--navy)!important}
-.teal{color:var(--teal)!important}
+.teal{color:var(--teal-tx)!important}
 
 .bar{height:9px;background:var(--br);border-radius:9px;overflow:hidden;margin:6px 0}
-.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--navy),var(--teal));
+.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--bar-from),var(--teal));
   border-radius:9px;transition:width .4s}
 .mrow{display:grid;grid-template-columns:44px 1fr 52px;gap:10px;
   align-items:center;font-size:13px;margin:8px 0}
@@ -159,27 +191,28 @@ h2{font-size:15px;margin:18px 2px 10px;color:var(--navy)}
 .chip.p{background:var(--ok-bg);color:var(--ok)}
 .chip.m{background:var(--bad-bg);color:var(--bad)}
 .chip.h{background:var(--warn-bg);color:var(--warn)}
-.chip.f{background:var(--bg);color:var(--mu)}
+.chip.f{background:transparent;border:1px dashed var(--mu);color:var(--mu)}
 
 input,select,textarea{width:100%;padding:11px 12px;border:1px solid var(--br);
   border-radius:10px;background:var(--card);color:var(--tx);
   font:inherit;font-size:15px;margin:4px 0 12px;transition:border-color .15s}
+input::placeholder,textarea::placeholder{color:var(--mu);opacity:.8}
+select option{background:var(--card);color:var(--tx)}
 input:focus,select:focus,textarea:focus{outline:none;border-color:var(--navy-2);
-  box-shadow:0 0 0 3px rgba(36,75,112,.12)}
+  box-shadow:0 0 0 3px rgba(36,75,112,.25)}
 label{font-size:12px;font-weight:600;color:var(--mu);
   display:block;margin-top:4px;letter-spacing:.01em}
 
-.btn{background:var(--navy);color:#fff;border:0;border-radius:10px;
+.btn{background:var(--btn);color:var(--btn-tx);border:0;border-radius:10px;
   padding:11px 16px;font-size:14px;cursor:pointer;font-weight:600;
   display:inline-flex;align-items:center;justify-content:center;gap:6px;
   transition:opacity .15s,transform .05s;min-height:44px}
 .btn:hover{opacity:.9}.btn:active{transform:scale(.98)}
 .btn:disabled{opacity:.5;cursor:not-allowed}
-.btn.s{background:var(--bg);color:var(--navy);border:1px solid var(--br)}
-:root[data-theme=dark] .btn.s{color:var(--tx)}
+.btn.s{background:var(--bg);color:var(--btn-s-tx);border:1px solid var(--br)}
 .btn.d{background:var(--bad-bg);color:var(--bad)}
-.btn.wa{background:#128C7E;color:#fff}
-.btn.teal{background:var(--teal);color:#fff}
+.btn.wa{background:var(--btn-wa);color:#fff}
+.btn.teal{background:var(--btn-teal);color:#fff}
 .btn.w{width:100%}
 .act-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
 @media(max-width:380px){.act-grid{grid-template-columns:1fr}}
@@ -190,7 +223,7 @@ label{font-size:12px;font-weight:600;color:var(--mu);
 .tabs button{border:1px solid var(--br);background:var(--card);color:var(--tx);
   border-radius:20px;padding:8px 14px;font-size:13px;white-space:nowrap;
   font-weight:600;cursor:pointer;transition:all .15s}
-.tabs button.on{background:var(--navy);color:#fff;border-color:var(--navy)}
+.tabs button.on{background:var(--btn);color:var(--btn-tx);border-color:var(--btn)}
 
 .top{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap}
 .top input,.top select{margin:0;flex:1;min-width:140px}
@@ -204,8 +237,7 @@ label{font-size:12px;font-weight:600;color:var(--mu);
   padding:20px 16px calc(20px + var(--safe-bot));
   box-shadow:0 -8px 32px rgba(0,0,0,.25);animation:slideUp .2s ease}
 @keyframes slideUp{from{transform:translateY(30px);opacity:.6}to{transform:none;opacity:1}}
-.md h2{margin-top:0;margin-bottom:14px;color:var(--navy)}
-:root[data-theme=dark] .md h2{color:var(--teal)}
+.md h2{margin-top:0;margin-bottom:14px;color:var(--h2)}
 
 .pg{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px}
 .pg label{margin:0 0 2px;font-size:10px}
@@ -217,13 +249,12 @@ th,td{padding:9px 8px;text-align:right;border-bottom:1px solid var(--br);
   white-space:nowrap;font-variant-numeric:tabular-nums}
 th:first-child,td:first-child{text-align:left;font-weight:600}
 th{color:var(--mu);font-weight:700;font-size:11px;text-transform:uppercase;
-  letter-spacing:.04em;background:var(--bg);position:sticky;top:0}
-:root[data-theme=dark] th{background:var(--navy-dark)}
-tr:hover td{background:rgba(22,166,161,.04)}
+  letter-spacing:.04em;background:var(--th-bg);position:sticky;top:0}
+tr:hover td{background:rgba(22,166,161,.06)}
 
 .fab{position:fixed;right:16px;bottom:calc(80px + var(--safe-bot));
   width:56px;height:56px;border-radius:28px;font-size:26px;
-  background:var(--navy);color:#fff;border:0;
+  background:var(--btn);color:var(--btn-tx);border:0;
   box-shadow:0 6px 20px rgba(20,43,74,.35);z-index:6;display:none;
   cursor:pointer;transition:transform .1s}
 .fab:hover{transform:scale(1.05)}.fab:active{transform:scale(.95)}
@@ -235,11 +266,12 @@ tr:hover td{background:rgba(22,166,161,.04)}
 .dot{width:8px;height:8px;border-radius:50%;display:inline-block}
 .dot.on{background:var(--ok);box-shadow:0 0 0 3px var(--ok-bg)}
 .dot.off{background:var(--bad);box-shadow:0 0 0 3px var(--bad-bg)}
-.dot.warn{background:var(--warn)}
+.dot.warn{background:var(--warn-dot)}
 .toast{position:fixed;left:50%;top:calc(72px + var(--safe-top));
   transform:translateX(-50%) translateY(-10px);background:var(--navy-dark);
   color:#fff;padding:10px 18px;border-radius:22px;z-index:30;font-size:13px;
   opacity:0;transition:all .25s;pointer-events:none;font-weight:600;
+  border:1px solid rgba(255,255,255,.25);
   box-shadow:0 6px 20px rgba(0,0,0,.3);max-width:90vw;text-align:center}
 .toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
 
@@ -279,6 +311,7 @@ tr:hover td{background:rgba(22,166,161,.04)}
 .pw-clear:hover{background:var(--bg)}
 
 @media print{
+  :root{color-scheme:light}
   header,nav,.fab,.modebar,.tabs,.no-print,.st,.status-bar,.toast,.icon-btn,
   .act-grid,#fab,.hero{display:none!important}
   body{background:#fff;color:#000}
@@ -566,9 +599,7 @@ function viewDash(){
 
   <div class="g">
     <div class="c k"><small>Xubnaha</small><b>${S.m.length}</b></div>
-    <!-- Halkan waa la saaray class="navy" -->
     <div class="c k"><small>Bishii (hadaf)</small><b>${fmtMoney(t.R)}</b></div>
-    <!-- Halkan waa la saaray class="navy" -->
     <div class="c k"><small>Sanadka (9 bil)</small><b>${fmtMoney(t.yr)}</b></div>
     <div class="c k"><small>La qabtay (guud)</small><b class="ok">${fmtMoney(t.pd)}</b></div>
     <div class="c k"><small>Maqan (${billedLabel})</small><b class="bad">${fmtMoney(t.miss)}</b></div>
